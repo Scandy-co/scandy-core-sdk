@@ -1,0 +1,91 @@
+For distribution
+
+Scandy Core License Agreement
+
+March 2017
+
+
+The Terms and Conditions (these “Terms”) contained in this Scandy Core License Agreement form a legally binding agreement between Licensor and Licensee (as defined below) for the use of the Software. By downloading, installing or accessing the Software or including any portion of it in any Derivative Work, you agree to be bound by these Terms.
+
+1. Definitions.
+
+"License" shall mean the terms and conditions for use and reproduction of the Software as defined by sections 1 to 8 of this document.
+
+"Licensor" shall mean the company "Scandy, LLC", organized under the laws of the State of Louisiana, USA with offices at 1305 Distributors Row Suite N, New Orleans, LA 70123, USA.
+
+"Licensee" shall mean an individual or legal entity exercising permissions granted by this License.
+
+"Software" shall mean the software "Scandy" developed by Licensor and made available to the Licensee under this License, whether in Source Code or Object Code.
+
+"Source Code" shall mean the human readable embodiment of a computer code.
+
+"Object Code" shall mean the code resulting from the translation of Source Code in machine-readable format.
+
+"Derivative Work" shall mean any work executed by the Licensee that is based on or derived from the Software.
+
+“Scandy TOU” means those Terms of Use governing the use of the Scandy Site and other Scandy Materials, available at https://scandy.co/legal/tou.
+
+2. Grant of License.
+
+Subject to the terms and conditions in these Terms, Licensor grants to Licensee a revocable, non-exclusive, non-transferable, non-assignable, royalty-free license for the Software delivered by the Licensor solely to (i) use the Software as a basis for the creation of Derivative Work; and (ii) integrate the Software as well as the Derivative Work in Object Code into other software applications, for the sole purpose of technology evaluation.
+
+For all other purposes, the Licensee shall require the prior written consent of the Licensor.
+
+As between Licensor and Licensee, Licensor owns all right, title and interest in and to all intellectual property rights underlying or comprising the Software, Source Code and Object Code comprising the Software. The creation of any Derivative Work shall not operate to in any way limit the use or distribution of the Software or any intellectual property rights therein.
+
+These terms supplement the Scandy TOU, and these terms shall be interpreted in a manner consistent with the Scandy TOU to the maximum extent possible. Except to the extent that these Terms expressly vary any explicit provisions of the Scandy TOU, Licensee shall remain subject in all respects to the Scandy TOU, including with respect to prohibited uses under the Scandy TOU, User Content (as defined in the Scandy TOU, limitations of liability, disclaimers and the like). Any use of other applications or services of Scandy, such as Scandy Pro, are governed by separate legal agreements that may contain terms that differ from the provisions of these Terms. These Terms and other end user license agreement or terms of service shall be interpreted, to the extent possible, to be consistent with one another.
+
+3. Reproduction and Distribution.
+
+Licensee may reproduce or copy the Software and any Derivative Works thereof only for the purposes defined in Section 2 of this document.
+
+Without the prior written consent of the Licensor the Licensee shall not be permitted to make the Software or any Derivative Work thereof available to any third party.
+
+Licensee shall not create any Derivative Work or otherwise use the Software (or permit others to use the Software or any Derivative Work) in any manner which would be prohibited as a use of the Scandy Site or other Scandy Materials under the Scandy Site TOU, and all of the prohibited uses under the Scandy Site TOU shall be considered prohibited uses of the Software and any Derivative Work.
+
+Licensee shall remain solely liable and responsible for any use or creation of a Derivative Work by itself or any third party. Licensee shall remain solely liable and responsible for any use or creation of a Derivative Work that violates the law of any jurisdiction, violates any provision of the Scandy TOU or otherwise causes damage to any third party.
+
+Licensee hereby covenants and represents that it will not use the Software or any Derivative Work in a manner that violates applicable law.
+
+Licensee shall not reverse engineer, decompile, disassemble or otherwise attempt to discover the Source Code of the Software or any part thereof. Licensee shall not develop substantially similar designs or functions to those comprising the Software.
+
+4. Disclaimers; No Warranties.
+
+TO THE FULLEST EXTENT PERMITTED BY LAW, THE SOFTWARE LICENSED UNDER THIS AGREEMENT IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTY OF ANY KIND INCLUDING, BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, TITLE, NON-INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS, OR FITNESS FOR ANY PARTICULAR PURPOSE. NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED BY LICENSEE FROM LICENSOR OR THROUGH SCANDY WILL CREATE ANY WARRANTY NOT EXPRESSLY STATED HEREIN.
+
+LICENSEE EXPRESSLY AGREES THAT THE USE OF THE SOFTWARE AND ANY DERIVATIVE WORK IS AT LICENSOR’S SOLE RISK.  THE SOFTWARE IS PROVIDED ON “AS AVAILABLE”, “WITH ALL FAULTS” BASIS AND WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND EITHER EXPRESS OR IMPLIED.
+
+LICENSOR DOES NOT WARRANT THAT THE SOFTWARE OR ACCESS TO THE SOFTWARE WILL BE UNINTERRUPTED, OR FREE OF ERRORS, VIRUSES OR OTHER HARMFUL COMPONENTS AND DOES NOT WARRANT THAT ANY OF THE FOREGOING WILL BE CORRECTED.
+
+LICENSEE UNDERSTANDS AND AGREES THAT LICENSOR USES, ACCESSES, DOWNLOADS, OR OTHERWISE OBTAINS THE SOFTWARE, INFORMATION, MATERIALS, OR DATA THROUGH ANY SITES OWNED OR MAINTAINED BY LICENSOR OR ANY THIRD PARTY AT LICENSEE’S OWN DISCRETION AND RISK AND THAT LICENSEE WILL BE SOLELY RESPONSIBLE FOR ANY DAMAGE TO LICENSEE’S PROPERTY (INCLUDING LICENSEE’S COMPUTER SYSTEM) OR LOSS OF DATA THAT RESULTS FROM THE DOWNLOAD OR USE OF SUCH SOFTWARE, DOCUMENTS, MATERIAL OR DATA.
+
+5. Limitation of Liability.
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, UNDER NO CIRCUMSTANCES, AND UNDER NO LEGAL THEORY, INCLUDING, BUT NOT LIMITED TO, NEGLIGENCE, SHALL LICENSOR OR ITS AFFILIATES, CONTRACTORS, EMPLOYEES, AGENTS, OR THIRD PARTY PARTNERS OR SUPPLIERS, BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL, CONSEQUENTIAL, OR EXEMPLARY DAMAGES (INCLUDING WITHOUT LIMITATION, LOSS OF PROFITS, DATA OR USE OR COST OF COVER) ARISING OUT OF OR RELATING TO THESE TERMS OR THAT RESULT FROM LICENSEE’S (OR ITS USERS’) USE OR THE INABILITY TO USE THE SOFTWARE OR ANY DERIVATIVE WORK, EVEN IF SCANDY OR A SCANDY AUTHORIZED REPRESENTATIVE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. . IN THE CASE THAT DAMAGES ARE MANDATORY AT LAW, TO THE MAXIMUM EXTENT PERMITTED BY LAW, LICENSOR’S TOTAL LIABILITY SHALL NOT EXCEED THE GREATER OF (1) $100.00 (U.S.) AND (2) THE AMOUNT OF MONEY ACTUALLY PAID TO LICENSOR FOR THE LICENSE GRANTED HEREIN.
+
+6. Indemnification.
+
+LICENSEE agreeS to indemnify and hold harmless LICENSOR, and its parent, subsidiaries, affiliates or any related companies (including those which share substantially common ownership), and the officers, directors, employees, agents and representatives of any of them from any and all claims, losses, obligations, damages, liabilities, costs, debt, and expenses (including attorney’s fees) arising out of (i) LICENSEE’S use or misuse of THE SOFTWARE OR ANY DERIVATIVE WORK; (ii) LICENSEE’S (OR ITS USERS OR LICENSEES) User Content OR DERIVATIVE WORK, including LICENSEE’s use, display or other exercise of its license rights granted herein with respect to LICENSEE’S DERIVATIVE WORK; (iii) LICENSEE’S (OR ITS USERS’) violation of these Terms; (iv) LICENSEE’S (OR ITS USERS) violation of the rights of any other person or entity, including claims that any DERIVATIVE WORK infringes or violates any third party intellectual property rights; (v) LICENSEE’S breach of the foregoing representations, warranties, and covenants; and (vi) any unauthorized use of THE SOFTWARE OR ANY DERIVATIVE WORK.  LICENSOR reserves the right, at LICENSEE’S expense, to assume the exclusive defense and control of any matter for which LICENSEE IS required to indemnify LICENSOR and LICENSEE agreeS to cooperate with LICENSOR’S defense of these claims.  LICENSEE agreeS not to settle any matter without the prior written consent of LICENSOR.  LICENSEE will use reasonable efforts to IMMEDIATELY notify LICENSOR of any such claim, action, or proceeding upon becoming aware of it.
+
+7. Basis of the Bargain.
+
+LICENSEE ACKNOWLEDGES AND AGREES THAT LICENSOR HAS OFFERED ITS SOFTWARE AND ENTERED INTO THESE TERMS IN RELIANCE UPON THE WARRANTY DISCLAIMERS AND THE LIMITATIONS OF LIABILITY SET FORTH HEREIN, THAT THE WARRANTY DISCLAIMERS AND THE LIMITATIONS OF LIABILITY SET FORTH HEREIN REFLECT A REASONABLE AND FAIR ALLOCATION OF RISK BETWEEN LICENSOR AND LICENSEE, AND THAT THE WARRANTY DISCLAIMERS AND THE LIMITATIONS OF LIABILITY SET FORTH HEREIN FORM AN ESSENTIAL BASIS OF THE BARGAIN BETWEEN LICENSOR AND LICENSEE.  LICENSEE ACKNOWLEDGES AND AGREES THAT LICENSOR WOULD NOT BE ABLE TO PROVIDE A LICENSE TO THE SOFTWARE TO LICENSEE ON AN ECONOMICALLY REASONABLE BASIS WITHOUT THESE LIMITATIONS.
+
+8. Reservation of Rights.
+
+The Licensor reserves all right, title and interest in the Software and any part thereof not expressly granted to the Licensee in this document. Except as expressly provided herein, the Licensor does not grant any express or implied right under any patents, copyrights, trademarks or any other intellectual property or proprietary right to the Licensee. As between Licensee and Licensor, Licensor owns all right, title and interest in and to all intellectual property and moral rights of every kind and nature whatsoever to the Software.
+
+9. Non-Disclosure.
+
+The Licensee accepts that the Software as well as all parts thereof contain confidential information of the Licensor. The Licensee therefore undertakes to treat the Software and all parts thereof received from the Licensor as strictly confidential and to make it available only to those employees who need to know that information for the purposes intended by this document.
+
+The duty of confidentiality shall not apply if the Licensee can prove that (i) it has received the confidential information lawfully and without any obligation of secrecy by a third party; (ii) the confidential information was already known to the public or generally accessible prior to its disclosure by the Licensor; (iii) the information was made known or generally accessible to the public through no fault of the Licensee after its disclosure; or (iv) the Licensee has developed or created the confidential information on his own.
+
+10. Final Provisions.
+
+This document shall be governed by the laws of the United States of America and the State of Louisiana, USA.
+
+Place of jurisdiction for all disputes arising from this agreement shall be the Parish of Jefferson, State of Louisiana, USA.
+
+
+END OF TERMS AND CONDITIONS
