@@ -1,0 +1,9 @@
+[submodule "examples/ScandyCoreCppExamples"]
+	path = examples/ScandyCoreCppExamples
+	url = http://github.com/scandy-co/ScandyCoreCppExamples
+[submodule "examples/ScandyCoreQtExample"]
+	path = examples/ScandyCoreQtExample
+	url = http://github.com/scandy-co/ScandyCoreQtExample
+[submodule "examples/ScandyCoreAndroidExample"]
+	path = examples/ScandyCoreAndroidExample
+	url = http://github.com/scandy-co/ScandyCoreAndroidExample
