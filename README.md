@@ -106,9 +106,11 @@ Upcoming bindings:
 
 Scandy Core supports the following operating systems:
 
-* OS X (tested on El Capitan 10.11)
+* OS X (tested on 10.11, 10.12)
 * Android (minimum Android version 5.0)
-* Linux (tested on Ubuntu 14.04)
+* Linux (tested on Ubuntu 14.04, 16.04)
+
+**All operating systems must have OpenCL >= v1.1**
 
 Upcoming systems:
 
