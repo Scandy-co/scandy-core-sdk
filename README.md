@@ -24,7 +24,7 @@ _X is **Supported** means the feature is currently implemented_
 |---|:---:|---|
 | _SLAM_  | X  | Denotes simultaneous localization and mapping. See Wikipedia entry re: [SLAM](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping).|
 | _pico flexx_ | X | The [pico flexx](http://pmdtec.com/picoflexx) is a small USB 3D sensor made by [pmd](pmdtec.com) that allows capturing of live 3D data. |
-| _RRF_ | X  |  Royale raw file. A file extension that denotes/wraps point cloud data as provisioned by a live sensor stream. If you have been using royale for awhile you might have a few of these laying around that you want to re-examine. |
+| _RRF_ | X  |  Royale raw file. A file extension that denotes/wraps point cloud data as provisioned by a live sensor stream. If you have been using Royale for awhile you might have a few of these laying around that you want to re-examine. |
 | _TSDF_ | X | Truncated signed distance function; a voxel representative of a given scan created in memory by Scandy Core; more specifically, `TSDF` stores values used for attempting accurate representation of a volumetric surface. Originally defined in paper ["A Volumetric Method for Building Complex Models from Range Images"](http://graphics.stanford.edu/papers/volrange/volrange.pdf). Also, see Wikipedia entries for [signed distance function](https://en.wikipedia.org/wiki/Signed_distance_function) and on [volume rendering](https://en.wikipedia.org/wiki/Volume_rendering). |
 | _Mesh_ | X | A mesh represents a 3D scene or object in a standardized format such as [.OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file) or [.PLY](https://en.wikipedia.org/wiki/PLY_(file_format)). Scandy Core can generate a mesh for any scan taken, and then also save that mesh into a PLY or OBJ format. |
 | _SCRF_ |  | Scandy Core raw file; a proprietary file extension denoting those contents of a scan file saved to disk. Packages a live sensor stream (or `RRF`), along with the parameters used to capture a given volume (i.e., scanning configuration). In future versions, `SCRF`s may also be extended to include depths maps and color frames. More generally, SCRF refers to those contents of a scan file distinguishable from any derivative meshes. |
@@ -54,7 +54,7 @@ Checkout these examples:
 
 ### Meshing
 
-The Scandy Core Meshing is capable of generating a super high resolution dense mesh for use in a printing or measuring context, or a low polygon mesh that is suitable for use in games or VR apps. This versatility makes it easy for the developer to start working with a 3D mesh that suits their needs faster. Configuring the `ScanResolution` prior to `startScanning` adjusts how high resolution of the resulting mesh will be.
+The Scandy Core Meshing is capable of generating a super-high resolution dense mesh for use in a printing or measuring context, or a low polygon mesh that is suitable for use in games or VR apps. This versatility makes it easy for the developer to start working with a 3D mesh that suits their needs faster. Configuring the `ScanResolution` prior to `startScanning` adjusts how high the resolution of the resulting mesh will be.
 
 Use these functions:
 
@@ -136,7 +136,7 @@ For using Scandy Core with Android we highly suggest looking at the README for t
 A typical instantiation of Scandy Core may resemble the following:
 
 * Initialize the scanner, subscribing to either a pre-recorded file or pico flexx;
-* Start a preview, so as to visualize what the scanner "sees";
+* Start a preview, so as to visualize what the depth sensor "sees";
 * Adjust scan resolution to fit the use-case; use high resolution for detailed scans, low resolution for fast scans;
 * Adjust scan size to fit the size of the scan subject;
 * Start the scan
