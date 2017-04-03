@@ -156,30 +156,3 @@ Scandy Core comes with the following examples to help you get started:
 * [ScandyCoreQtExample](http://github.com/scandy-co/ScandyCoreQtExample)
 * [ScandyCoreAndroidExample](http://github.com/scandy-co/ScandyCoreAndroidExample)
 * [ScandyCoreReactNativeExample](http://github.com/scandy-co/ScandyCoreReactNativeExample)
-
-
-<!--
-
-# Notes:
-
-- Should we not state up front assumptions re: intended readership
-- High-resolution, full-color, on-device, 3D-scanning and meshing
-
-## Abstract
-
-> The goal of the Scandy Core SDK is to simplify the development process so you can blah, blah blah. Although we currently only provide and support bindings for C++, Java, and Javascript, something about how we promise the world.
-> Scandy Core SDK performs heavy lifting; it takes care you of your computer vision problems, so you can focus on creating a stellar app. We handle the meshing; you do wonderful things with it.
-
-## Foreword
-
-- 3D is a growing ecosystem, one to be reckoned with, yet one presenting a wealth of problems inherently brutal. Leverage Scandy Core SDK to do the heavy lifting, so you can proceed with actually developing your app.
-- Entry into 3D app development can be a daunting prospect. And is not without a litany of brutal problems, each of them Goliath. Scandy Core SDK presents you with a slingshot.
-- Scanning, by nature, is a precarious process. We at Scandy are rethinking the way we capture scans; we are rethinking scanning as an accessible and interactive activity.
-- Scandy Core SDK works to accommodate the bulk of developers who are not specialists of 3D --- and yet who would like to incorporate 3D into their project, namely by furnishing a suite of powerful tooling for interfacing with 3D data...
-- We, the makers of Scandy, believe you should not have to be an expert in computer vision to make use of it in your app.
-
-# Example Apps
-
-- We could do a sample maze one, just tell the user to turn whenever the point cloud data says an obstacle is ahead
-
--->
