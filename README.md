@@ -26,7 +26,7 @@ _X is **Supported** means the feature is currently implemented_
 | _pico flexx_ | X | The [pico flexx](http://pmdtec.com/picoflexx) is a small USB 3D sensor made by [pmd](pmdtec.com) that allows capturing of live 3D data. |
 | _RRF_ | X  |  Royale raw file. A file extension that denotes/wraps point cloud data as provisioned by a live sensor stream. If you have been using royale for awhile you might have a few of these laying around that you want to re-examine. |
 | _TSDF_ | X | Truncated signed distance function; a voxel representative of a given scan created in memory by Scandy Core; more specifically, `TSDF` stores values used for attempting accurate representation of a volumetric surface. Originally defined in paper ["A Volumetric Method for Building Complex Models from Range Images"](http://graphics.stanford.edu/papers/volrange/volrange.pdf). Also, see Wikipedia entries for [signed distance function](https://en.wikipedia.org/wiki/Signed_distance_function) and on [volume rendering](https://en.wikipedia.org/wiki/Volume_rendering). |
-| _Mesh_ | X | A mesh represents a 3D scene or object in a standardize format such as [.OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file) or [.PLY](https://en.wikipedia.org/wiki/PLY_(file_format)). Scandy Core can genenare a mesh for any scan taken, and then also save that mesh into a PLY or OBJ format. |
+| _Mesh_ | X | A mesh represents a 3D scene or object in a standardized format such as [.OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file) or [.PLY](https://en.wikipedia.org/wiki/PLY_(file_format)). Scandy Core can generate a mesh for any scan taken, and then also save that mesh into a PLY or OBJ format. |
 | _SCRF_ |  | Scandy Core raw file; a proprietary file extension denoting those contents of a scan file saved to disk. Packages a live sensor stream (or `RRF`), along with the parameters used to capture a given volume (i.e., scanning configuration). In future versions, `SCRF`s may also be extended to include depths maps and color frames. More generally, SCRF refers to those contents of a scan file distinguishable from any derivative meshes. |
 | _IMU_  |   | Inertial measurement unit. Data encompassing a host device's specific force and angular orientation is fed into Scandy Core for enhancements in tracking. See [Wikipedia entry](https://en.wikipedia.org/wiki/Inertial_measurement_unit).  |
 
@@ -35,7 +35,7 @@ _X is **Supported** means the feature is currently implemented_
 
 ### 3D Tracking (SLAM)
 
-Keeping track of where you are in 3D space is one of the most fundamental aspects of a 3D scanning or AR application; accordingly Scandy Core has a powerful SLAM implementation that runs in real-time on a background thread. Scandy Core allows developers to easily receive location updates by simply initializing Scandy Core and turning on tracking.
+Keeping track of where you are in 3D space is one of the most fundamental aspects of a 3D scanning or AR applications; accordingly Scandy Core has a powerful SLAM implementation that runs in real-time on a background thread. Scandy Core allows developers to easily receive location updates by simply initializing Scandy Core and turning on tracking.
 
 Checkout these C++ classes:
 
@@ -44,7 +44,7 @@ Checkout these C++ classes:
 
 ### 3D Scanning
 
-Scandy Core provides a stable, fast, and precise 3D scanning interface. Flexibility is key in 3D scanning, which is why Scandy Core allows you to scan something as small as an action figure and as large as a couch. 3D scanning allows developers to easily create a 3D avatar, bring real world objects into the game, or take accurate measurements.
+Scandy Core provides a stable, fast, and precise 3D scanning interface. Flexibility is key in 3D scanning, which is why Scandy Core allows you to scan something as small as an action figure and as large as a couch. 3D scanning allows developers to easily create a 3D avatar, bring real world objects into a video game, or take accurate measurements.
 
 Checkout these examples:
 
@@ -67,7 +67,7 @@ Use these functions:
 
 ### Visualizing
 
-Scandy Core's visualizer instance can be deployed for visualizing scan data at run-time, and as a 3D mesh viewer. The best part the Scany Core Visualizer is you don't have to configure OpenGL or anything 3D viewer library - it just works!
+Scandy Core's visualizer instance can be deployed for visualizing scan data at run-time and as a 3D mesh viewer. The best part the Scandy Core Visualizer is you don't have to configure OpenGL or any 3D viewer library - it just works!
 
 Checkout the visualizer:
 
