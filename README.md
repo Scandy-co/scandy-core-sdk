@@ -14,7 +14,7 @@
 
 Scandy Core is here to make your life easier as developer who wants to work with 3D data. Scandy Core provides a set of easy-to-use functions for viewing, loading, downloading, editing, and creating 3D files.
 
-Scandy Core is a SDK that allows developers to easily create 3D models, track position in 3D space, and edit 3D models. Scandy Core is currently optimized to run on Android, Mac OS X, and Linux. Scandy Core is written in cross-platform C++ and has many proprietary optimizations that allow it to run on powerful computing platforms like render servers or workstations, and then to gracefully scale down to operate on processor and memory-constrained devices, like smart phones or tablets. Files created with Scandy Core are capable of running on all platforms regardless of where they were created. Scandy Core also exports industry standard 3D files like OBJ, PLY, and STL.
+Scandy Core is an SDK that allows developers to easily create 3D models, track position in 3D space, and edit 3D models. Scandy Core is currently optimized to run on Android, Mac OS X, and Linux. Scandy Core is written in cross-platform C++ and has many proprietary optimizations that allow it to run on powerful computing platforms like render servers or workstations, and then to gracefully scale down to operate on processor and memory-constrained devices, like smart phones or tablets. Files created with Scandy Core are capable of running on all platforms regardless of where they were created. Scandy Core also exports industry standard 3D files like OBJ, PLY, and STL.
 
 ## <a name="definitions"></a>Definitions
 
