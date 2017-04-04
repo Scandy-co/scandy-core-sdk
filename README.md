@@ -14,7 +14,7 @@
 
 Scandy Core is here to make your life easier as developer who wants to work with 3D data. Scandy Core provides a set of easy-to-use functions for viewing, loading, downloading, editing, and creating 3D files.
 
-Scandy Core is an SDK that allows developers to easily create 3D models, track position in 3D space, and edit 3D models. Scandy Core is currently optimized to run on Android, Mac OS X, and Linux. Scandy Core is written in cross-platform C++ and has many proprietary optimizations that allow it to run on powerful computing platforms like render servers or workstations, and then to gracefully scale down to operate on processor and memory-constrained devices, like smart phones or tablets. Files created with Scandy Core are capable of running on all platforms regardless of where they were created. Scandy Core also exports industry standard 3D files like OBJ, PLY, and STL.
+Scandy Core is an SDK that allows developers to easily create 3D models, track position in 3D space, and edit 3D models. Scandy Core is currently optimized to run on Android, Mac OS X, and Linux. Scandy Core is written in cross-platform C++ and has many proprietary optimizations that allow it to run on powerful computing platforms like render servers or workstations, and then to gracefully scale down to operate on processor and memory-constrained devices, like smartphones or tablets. Files created with Scandy Core are capable of running on all platforms regardless of where they were created. Scandy Core also exports industry standard 3D files like OBJ, PLY, and STL.
 
 ## <a name="definitions"></a>Definitions
 
@@ -23,11 +23,11 @@ _X is **Supported** means the feature is currently implemented_
 | Term  | Supported |  Definition |
 |---|:---:|---|
 | _SLAM_  | X  | Denotes simultaneous localization and mapping. See Wikipedia entry re: [SLAM](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping).|
-| _pico flexx_ | X | The [pico flexx](http://pmdtec.com/picoflexx) is a small USB 3D sensor made by [pmd](pmdtec.com) that allows capturing of live 3D data. |
+| _pico flexx_ | X | The [pico flexx](http://pmdtec.com/picoflexx) is a small USB 3D sensor made by [pmd](http://pmdtec.com) that allows capturing of live 3D data. |
 | _RRF_ | X  |  Royale raw file. A file extension that denotes/wraps point cloud data as provisioned by a live sensor stream. If you have been using Royale for awhile you might have a few of these laying around that you want to re-examine. |
 | _TSDF_ | X | Truncated signed distance function; a voxel representative of a given scan created in memory by Scandy Core; more specifically, `TSDF` stores values used for attempting accurate representation of a volumetric surface. Originally defined in paper ["A Volumetric Method for Building Complex Models from Range Images"](http://graphics.stanford.edu/papers/volrange/volrange.pdf). Also, see Wikipedia entries for [signed distance function](https://en.wikipedia.org/wiki/Signed_distance_function) and on [volume rendering](https://en.wikipedia.org/wiki/Volume_rendering). |
 | _Mesh_ | X | A mesh represents a 3D scene or object in a standardized format such as [.OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file) or [.PLY](https://en.wikipedia.org/wiki/PLY_(file_format)). Scandy Core can generate a mesh for any scan taken, and then also save that mesh into a PLY or OBJ format. |
-| _SCRF_ |  | Scandy Core raw file; a proprietary file extension denoting those contents of a scan file saved to disk. Packages a live sensor stream (or `RRF`), along with the parameters used to capture a given volume (i.e., scanning configuration). In future versions, `SCRF`s may also be extended to include depths maps and color frames. More generally, SCRF refers to those contents of a scan file distinguishable from any derivative meshes. |
+| _SCRF_ |  | Scandy Core raw file; a proprietary file extension denoting those contents of a scan file saved to disk. Packages a live sensor stream (or `RRF`), along with the parameters used to capture a given volume (i.e., scanning configuration). In future versions, `SCRF`s may also be extended to include depth maps and color frames. More generally, SCRF refers to those contents of a scan file distinguishable from any derivative meshes. |
 | _IMU_  |   | Inertial measurement unit. Data encompassing a host device's specific force and angular orientation is fed into Scandy Core for enhancements in tracking. See [Wikipedia entry](https://en.wikipedia.org/wiki/Inertial_measurement_unit).  |
 
 
@@ -35,7 +35,7 @@ _X is **Supported** means the feature is currently implemented_
 
 ### 3D Tracking (SLAM)
 
-Keeping track of where you are in 3D space is one of the most fundamental aspects of a 3D scanning or AR applications; accordingly Scandy Core has a powerful SLAM implementation that runs in real-time on a background thread. Scandy Core allows developers to easily receive location updates by simply initializing Scandy Core and turning on tracking.
+Keeping track of where you are in 3D space is one of the most fundamental aspects of a 3D scanning or AR application; accordingly Scandy Core has a powerful SLAM implementation that runs in real-time on a background thread. Scandy Core allows developers to easily receive location updates by simply initializing Scandy Core and turning on tracking.
 
 Checkout these C++ classes:
 
@@ -54,7 +54,7 @@ Checkout these examples:
 
 ### Meshing
 
-The Scandy Core Meshing is capable of generating a super-high resolution dense mesh for use in a printing or measuring context, or a low polygon mesh that is suitable for use in games or VR apps. This versatility makes it easy for the developer to start working with a 3D mesh that suits their needs faster. Configuring the `ScanResolution` prior to `startScanning` adjusts how high the resolution of the resulting mesh will be.
+The Scandy Core Meshing is capable of generating a high-resolution dense mesh which is perfect for 3D printing or obtaining accurate measurements, or a low-polygon mesh that is suitable for use in games or VR apps. This versatility makes it easy for the developer to start working with a 3D mesh that suits their needs faster. Configuring the `ScanResolution` prior to `startScanning` adjusts how high the resolution of the resulting mesh will be.
 
 Use these functions:
 
@@ -67,7 +67,7 @@ Use these functions:
 
 ### Visualizing
 
-Scandy Core's visualizer instance can be deployed for visualizing scan data at run-time and as a 3D mesh viewer. The best part the Scandy Core Visualizer is you don't have to configure OpenGL or any 3D viewer library - it just works!
+Scandy Core's visualizer instance can be deployed for visualizing scan data at run-time and as a 3D mesh viewer. The best part of the Scandy Core Visualizer is you don't have to configure OpenGL or a 3D viewer library—it just works!
 
 Checkout the visualizer:
 
@@ -79,11 +79,11 @@ Or some examples:
 * [ScandyCoreAndroidExample](http://github.com/scandy-co/ScandyCoreAndroidExample)
   * With Android all you have to do is include the Visualizer in your layout.
 * [ScandyCoreCppExamples](http://github.com/scandy-co/ScandyCoreCppExamples)
-  * With C++ all you have to do `auto visualizer = core->createVisualizer(width, height);`
+  * With C++ all you have to do is `auto visualizer = core->createVisualizer(width, height);`
 
 ### Editing *(coming soon)*
 
-When working with 3D scan files you frequently end up with a file that is the wrong scale, doesn’t have enough contrast, or has extra artifacts in it; to make this easier, Scandy Core provides developers with an easy way to make adjustments to 3D files. Our goal with the 3D Editing piece of Scandy Core is to provide the most common and necessary features from CAD software so that developers can more easily make Scandy Core work for their application.
+When working with 3D scan files you frequently end up with a file that is the wrong scale, doesn’t have enough contrast, or has extra artifacts in it; to make this easier, Scandy Core provides developers with an easy way to make adjustments to 3D files. Our goal with the 3D editing piece of Scandy Core is to provide the most common and necessary features from CAD software so that developers can more easily make Scandy Core work for their application.
 
 
 ## <a name="getting-started"></a>Getting Started
@@ -137,7 +137,7 @@ Upcoming systems:
 
 ### Setup
 
-The nature of your setup is contingent upon your build target. Scandy Core has been architected to integrate with existing projects, and can be incorporated as a CMake dependency. Please review the [included coding samples](#examples) to determine the best course of action for installation and configuration with your project.
+Scandy Core can be setup in a variety of ways to fit your build target. Scandy Core has been designed to integrate with existing projects, and can be incorporated as a CMake dependency. Please review the [included coding samples](#examples) to determine the best course of action for installation and configuration with your project.
 
 #### CMake
 
@@ -146,7 +146,6 @@ For using Scandy Core with CMake we highly suggest looking at the README for the
 #### Android
 
 For using Scandy Core with Android we highly suggest looking at the README for the [ScandyCoreAndroidExample](https://github.com/Scandy-co/ScandyCoreAndroidExample)
-
 
 ### Important classes & API
 
