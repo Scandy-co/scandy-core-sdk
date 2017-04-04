@@ -117,6 +117,23 @@ Upcoming systems:
 * Windows
 * Linux ARM
 
+### Typical Usage flow
+
+#### 3D scan to file:
+
+* Initialize the scanner
+  * Either using a pre-recorded `.rrf` file or live data from a pico flexx.
+* Start a preview, so as to visualize what the depth sensor "sees"
+* Adjust scan resolution to fit the use-case
+  * Use high resolution for detailed scans
+  * Use low resolution for fast scans
+  * Use medium resolution for somewhere inbetween
+* Adjust the scan size to fit the size of the scan subject
+* Start the scan
+* Scan for some period of time. Determined by a button press, timer, API call of some sort, etc..
+* Stop the scan
+* Generate a mesh of the scan
+* Save the mesh to a file
 
 ### Setup
 
@@ -131,22 +148,79 @@ For using Scandy Core with CMake we highly suggest looking at the README for the
 For using Scandy Core with Android we highly suggest looking at the README for the [ScandyCoreAndroidExample](https://github.com/Scandy-co/ScandyCoreAndroidExample)
 
 
-<!-- We also need more explanation on the “flow", i.e. create a Scandy Core instance -->
-
-A typical instantiation of Scandy Core may resemble the following:
-
-* Initialize the scanner, subscribing to either a pre-recorded file or pico flexx;
-* Start a preview, so as to visualize what the depth sensor "sees";
-* Adjust scan resolution to fit the use-case; use high resolution for detailed scans, low resolution for fast scans;
-* Adjust scan size to fit the size of the scan subject;
-* Start the scan
-
 ### Important classes & API
 
 For an index of the functions available at your command, please reference Scandy Core's top-level classes:
 
-* `scandy::core::IScandyCore` will be your main tour guide in Cpp
+* `scandy::core::IScandyCore` will be your main tour guide in C++
 * `co.scandy.scandycore.ScandyCore` will your main tour guide in Java
+
+### Setting your License
+To use the SLAM features in Scandy Core you will need to provide your license to Scandy Core. This is handled differently for the C++ and Android (Java) implementations. You should have a received a `foo@bar.com-scandycore-license.txt` file when you purchased Scandy Core, we will call this the *license key file*.
+
+#### C++
+Update `const char* scandy_core_license` in  `ScandyCore/include/scandy_license.h` to have the contents of your license.
+
+It should look like this when you receive it:
+
+```cpp
+const std::string scandy_core_license {R"CLC(
+   {
+     "vendor": "Scandy LLC",
+     "license": {
+       "product": "Scandy Core",
+       "version": "1.0",
+       "expiry": "never",
+       "hostid": "any",
+       "customer": "Your name",
+       "signature": "super!duper!secret!signature!"
+     }
+   }
+)CLC"};
+```
+
+Paste the contents of your *license key file* into the `scandy_license.h` replacing the placeholder. It should look something like this now:
+
+```cpp
+const std::string scandy_core_license {R"CLC(
+   {"vendor":"Scandy LLC","license":{"product":"Scandy Core","version":"1.0","expiry":"never","hostid":"any","customer”:”foo@bar.com”,”userdata":"{}","signature":"49EDA410195D11E79D989C63E968CD3E49EDA410195D11E79D989C63E968CD3E49EDA410195D11E79D989C63E968CD3E49EDA410195D11E79D989C63E968CD3E"}}
+)CLC"};
+```
+
+Then when you want to use any of the SLAM features in Scandy Core you just set your license by calling `setLicense(std::string license)`
+
+e.g.:
+
+```cpp
+#include <scandy/core/IScandyCore.h>
+#include <scandy_license.h>
+
+using namespace scandy::core;
+using namespace std;
+
+int main(int argc, char *argv[]) {
+  scandy::core::Status status;
+
+  // Create the ScandyCore instance with a Visualizer window of 400x400
+  auto core = IScandyCore::factoryCreate(400,400);
+  if(!core) {
+    std::cerr << "ERROR creating ScandyCore" << std::endl;
+    return (int) scandy::core::Status::EXCEPTION_IN_HANDLER;;
+  }
+
+  // We need to set the ScandyCore license to our internal license
+  status = core->setLicense(scandy_core_license);
+  if(status != Status::SUCCESS) {
+    std::cerr << "ERROR could not set license" << std::endl;
+    return (int) status;
+  }
+}
+```
+
+#### Android
+The function call is exactly the same for Android, `setLicense(String license)`, but there is a different paradigm for handling the file. The ScandyCoreAndroidExample shows how to use a license file stored in the asset cache to read the license at runtime.
+
+By following the [ScandyCoreAndroidExample](http://github.com/scandy-co/ScandyCoreAndroidExample), you can update the [`scandycore_license.json`](https://github.com/Scandy-co/ScandyCoreAndroidExample/blob/master/app/src/main/assets/scandycore_license.json) and then [read that file in](https://github.com/Scandy-co/ScandyCoreAndroidExample/blob/0ad8b2335f8e7f492254abe882fa723d60812fd4/app/src/main/java/co/scandy/example/scandycoreandroidexample/MainActivity.java#L261) and call [`ScandyCore.setLicense(license)`](https://github.com/Scandy-co/ScandyCoreAndroidExample/blob/0ad8b2335f8e7f492254abe882fa723d60812fd4/app/src/main/java/co/scandy/example/scandycoreandroidexample/MainActivity.java#L288) with the contents of the file.
 
 ## <a name="examples"></a>Examples
 
