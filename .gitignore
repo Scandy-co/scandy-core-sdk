@@ -1,0 +1,55 @@
+# Generated header files
+include/scandy_version.h
+include/scandy_config.h
+
+# The generated license file
+include/scandy_license.h
+
+# Archives.
+*.zip
+*.tgz
+*.tar
+*.tar.gz
+tarfiles
+*.so
+
+# Mac filesystem cruft.
+.DS_Store
+.tags
+
+# filesystem
+.directory
+
+# Vim cruft.
+*.vim
+*.sw?
+*.swp
+
+# Python cruft.
+__pycache__
+*.py?
+
+# Test data
+*.raw
+*.rrf
+*.spb
+*.spb2
+*.scrf
+
+# Android Studio cruft.
+*.idea
+**/app/src/main/assets/
+*.externalNativeBuild
+*.iml
+.gradle
+local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/app/externalNativeBuild
+/build
+/captures
+.externalNativeBuild
+*.aar
+internal_only/android/captures/
+
