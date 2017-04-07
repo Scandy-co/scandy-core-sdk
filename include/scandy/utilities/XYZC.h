@@ -1,0 +1,45 @@
+/****************************************************************************\
+ * Copyright (C) 2016 Scandy
+ *
+ * THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ *
+ \****************************************************************************/
+
+// For distribution.
+
+#ifndef Scandy_XYZC_h
+#define Scandy_XYZC_h
+
+#include <royale/DepthData.hpp>
+
+namespace scandy { namespace utilities {
+
+/**
+ * \brief XYZC is a class that represents an individual point in a point cloud.
+ */
+class XYZC {
+public:
+  // The x value of the point. Assumed to be in meters
+  float x;
+  // The y value of the point. Assumed to be in meters
+  float y;
+  // The z value of the point. Assumed to be in meters
+  float z;
+  // The noise of the point. Assumbed to be in meters
+  float noise;
+  // The confidence of the point. 0 - 255, low to high
+  uint8_t confidence;
+  // The gray scale color of the point
+  uint16_t gray_value;
+
+  XYZC() = default;
+  XYZC(const XYZC& p) = default;
+  XYZC(const royale::DepthPoint& p);
+};
+
+}}
+
+#endif // Scandy_XYZC_h
