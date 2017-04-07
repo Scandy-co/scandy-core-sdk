@@ -1,0 +1,15 @@
+# Copyright (C) 2017 Scandy
+#
+# THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+# KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+cmake_minimum_required(VERSION 3.0)
+project(ScandySamples)
+
+add_subdirectory(ScandyCoreCppExamples)
+
+if(ENABLE_VTK_QT)
+  add_subdirectory(ScandyCoreQtExample)
+endif()
