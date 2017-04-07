@@ -13,13 +13,13 @@
 #define scandy_version_h
 
 #define ScandyCore_VERSION_STRING "v0.1.1"
-#define ScandyCore_VERSION_STRING_FULL "v0.1.1+62.3e2dfb5a"
+#define ScandyCore_VERSION_STRING_FULL "v0.1.1+67.27431cdb"
 #define ScandyCore_VERSION "0.1.1"
 #define ScandyCore_VERSION_MAJOR 0
 #define ScandyCore_VERSION_MINOR 1
 #define ScandyCore_VERSION_PATCH 1
 #define ScandyCore_VERSION_TWEAK ""
-#define ScandyCore_VERSION_AHEAD 62
-#define ScandyCore_VERSION_GIT_SHA "3e2dfb5a"
+#define ScandyCore_VERSION_AHEAD 67
+#define ScandyCore_VERSION_GIT_SHA "27431cdb"
 
 #endif // scandy_version_h
