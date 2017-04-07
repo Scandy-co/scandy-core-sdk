@@ -1,0 +1,24 @@
+
+# Archives.
+*.zip
+*.tgz
+*.tar
+*.tar.gz
+tarfiles
+*.so
+
+# Mac filesystem cruft.
+.DS_Store
+.tags
+
+# filesystem
+.directory
+
+# Vim cruft.
+*.vim
+*.sw?
+*.swp
+
+# Python cruft.
+__pycache__
+*.py?
