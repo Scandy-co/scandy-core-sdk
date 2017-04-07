@@ -329,7 +329,7 @@ public:
   virtual scandy::core::Status setExposureTime(uint32_t threshold);
 
   /**
-   * How many voxels are contined withing our setScanSize.  Can be a multiple of 128. (1,2,3 * 128)
+   * How many voxels are contained within our setScanSize. Can be a multiple of 128. (1,2,3 * 128)
    * @param resolution
    * @return @see status.h
    */
