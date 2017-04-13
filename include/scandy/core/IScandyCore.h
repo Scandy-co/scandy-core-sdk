@@ -24,6 +24,10 @@
 #include <scandy/core/visualizer/Visualizer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+
+#ifdef SCANDY_QT
+#include <QVTKWidget.h>
+#endif
 /* End scandy includes */
 
 /* C++ stl includes */
@@ -85,9 +89,16 @@ public:
     int width,
     int height,
     int columns=1,
-    int rows=1,
-    vtkRenderWindow* vtkWindow = NULL,
-    vtkRenderWindowInteractor* vtkWindowInteractor = NULL);
+    int rows=1
+  );
+
+#ifdef SCANDY_QT
+  static std::shared_ptr<IScandyCore> factoryCreate(
+    int width,
+    int height,
+    QVTKWidget* qvtkWidget
+  );
+#endif
 
   /**
    * Checks to see if the IScandyCore has a valid license to perform SLAM
@@ -130,9 +141,11 @@ public:
     int width=640,
     int height=480,
     int columns=1,
-    int rows=1,
-    vtkRenderWindow* vtkWindow = NULL,
-    vtkRenderWindowInteractor* vtkWindowInteractor = NULL);
+    int rows=1
+#ifdef SCANDY_QT
+    , QVTKWidget* qvtkWidget=NULL
+#endif
+  );
 
   /**
    * Loads a mesh file from the local disk.
