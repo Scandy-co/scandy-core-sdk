@@ -3,6 +3,23 @@
 
 ## v0.1.1
 ### Release Date:
+2017-04-13
+
+### New Features:
+
+* Changed scandy::core::IScandyCore::factoryCreate() to work better with Qt
+
+### Bug Fixes:
+
+* [ScandyCoreQtExample](https://github.com/Scandy-co/ScandyCoreQtExample/tree/v0.1.2) is now linked to v0.1.2 and working on macOS
+
+### Known Bugs:
+
+* pico flexx on Android is not super stable. i.e. cable gets jiggled loose bad state happens
+* [ScandyCoreReactNativeExample](http://github.com/scandy-co/ScandyCoreReactNativeExample) is empty. Going to get with @gtfargo about fixing this soon.
+
+## v0.1.1
+### Release Date:
 2017-03-31
 
 ### New Features:
