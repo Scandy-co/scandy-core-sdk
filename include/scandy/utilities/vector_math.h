@@ -148,8 +148,7 @@ inline float3 Mat4RotateFloat3(const Mat4f M, const float3 v) {
 #if !IS_A_CL_HEADER_STRING
 // use this method to take a quaternion stored as float4 and generate a
 // rotation matrix from it
-// TODO @elaughli: see http://www.apache.org/licenses/LICENSE-2.0 to be able
-// to use this code and not get sent to mexican prison because of it.
+// from https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/hardware/SensorManager.java
 inline void getRotationMatrixFromVector(
  Mat4f& rot_matrix,
  float4 rot_data
@@ -189,8 +188,7 @@ inline void getRotationMatrixFromVector(
 // use this method to take accelerometer and magnetometer data and create
 // a rotation matrix. obtained form SensorManager source for android but
 // changed to be row-major to match scandy-core's Mat4f general orientation
-// TODO @elaughli: see http://www.apache.org/licenses/LICENSE-2.0 to be able
-// to use this code and not get sent to mexican prison because of it
+// from https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/hardware/SensorManager.java
 inline bool getRotationMatrix(
  Mat4f& rot_matrix,
  float3 accel_data,
@@ -255,8 +253,7 @@ inline bool getRotationMatrix(
 
 // use this method to take rotation matrix and create an orientation vector
 // takes a row-major matrix
-// TODO @elaughli: see http://www.apache.org/licenses/LICENSE-2.0 to be able
-// to use this code and not get sent to mexican prison because of it.
+// from https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/hardware/SensorManager.java
 inline void getOrientation(
  Mat4f rotation,
  float3& orientation
