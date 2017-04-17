@@ -1,9 +1,9 @@
 # Scandy Core Change Log
 <!--- For distribution -->
 
-## v0.1.1
+## v0.1.2
 ### Release Date:
-2017-04-13
+2017-04-17
 
 ### New Features:
 
