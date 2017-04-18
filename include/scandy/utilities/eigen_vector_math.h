@@ -11,9 +11,10 @@
 // For distribution.
 
 /**
- * eigen_vector_math defines commonly used vector conversions that
- * are needed throughout Scandy. They use Eigen for their math meat.
-*/
+ * \file eigen_vector_math.h
+ * \brief Defines commonly used vector conversions that are needed throughout
+ * Scandy Core. These use Eigen for their math meat.
+ */
 
 #ifndef Scandy_eigen_vector_math_h
 #define Scandy_eigen_vector_math_h
@@ -116,7 +117,7 @@ inline Mat4f rotationPart(Mat4f m){
   Mat4f r;
   EigenM4f(r.s) <<
   m.s0, m.s4, m.s8, 0.0f,
-  m.s1, m.s5, m.s9, 0.0f,
+  m.s1, m.s5, m.s7, 0.0f,
   m.s2, m.s6, m.sa, 0.0f,
   0.0f, 0.0f, 0.0f, 1.0f;
   return r;

@@ -10,6 +10,11 @@
 
 // For distribution.
 
+/**
+ * \file RelativePose.h
+ * \brief Furnishes class for `RelativePose`.
+ */
+
 #ifndef Scandy_RelativePose_h
 #define Scandy_RelativePose_h
 
@@ -18,6 +23,13 @@
 
 namespace scandy { namespace utilities {
 
+/**
+ * \class RelativePose
+ * \brief Affords `Pose` as it is relative to the stream ID and to the camera ID.
+ *
+ * For a chronology of the relative pose problem, see:
+ * http://www.ignaciomellado.es/blog/The-relative-pose-problem-A-chronology
+ */
 class RelativePose {
 public:
   StreamID m_relative_to_stream_id;

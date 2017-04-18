@@ -8,7 +8,12 @@
  *
  \****************************************************************************/
 
-/**  For distribution. */
+// For distribution.
+
+/**
+ * \file CameraIntrinsics.h
+ * \brief Furnishes class for `CameraIntrinsics`.
+ */
 
 #ifndef Scandy_CameraIntrinsics_h
 #define Scandy_CameraIntrinsics_h
@@ -19,7 +24,7 @@ namespace scandy { namespace utilities {
 
 /**
  * \class CameraIntrinsics
- * \brief CameraIntrinsics defines all the necesary definitions Scandy needs
+ * \brief Defines all the necesary definitions Scandy Core needs.
  */
 class CameraIntrinsics {
 public:

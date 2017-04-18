@@ -10,14 +10,13 @@
 
 // For distribution.
 
+/**
+ * \file struct_types.h
+ * Defines commonly used structs that are needed throughout Scandy
+ */
+
 #ifndef Scandy_struct_types_h
 #define Scandy_struct_types_h
-
-/**
- * struct_types defines commonly used structs that are needed throughout Scandy
- *
-*/
-
 
 //if we are using this from foo.cl -> foo_cl.h char* generator then we don't need to include all the things
 #ifndef IS_A_CL_HEADER_STRING
