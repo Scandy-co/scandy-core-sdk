@@ -24,6 +24,10 @@
 #include <scandy/core/visualizer/Visualizer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+
+#ifdef SCANDY_QT
+#include <QVTKWidget.h>
+#endif
 /* End scandy includes */
 
 /* C++ stl includes */
@@ -74,20 +78,35 @@ public:
   static std::shared_ptr<IScandyCore> factoryCreate();
 
   /**
-   * Create a pointer to ScandyCore.
+   * Create a pointer to IScandyCore.
    * @param width Width of the visualizer window in pixesls.
    * @param height Height of the visualizer window in pixels.
    * @param columns Number of columns to subdivide views into the main window.
    * @param rows Number of rows to subdivide views into the main window.
-   * @return Valid pointer to ScandyCore.
+   * @return Valid pointer to IScandyCore.
    */
   static std::shared_ptr<IScandyCore> factoryCreate(
     int width,
     int height,
     int columns=1,
-    int rows=1,
-    vtkRenderWindow* vtkWindow = NULL,
-    vtkRenderWindowInteractor* vtkWindowInteractor = NULL);
+    int rows=1
+  );
+
+#ifdef SCANDY_QT
+  /**
+   * Create a pointer to IScandyCore.
+   * @param width Width of the visualizer window in pixesls.
+   * @param height Height of the visualizer window in pixels.
+   * @param qvtkWidget A pointer to a QVTKWidget that IScandyCore should use as
+   *                   its Visualizer
+   * @return Valid pointer to IScandyCore.
+   */
+  static std::shared_ptr<IScandyCore> factoryCreate(
+    int width,
+    int height,
+    QVTKWidget* qvtkWidget
+  );
+#endif
 
   /**
    * Checks to see if the IScandyCore has a valid license to perform SLAM
@@ -120,19 +139,23 @@ public:
   /**
    * Automatically create instances of the views in each col,grid location of the visualizer window.
    * Implicitly called if factoryCreate with visualizer params was invoked.
-   * @param width Width of the visualizer window in pixesls.
-   * @param height Height of the visualizer window in pixels.
-   * @param columns Number of columns to subdivide views into the main window.
-   * @param rows Number of rows to subdivide views into the main window.
-   * @return
+   * @param  width Width of the visualizer window in pixesls.
+   * @param  height Height of the visualizer window in pixels.
+   * @param  columns Number of columns to subdivide views into the main window.
+   * @param  rows Number of rows to subdivide views into the main window.
+   * @param  qvtkWidget If SCANDY_QT was enabled then this optional parameter
+   *                    accepts a point to a QVTKWidget that IScandyCore shouldu use.
+   * @return @see status.h
    */
   virtual scandy::core::Status createVisualizer(
     int width=640,
     int height=480,
     int columns=1,
-    int rows=1,
-    vtkRenderWindow* vtkWindow = NULL,
-    vtkRenderWindowInteractor* vtkWindowInteractor = NULL);
+    int rows=1
+#ifdef SCANDY_QT
+    , QVTKWidget* qvtkWidget=NULL
+#endif
+  );
 
   /**
    * Loads a mesh file from the local disk.

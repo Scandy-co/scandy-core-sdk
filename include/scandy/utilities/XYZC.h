@@ -10,6 +10,11 @@
 
 // For distribution.
 
+/**
+ * \file XYZC.h
+ * \brief Furnishes a class for `XYZC`.
+ */
+
 #ifndef Scandy_XYZC_h
 #define Scandy_XYZC_h
 
@@ -18,7 +23,8 @@
 namespace scandy { namespace utilities {
 
 /**
- * \brief XYZC is a class that represents an individual point in a point cloud.
+ * \class XYZC
+ * \brief A class that represents an individual point in a point cloud.
  */
 class XYZC {
 public:

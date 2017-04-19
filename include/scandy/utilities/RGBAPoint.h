@@ -10,6 +10,9 @@
 
 // For distribution.
 
+/**
+ * \file RGBAPoint.h
+ */
 
 #ifndef Scandy_RGBA_Point_h
 #define Scandy_RGBA_Point_h

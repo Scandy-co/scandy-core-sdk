@@ -10,6 +10,11 @@
 
 // For distribution.
 
+/**
+ * \file PointCloudMetaData.h
+ * \brief Furnishes struct for `PointCloudMetaData`.
+ */
+
 // TODO: from @hcwiley
 // -refactor this struct be "CameraFrameMetaData"
 
@@ -24,8 +29,8 @@
 namespace scandy { namespace utilities {
 
   /**
-   * \brief PointCloudMetaData describes necesarry additional information for
-   * using a PointCloud.
+   * \brief `PointCloudMetaData` describes necessary additional information for
+   * using a `PointCloud`.
    */
   struct PointCloudMetaData {
     // The version for a PointCloud

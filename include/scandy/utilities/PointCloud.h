@@ -10,6 +10,11 @@
 
 // For distribution.
 
+/**
+ * \file PointCloud.h
+ * \brief Furnishes class for `PointCloud` and struct for `PointCloudFrame`.
+ */
+
 #ifndef Scandy_PointCloud_h
 #define Scandy_PointCloud_h
 
@@ -23,7 +28,8 @@
 namespace scandy { namespace utilities {
 
 /**
- * \brief PointCloud represents a collection of points and their metadata.
+ * \class PointCloud
+ * \brief `PointCloud` represents a collection of points and their metadata.
  */
 class PointCloud {
 public:
@@ -62,6 +68,11 @@ public:
   PointCloudMetaData metadata(){ return m_metadata; }
 };
 
+/**
+ * \struct PointCloudFrame
+ * \brief Packages `PointCloud` data with identifiers specific to its stream,
+ * camera, and frame.
+ */
 struct PointCloudFrame {
   StreamID stream_id;
   CameraID camera_id;

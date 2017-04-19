@@ -10,6 +10,11 @@
 
 // For distribution.
 
+/**
+ * \file Lap.h
+ * \brief Furnishes class for `Lap`, a timer utility.
+ */
+
 #ifndef Scandy_Lap_h
 #define Scandy_Lap_h
 
@@ -17,6 +22,14 @@
 
 namespace scandy { namespace utilities {
 
+/**
+ * \class Lap
+ * \breif Furnishes helper methods for measuring temporal durations spanning
+ * time points.
+ *
+ * Uses time library `<chrono>`.
+ * For more inforamtion, see: http://www.cplusplus.com/reference/chrono/
+ */
 class Lap {
 public:
   std::chrono::time_point<std::chrono::system_clock> m_tp;

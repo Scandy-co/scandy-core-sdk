@@ -10,14 +10,14 @@
 
 // For distribution.
 
+/**
+ * \file vector_math.h
+ * \brief Defines commonly used vector conversions that are needed throughout
+ * Scandy Core.
+ */
+
 #ifndef Scandy_vector_math_h
 #define Scandy_vector_math_h
-
-/**
- * vector_math defines commonly used vector conversions that
- * are needed throughout Scandy
-*/
-
 
 //if we are using this from foo.cl -> foo_cl.h char* generator then we don't need to include all the things
 #ifndef IS_A_CL_HEADER_STRING
@@ -56,9 +56,9 @@ inline float __attribute__((overloadable)) scandy_dot(float4 a, float4 b){
  */
 inline Mat4f rotationPart(const Mat4f M){
   return make_Mat4f(
-    M.s0, M.s4, M.s8, 0.0f,
-    M.s1, M.s5, M.s9, 0.0f,
-    M.s2, M.s6, M.sA, 0.0f,
+    M.s0, M.s1, M.s2, 0.0f,
+    M.s4, M.s5, M.s6, 0.0f,
+    M.s8, M.s9, M.sA, 0.0f,
     0.0f, 0.0f, 0.0f, 1.0f
   );
 }
@@ -71,10 +71,10 @@ inline Mat4f rotationPart(const Mat4f M){
  */
 inline Mat4f translationPart(const Mat4f M){
   return make_Mat4f(
-    1.0f, 0.0f, 0.0f, M.sC,
-    0.0f, 1.0f, 0.0f, M.sD,
-    0.0f, 0.0f, 1.0f, M.sE,
-    0.0f, 0.0f, 0.0f, 1.0f
+    1.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 1.0f, 0.0f,
+    M.sC, M.sD, M.sE, 1.0f
   );
 }
 

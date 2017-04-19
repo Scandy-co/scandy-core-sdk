@@ -10,6 +10,11 @@
 
 // For distribution.
 
+/**
+ * \file ColorFrame.h
+ * \brief Furnishes class for `ColorFrame` and struct for `sColorFrame`.
+ */
+
 #ifndef Scandy_ColorFrame_h
 #define Scandy_ColorFrame_h
 
@@ -24,7 +29,10 @@
 namespace scandy { namespace utilities {
 
 /**
- * \brief ColorFrame is
+ * \class ColorFrame
+ * \brief Consolidate constituent parts comprising `ColorFrame`, including,
+ * without limitation, relative pose, camera intrinsics, point cloud meta-data,
+ * analogous intrinsics and analogous meta-data. 
  */
 class ColorFrame {
 public:
@@ -51,15 +59,16 @@ public:
   void setVersion(int version);
   void setTimeStamp(std::chrono::microseconds timestamp);
 
-  /*
-   * Base our metadata on relative pose and and an analogous CameraIntrinsics
+  /**
+   * Base our metadata on relative pose and an analogous `CameraIntrinsics`.
    * Preconditions:
    * - The intrinsic width and height of this Color Frame are set correctly.
    * - The analogous intrinsic matrix is based on a relative pose
    *   with rotation part equal to EXIF Orientation 1 relative to this frame.
-   *   (That is, if the original analogous intrinsics did not have a relative pose rotation of
-   *    "no rotation", they have  already been corrected based on their relative pose.)
-   * WARNING: Be careful not to call this more than once if you don't mean to!
+   *   (That is, if the original analogous intrinsics did not have a relative
+   *   pose rotation of "no rotation", they have  already been corrected based
+   *   on their relative pose).
+   * \warning Be careful not to call this more than once if you don't mean to!
    * It will absolutely keep transforming the intrinsics matrix.
    */
   void scaleAndTransformMetadata(scandy::utilities::RelativePose rel_pose, scandy::utilities::CameraIntrinsics analogous_intrinsics);
@@ -70,8 +79,12 @@ public:
   void scaleAndTransformMetadata(scandy::utilities::PointCloudMetaData analogous_metadata);
 };
 
-// NOTE: @hcwiley realizes he is breaking conviction, but think the class should
-// be called ColorFrame and therefore the struct sColorFrame
+// NOTE: @hcwiley realizes he is breaking convention, but thinks the class
+// should be called `ColorFrame` and therefore the struct `sColorFrame`.
+/**
+ * \struct sColorFrame
+ * \brief Define struct for storing type `ColorFrame`.
+ */
 struct sColorFrame {
   // scandy::utilities::StreamID stream_id;
   // scandy::utilities::CameraID camera_id;

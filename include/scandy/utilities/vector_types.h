@@ -10,19 +10,17 @@
 
 // For distribution.
 
-/** @file vector_types.h */
-
-#ifndef Scandy_vector_types_h
-#define Scandy_vector_types_h
-
 /**
- * \brief `vector_types` defines commonly used vectors that are needed throughout
- *   Scandy Core.
+ * \file vector_types.h
+ * \brief Defines commonly used vectors that are needed throughout Scandy Core.
  *
  * \warning Scandy Core does not use the following data types because they have
  * inconsistencies with how different GPUs handle them:
  *   - `float3`: we declare `float3` as a `float4`, and we pad with 0
  */
+
+#ifndef Scandy_vector_types_h
+#define Scandy_vector_types_h
 
 // if we are typedef this from foo.cl -> foo_cl.h char* generator then we don't
 // need to include all the things
@@ -205,7 +203,7 @@ typedef union { //short8
 } short8;
 
 /**
- * \union short8
+ * \union short16
  * \brief Ensures maximal compatability for storage via `union`s for sixteen (16)
  * `short`s.
  */
@@ -325,8 +323,8 @@ typedef union { //float3
 
 /**
  * \union float4
- * \brief Ensures maximal compatability for storage via `union`s for four (4) single
- * precision floating points.
+ * \brief Ensures maximal compatability for storage via `union`s for four (4)
+ * single precision floating points.
  */
 typedef union { //float4
 //  float  CL_ALIGNED(16) s[4];
@@ -341,8 +339,8 @@ typedef union { //float4
 
 /**
  * \union float8
- * \brief Ensures maximal compatability for storage via `union`s for eight (8) single
- * precision floating points.
+ * \brief Ensures maximal compatability for storage via `union`s for eight (8)
+ * single precision floating points.
  */
 typedef union { //float8
 //  float   CL_ALIGNED(32) s[8];
@@ -357,8 +355,8 @@ typedef union { //float8
 
 /**
  * \union float16
- * \brief Ensures maximal compatability for storage via `union`s for sixteen (16) single
- * precision floating points.
+ * \brief Ensures maximal compatability for storage via `union`s for sixteen
+ * (16) single precision floating points.
  */
 typedef union { //float16
 //  float  CL_ALIGNED(64) s[16];
@@ -374,7 +372,11 @@ typedef union { //float16
 
 typedef float16 Mat4f;
 
-// we don't need to define half4 if were on CL
+/**
+ * \struct _half4
+ * \brief Define `struct` for half floats.
+ * \attention We do not need to define `half4` if we are on CL.
+ */
 #if !IS_A_CL_HEADER_STRING
 typedef struct _half4{
   half_float::half x, y, z, w; ;

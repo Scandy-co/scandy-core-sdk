@@ -10,6 +10,9 @@
 
 // For distribution.
 
+/**
+ * \file ID_types.h
+ */
 
 #ifndef Scandy_ID_types_h
 #define Scandy_ID_types_h

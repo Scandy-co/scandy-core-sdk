@@ -10,6 +10,12 @@
 
 // For distribution.
 
+/**
+ * \file ToFPointCloud.h
+ * \brief Furnishes class for `ToFPointCloud` and structs for
+ * `ToFPointCloudStreamHeader` and `ToFPointCloudFrame`.
+ */
+
 #ifndef Scandy_ToFPointCloud_h
 #define Scandy_ToFPointCloud_h
 
@@ -18,7 +24,8 @@
 namespace scandy { namespace utilities {
 
 /**
- * \brief ToFPointCloud is
+ * \class ToFPointCloud
+ * \brief Furnishes an implementation of `PointCloud` specific to time-of-flight.
  */
 class ToFPointCloud : public PointCloud {
 public:
@@ -35,16 +42,25 @@ public:
   std::vector<uint32_t>& exposureTimes();
 };
 
-/** Prepended to the beginning of each serializaed TofPointCloudFrame in a .spb file.
-    Not used for network streaming */
+/**
+ * \struct ToFPointCloudStreamHeader
+ * \brief Furnishes a header, to be prepended to each `ToFPointCloudFrame` in an
+ * `.spb` file.
+ * \warning Not to be used for network streaming.
+ */
 struct ToFPointCloudStreamHeader {
   /** Serialization format description.*/
   std::string description;
   /** Number of serialized frames; zero if unknown at serialization time. */
   uint64_t frame_count;
 };
-/** Used to serialize tof point cloud metadata (like camera position) and the depth sensor plane. 
-    Used to serialized data to/from a network stream. */
+
+/**
+ * \struct ToFPointCloudFrame
+ * \brief Used to serialize time-of-flight point cloud metadata (such as camera
+ * position) and the depth sensor plane.
+ * Used to serialized data to/from a network stream
+ */
 struct ToFPointCloudFrame {
   ToFPointCloud tof_pointcloud;
 };
