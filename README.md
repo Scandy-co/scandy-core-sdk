@@ -10,7 +10,7 @@
 * [Definitions](#definitions)
 * [Features Overview](#features-overview)
 
-## <a name="forward"></a>Our Goal
+## <a name="forward"></a>Forward
 
 Scandy Core is here to make your life easier as a developer who wants to work with 3D data. Scandy Core provides a set of easy-to-use functions for viewing, loading, downloading, editing, and creating 3D files.
 
