@@ -291,6 +291,14 @@ public:
    */
   virtual scandy::core::ScanState getScanState();
 
+  /**
+   * Gets the currently available use cases for scanning. These are different
+   * frame rates that are optimized for different distances. Generally speaking
+   * the lower the frame the better it will "see" further away.
+   * @return A list of strings that can be provided to IScandyCore::setUseCase
+   */
+  virtual std::vector<std::string> getUseCases();
+
   // *** Setters
 
   /**
