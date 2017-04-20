@@ -6,9 +6,14 @@
 
 * [Forward](#forward)
 * [Getting Started](#getting-started)
+  * [Supported Operating Systems](#operating-systems)
+  * [Typical Usage](#usage)
+  * [Setup](#setup)
+  * [Important classes & API](#important)
+  * [Setting your License](#setting-license)
 * [Examples](#examples)
-* [Definitions](#definitions)
 * [Features Overview](#features-overview)
+* [Definitions](#definitions)
 
 ## <a name="forward"></a>Forward
 
@@ -32,7 +37,7 @@ Upcoming bindings:
 * Python
 * C#
 
-### Operating systems
+### <a name="operating-systems"></a> Operating systems
 
 Scandy Core supports the following operating systems:
 
@@ -47,7 +52,7 @@ Upcoming systems:
 * Windows
 * Linux ARM
 
-### Typical Usage flow
+### <a name="usage"></a> Typical Usage flow
 
 #### 3D scan to file:
 
@@ -65,7 +70,7 @@ Upcoming systems:
 * Generate a mesh of the scan
 * Save the mesh to a file
 
-### Setup
+### <a name="setup"></a> Setup
 
 Scandy Core can be setup in a variety of ways to fit your build target. Scandy Core has been designed to integrate with existing projects, and can be incorporated as a CMake dependency. Please review the [included coding samples](#examples) to determine the best course of action for installation and configuration with your project.
 
@@ -77,14 +82,14 @@ For using Scandy Core with CMake we highly suggest looking at the README for the
 
 For using Scandy Core with Android we highly suggest looking at the README for the [ScandyCoreAndroidExample](https://github.com/Scandy-co/ScandyCoreAndroidExample)
 
-### Important classes & API
+### <a name="important"></a> Important classes & API
 
 For an index of the functions available at your command, please reference Scandy Core's top-level classes:
 
 * `scandy::core::IScandyCore` will be your main tour guide in C++
 * `co.scandy.scandycore.ScandyCore` will your main tour guide in Java
 
-### Setting your License
+### <a name="setting-license"></a> Setting your License
 To use the SLAM features in Scandy Core you will need to provide your license to Scandy Core. This is handled differently for the C++ and Android (Java) implementations. You should have a received a `foo@bar.com-scandycore-license.txt` file when you purchased Scandy Core, we will call this the *license key file*.
 
 #### C++
@@ -161,21 +166,6 @@ Scandy Core comes with the following examples to help you get started:
 * [ScandyCoreAndroidExample](http://github.com/scandy-co/ScandyCoreAndroidExample)
 * [ScandyCoreReactNativeExample](http://github.com/scandy-co/ScandyCoreReactNativeExample)
 
-## <a name="definitions"></a>Definitions
-
-_X is **Supported** means the feature is currently implemented_
-
-| Term  | Supported |  Definition |
-|---|:---:|---|
-| _SLAM_  | X  | Denotes simultaneous localization and mapping. See Wikipedia entry re: [SLAM](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping).|
-| _pico flexx_ | X | The [pico flexx](http://pmdtec.com/picoflexx) is a small USB 3D sensor made by [pmd](http://pmdtec.com) that allows capturing of live 3D data. |
-| _RRF_ | X  |  Royale raw file. A file extension that denotes/wraps point cloud data as provisioned by a live sensor stream. If you have been using Royale for awhile you might have a few of these laying around that you want to re-examine. |
-| _TSDF_ | X | Truncated signed distance function; a voxel representative of a given scan created in memory by Scandy Core; more specifically, `TSDF` stores values used for attempting accurate representation of a volumetric surface. Originally defined in paper ["A Volumetric Method for Building Complex Models from Range Images"](http://graphics.stanford.edu/papers/volrange/volrange.pdf). Also, see Wikipedia entries for [signed distance function](https://en.wikipedia.org/wiki/Signed_distance_function) and on [volume rendering](https://en.wikipedia.org/wiki/Volume_rendering). |
-| _Mesh_ | X | A mesh represents a 3D scene or object in a standardized format such as [.OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file) or [.PLY](https://en.wikipedia.org/wiki/PLY_(file_format)). Scandy Core can generate a mesh for any scan taken, and then also save that mesh into a PLY or OBJ format. |
-| _SCRF_ |  | Scandy Core raw file; a proprietary file extension denoting those contents of a scan file saved to disk. Packages a live sensor stream (or `RRF`), along with the parameters used to capture a given volume (i.e., scanning configuration). In future versions, `SCRF`s may also be extended to include depth maps and color frames. More generally, SCRF refers to those contents of a scan file distinguishable from any derivative meshes. |
-| _IMU_  |   | Inertial measurement unit. Data encompassing a host device's specific force and angular orientation is fed into Scandy Core for enhancements in tracking. See [Wikipedia entry](https://en.wikipedia.org/wiki/Inertial_measurement_unit).  |
-
-
 ## <a name="features-overview"></a>Features Overview
 
 ### 3D Tracking (SLAM)
@@ -229,3 +219,18 @@ Or some examples:
 ### Editing *(coming soon)*
 
 When working with 3D scan files you frequently end up with a file that is the wrong scale, doesn’t have enough contrast, or has extra artifacts in it; to make this easier, Scandy Core provides developers with an easy way to make adjustments to 3D files. Our goal with the 3D editing piece of Scandy Core is to provide the most common and necessary features from CAD software so that developers can more easily make Scandy Core work for their application.
+
+
+## <a name="definitions"></a>Definitions
+
+_X is **Supported** means the feature is currently implemented_
+
+| Term  | Supported |  Definition |
+|---|:---:|---|
+| _SLAM_  | X  | Denotes simultaneous localization and mapping. See Wikipedia entry re: [SLAM](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping).|
+| _pico flexx_ | X | The [pico flexx](http://pmdtec.com/picoflexx) is a small USB 3D sensor made by [pmd](http://pmdtec.com) that allows capturing of live 3D data. |
+| _RRF_ | X  |  Royale raw file. A file extension that denotes/wraps point cloud data as provisioned by a live sensor stream. If you have been using Royale for awhile you might have a few of these laying around that you want to re-examine. |
+| _TSDF_ | X | Truncated signed distance function; a voxel representative of a given scan created in memory by Scandy Core; more specifically, `TSDF` stores values used for attempting accurate representation of a volumetric surface. Originally defined in paper ["A Volumetric Method for Building Complex Models from Range Images"](http://graphics.stanford.edu/papers/volrange/volrange.pdf). Also, see Wikipedia entries for [signed distance function](https://en.wikipedia.org/wiki/Signed_distance_function) and on [volume rendering](https://en.wikipedia.org/wiki/Volume_rendering). |
+| _Mesh_ | X | A mesh represents a 3D scene or object in a standardized format such as [.OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file) or [.PLY](https://en.wikipedia.org/wiki/PLY_(file_format)). Scandy Core can generate a mesh for any scan taken, and then also save that mesh into a PLY or OBJ format. |
+| _SCRF_ |  | Scandy Core raw file; a proprietary file extension denoting those contents of a scan file saved to disk. Packages a live sensor stream (or `RRF`), along with the parameters used to capture a given volume (i.e., scanning configuration). In future versions, `SCRF`s may also be extended to include depth maps and color frames. More generally, SCRF refers to those contents of a scan file distinguishable from any derivative meshes. |
+| _IMU_  |   | Inertial measurement unit. Data encompassing a host device's specific force and angular orientation is fed into Scandy Core for enhancements in tracking. See [Wikipedia entry](https://en.wikipedia.org/wiki/Inertial_measurement_unit).  |
