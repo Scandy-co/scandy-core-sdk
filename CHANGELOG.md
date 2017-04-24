@@ -1,6 +1,23 @@
 # Scandy Core Change Log
 <!--- For distribution -->
 
+## v0.1.3
+### Release Date:
+2017-04-24
+
+### New Features:
+
+* Updated [ScandyCoreReactNativeExample](http://github.com/scandy-co/ScandyCoreReactNativeExample)
+
+### Bug Fixes:
+
+* Scandy Core's internal license expired. Updated and should be good going forward.
+* Includes `include/scandy_license.h` template again.
+
+### Known Bugs:
+
+* pico flexx on Android is not super stable. i.e. cable gets jiggled loose bad state happens
+
 ## v0.1.2
 ### Release Date:
 2017-04-17
