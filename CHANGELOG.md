@@ -13,6 +13,7 @@
 
 * Scandy Core's internal license expired. Updated and should be good going forward.
 * Includes `include/scandy_license.h` template again.
+* `vtkRenderWindow` not closing properly when `Visualizer` joined.
 
 ### Known Bugs:
 
