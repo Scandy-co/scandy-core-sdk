@@ -7,6 +7,9 @@
 [submodule "examples/ScandyCoreAndroidExample"]
 	path = examples/ScandyCoreAndroidExample
 	url = http://github.com/scandy-co/ScandyCoreAndroidExample
+[submodule "examples/ScandyCoreReactNativeExample"]
+	path = examples/ScandyCoreReactNativeExample
+	url = https://github.com/Scandy-co/ScandyCoreReactNativeExample
 [submodule "scandy-core-rn"]
 	path = scandy-core-rn
 	url = git@github.com:Scandy-co/scandy-core-rn
