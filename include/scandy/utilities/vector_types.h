@@ -22,6 +22,10 @@
 #ifndef Scandy_vector_types_h
 #define Scandy_vector_types_h
 
+#ifdef ENABLE_EXPERIMENTAL
+#include <hiberlite.h>
+#endif
+
 // if we are typedef this from foo.cl -> foo_cl.h char* generator then we don't
 // need to include all the things
 #ifndef IS_A_CL_HEADER_STRING
@@ -319,6 +323,18 @@ typedef union { //float2
 typedef union { //float3
   float s[4];
   struct{ float x, y, z, w; };
+
+#ifdef ENABLE_EXPERIMENTAL
+  friend class hiberlite::access;
+  template<class Archive>
+  void hibernate(Archive & ar)
+  {
+    ar & HIBERLITE_NVP(x);
+    ar & HIBERLITE_NVP(y);
+    ar & HIBERLITE_NVP(z);
+    ar & HIBERLITE_NVP(w);
+  }
+#endif
 } float3;
 
 /**
