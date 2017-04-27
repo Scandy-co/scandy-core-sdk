@@ -263,7 +263,8 @@ public:
   virtual std::map<std::string, std::string> getCurrentConfig();
 
   /**
-   * Get current available resolutions as a vector.
+   * Get current available resolutions as a vector. This must be called after
+   * initializeScanner otherwise you will always get vector with 0 elements.
    * @return Vector map of available resolutions.
    */
   virtual std::vector<ScanResolution> getAvailableScanResolutions();
