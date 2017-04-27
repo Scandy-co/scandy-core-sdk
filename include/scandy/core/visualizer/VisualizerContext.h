@@ -104,6 +104,7 @@ public:
   std::vector<vtkRenderer*>& renderers();
   virtual void render();
   void clear();
+  void close();
 };
 
 }}
