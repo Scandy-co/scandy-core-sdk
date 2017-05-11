@@ -262,6 +262,19 @@ typedef union { //uint4
   uint2 v2[2];
   uint3 xyz;
 //  cl_uint4 v4;
+
+#ifdef ENABLE_EXPERIMENTAL
+  friend class hiberlite::access;
+  template<class Archive>
+  void hibernate(Archive & ar)
+  {
+    ar & HIBERLITE_NVP(x);
+    ar & HIBERLITE_NVP(y);
+    ar & HIBERLITE_NVP(z);
+    ar & HIBERLITE_NVP(w);
+  }
+#endif
+
 } uint4;
 
 /**
@@ -351,6 +364,18 @@ typedef union { //float4
   float2 v2[2];
   float3 xyz;
 //  cl_float4 v4;
+
+#ifdef ENABLE_EXPERIMENTAL
+  friend class hiberlite::access;
+  template<class Archive>
+  void hibernate(Archive & ar)
+  {
+    ar & HIBERLITE_NVP(x);
+    ar & HIBERLITE_NVP(y);
+    ar & HIBERLITE_NVP(z);
+    ar & HIBERLITE_NVP(w);
+  }
+#endif
 } float4;
 
 /**
@@ -384,6 +409,30 @@ typedef union { //float16
   float4 v4[4];
   float8 v8[2];
 //  cl_float16 v16;
+
+#ifdef ENABLE_EXPERIMENTAL
+  friend class hiberlite::access;
+  template<class Archive>
+  void hibernate(Archive & ar)
+  {
+    ar & HIBERLITE_NVP(s0);
+    ar & HIBERLITE_NVP(s1);
+    ar & HIBERLITE_NVP(s2);
+    ar & HIBERLITE_NVP(s3);
+    ar & HIBERLITE_NVP(s4);
+    ar & HIBERLITE_NVP(s5);
+    ar & HIBERLITE_NVP(s6);
+    ar & HIBERLITE_NVP(s7);
+    ar & HIBERLITE_NVP(s8);
+    ar & HIBERLITE_NVP(s9);
+    ar & HIBERLITE_NVP(sA);
+    ar & HIBERLITE_NVP(sB);
+    ar & HIBERLITE_NVP(sC);
+    ar & HIBERLITE_NVP(sD);
+    ar & HIBERLITE_NVP(sE);
+    ar & HIBERLITE_NVP(sF);
+  }
+#endif
 } float16;
 
 typedef float16 Mat4f;
