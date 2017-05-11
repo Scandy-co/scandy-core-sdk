@@ -20,6 +20,10 @@
 
 #include <royale/DepthData.hpp>
 
+#ifdef ENABLE_EXPERIMENTAL
+#include <hiberlite.h>
+#endif
+
 namespace scandy { namespace utilities {
 
 /**
@@ -44,6 +48,20 @@ public:
   XYZC() = default;
   XYZC(const XYZC& p) = default;
   XYZC(const royale::DepthPoint& p);
+
+#ifdef ENABLE_EXPERIMENTAL
+  friend class hiberlite::access;
+  template<class Archive>
+  void hibernate(Archive & ar)
+  {
+    ar & HIBERLITE_NVP(x);
+    ar & HIBERLITE_NVP(y);
+    ar & HIBERLITE_NVP(z);
+    ar & HIBERLITE_NVP(noise);
+    ar & HIBERLITE_NVP(confidence);
+    ar & HIBERLITE_NVP(gray_value);
+  }
+#endif
 };
 
 }}

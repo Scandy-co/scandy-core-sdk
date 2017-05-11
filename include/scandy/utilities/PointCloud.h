@@ -23,6 +23,10 @@
 
 #include <royale/DepthData.hpp>
 
+#ifdef ENABLE_EXPERIMENTAL
+#include <hiberlite.h>
+#endif
+
 #include <vector>
 
 namespace scandy { namespace utilities {
@@ -66,6 +70,15 @@ public:
     return m_points;
   }
   PointCloudMetaData metadata(){ return m_metadata; }
+
+#ifdef ENABLE_EXPERIMENTAL
+  friend class hiberlite::access;
+  template<class Archive>
+  void hibernate(Archive & ar)
+  {
+    ar & HIBERLITE_NVP(m_points);
+  }
+#endif
 };
 
 /**
@@ -78,6 +91,18 @@ struct PointCloudFrame {
   CameraID camera_id;
   uint64_t frame_id;
   PointCloud pointcloud;
+
+#ifdef ENABLE_EXPERIMENTAL
+  friend class hiberlite::access;
+  template<class Archive>
+  void hibernate(Archive & ar)
+  {
+    ar & HIBERLITE_NVP(stream_id);
+    ar & HIBERLITE_NVP(camera_id);
+    ar & HIBERLITE_NVP(frame_id);
+    ar & HIBERLITE_NVP(pointcloud);
+  }
+#endif
 };
 
 }}
