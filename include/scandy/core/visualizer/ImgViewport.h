@@ -36,6 +36,8 @@ public:
 public:
   ImgViewport();
   ~ImgViewport();
+public:
+  void resizeAndRotate(int input_width, int input_height, scandy::utilities::Mat4f rel_pose);
 };
 
 }}
