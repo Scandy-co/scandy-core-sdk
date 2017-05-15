@@ -32,7 +32,7 @@ namespace scandy { namespace utilities {
  * \class ColorFrame
  * \brief Consolidate constituent parts comprising `ColorFrame`, including,
  * without limitation, relative pose, camera intrinsics, point cloud meta-data,
- * analogous intrinsics and analogous meta-data. 
+ * analogous intrinsics and analogous meta-data.
  */
 class ColorFrame {
 public:
@@ -41,6 +41,7 @@ public:
 
 public:
     std::vector<RGBAPoint> m_rgba_data;
+    std::vector<uchar> m_yuv420_data;
     ColorMetaData m_metadata;
 public:
   ColorFrame() = default;
@@ -48,6 +49,12 @@ public:
   ColorFrame(ColorFrame&&) = default;
   ColorFrame& operator=(const ColorFrame&) = default;
   ColorFrame& operator=(ColorFrame&) = default;
+  ColorFrame(
+    int version,
+    std::chrono::microseconds timestamp,
+    uint16_t width,
+    uint16_t height
+  );
   ColorFrame(
     int version,
     std::chrono::microseconds timestamp,
