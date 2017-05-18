@@ -43,6 +43,7 @@ public:
     std::vector<RGBAPoint> m_rgba_data;
     std::vector<uchar> m_yuv420_data;
     ColorMetaData m_metadata;
+    unsigned int m_texture_id = 0;
 public:
   ColorFrame() = default;
   ColorFrame(const ColorFrame&) = default;
