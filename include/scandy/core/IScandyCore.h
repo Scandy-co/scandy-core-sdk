@@ -70,7 +70,16 @@ public:
  * to ScandyCore.
  */
 class IScandyCore {
+protected:
+  static bool m_enable_visualizer;
 public:
+
+  /**
+   * Disables the VTK visualizer window.  Must be called before factoryCreate.
+   * @return Returns scandy::core::Status::SUCCESS
+   */
+  static scandy::core::Status disableVisualizer();
+
   /**
    * Create a pointer to ScandyCore.  Use default visualizer options.
    * @return Valid pointer to ScandyCore.
