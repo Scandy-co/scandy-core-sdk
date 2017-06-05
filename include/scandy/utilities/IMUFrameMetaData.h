@@ -10,8 +10,8 @@
 
 // For distribution.
 
-#ifndef Scandy_IMUTrackMetaData_h
-#define Scandy_IMUTrackMetaData_h
+#ifndef Scandy_IMUFrameMetaData_h
+#define Scandy_IMUFrameMetaData_h
 
 #include <scandy/utilities/SensorFrameMetaData.h>
 
@@ -39,4 +39,4 @@ public:
 
 }}
 
-#endif // Scandy_IMUTrackMetaData_h
+#endif // Scandy_IMUFrameMetaData_h
