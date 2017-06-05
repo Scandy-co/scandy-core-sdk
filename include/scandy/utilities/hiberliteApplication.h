@@ -13,9 +13,8 @@
 #ifndef Scandy_Hiberlite_App_h
 #define Scandy_Hiberlite_App_h
 
-#include <scandy/utilities/Pose.h>
-#include <scandy/utilities/RelativePose.h>
-#include <scandy/core/Serialization.h>
+#include <scandy/core/PoseSerialization.h>
+#include <scandy/core/IntrinsicsSerialization.h>
 #include <scandy/core/logging.h>
 #include <scandy/core/ScannerType.h>
 
