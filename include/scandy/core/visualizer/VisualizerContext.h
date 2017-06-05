@@ -94,6 +94,7 @@ public:
   vtkRenderWindowInteractor* interactor();
 #endif
 
+  void updateWindow(int width, int height, int cols, int rows);
 
   /* Note that this class doesn't directly track the added renderers. They are
    * however available via renwin()->GetRenderers().
