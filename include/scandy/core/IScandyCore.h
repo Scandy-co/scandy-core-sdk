@@ -15,7 +15,7 @@
 
 /* Begin scandy includes */
 #include <scandy.h>
-#include <scandy/utilities/PointCloudMetaData.h>
+#include <scandy/utilities/DepthTrackMetaData.h>
 #include <scandy/core/status.h>
 #include <scandy/core/ScannerType.h>
 #include <scandy/core/ScanState.h>
@@ -453,7 +453,7 @@ public:
     const scandy::utilities::uchar4* img_data,
     const int width,
     const int height,
-    const scandy::utilities::PointCloudMetaData frame_metadata)> onScanPreviewDidUpdate;
+    const scandy::utilities::DepthTrackMetaData frame_metadata)> onScanPreviewDidUpdate;
 
   /**
    * Bind a listener to trigger when new point cloud data is ready.
@@ -466,7 +466,7 @@ public:
     const scandy::utilities::float3* point_cloud_data,
     const int width,
     const int height,
-    const scandy::utilities::PointCloudMetaData frame_metadata)> onScanPointCloudDidUpdate;
+    const scandy::utilities::DepthTrackMetaData frame_metadata)> onScanPointCloudDidUpdate;
 };
 
 }};
