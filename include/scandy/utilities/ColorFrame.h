@@ -24,7 +24,7 @@
 #include <scandy/utilities/vector_types.h>
 #include <scandy/utilities/ID_types.h>
 #include <scandy/utilities/RGBAPoint.h>
-#include <scandy/utilities/DepthFrameMetaData.h>
+#include <scandy/utilities/DepthTrackMetaData.h>
 
 namespace scandy { namespace utilities {
 
@@ -37,7 +37,7 @@ namespace scandy { namespace utilities {
 class ColorFrame {
 public:
   using RGBAPoint = scandy::utilities::RGBAPoint;
-  using ColorMetaData = scandy::utilities::DepthFrameMetaData;
+  using ColorMetaData = scandy::utilities::DepthTrackMetaData;
 
 public:
     std::vector<RGBAPoint> m_rgba_data;
@@ -80,11 +80,11 @@ public:
    * It will absolutely keep transforming the intrinsics matrix.
    */
   void scaleAndTransformMetadata(scandy::utilities::Pose rel_pose, scandy::utilities::CameraIntrinsics analogous_intrinsics);
-  /* As above, but accepts analogous data as DepthFrameMetaData */
-  void scaleAndTransformMetadata(scandy::utilities::Pose rel_pose, scandy::utilities::DepthFrameMetaData analogous_metadata);
+  /* As above, but accepts analogous data as DepthTrackMetaData */
+  void scaleAndTransformMetadata(scandy::utilities::Pose rel_pose, scandy::utilities::DepthTrackMetaData analogous_metadata);
   /* As above, but uses the ColorFrame's relative pose */
   void scaleAndTransformMetadata(scandy::utilities::CameraIntrinsics analogous_intrinsics);
-  void scaleAndTransformMetadata(scandy::utilities::DepthFrameMetaData analogous_metadata);
+  void scaleAndTransformMetadata(scandy::utilities::DepthTrackMetaData analogous_metadata);
 };
 
 // NOTE: @hcwiley realizes he is breaking convention, but thinks the class
