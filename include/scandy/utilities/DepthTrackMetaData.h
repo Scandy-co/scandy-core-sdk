@@ -10,11 +10,11 @@
 
 // For distribution.
 
-#ifndef Scandy_DepthTrackMetaData_h
-#define Scandy_DepthTrackMetaData_h
+#ifndef Scandy_DepthTrackMetadata_h
+#define Scandy_DepthTrackMetadata_h
 
-#include <scandy/utilities/TrackedMetaData.h>
-#include <scandy/utilities/DepthFrameMetaData.h>
+#include <scandy/utilities/TrackedMetadata.h>
+#include <scandy/utilities/DepthFrameMetadata.h>
 
 #include <scandy/utilities/hiberliteApplication.h>
 
@@ -26,15 +26,15 @@ using namespace std;
 namespace scandy { namespace utilities {
 
 /**
- * \brief DepthTrackMetaData
+ * \brief DepthTrackMetadata
  */
-class DepthTrackMetaData : public TrackedMetaData {
+class DepthTrackMetadata : public TrackedMetadata {
 public:
   friend class hiberlite::access;
   float icp_cost;
 
   // metadata of the raw sensor frame associated
-  DepthFrameMetaData frame_metadata;
+  DepthFrameMetadata frame_metadata;
 
   template<class Archive>
   void hibernate(Archive & ar)
@@ -42,10 +42,10 @@ public:
     ar & HIBERLITE_NVP(icp_cost);
     ar & HIBERLITE_NVP(frame_metadata);
 
-    TrackedMetaData::hibernate(ar);
+    TrackedMetadata::hibernate(ar);
   }
 };
 
 }}
 
-#endif // Scandy_DepthTrackMetaData_h
+#endif // Scandy_DepthTrackMetadata_h

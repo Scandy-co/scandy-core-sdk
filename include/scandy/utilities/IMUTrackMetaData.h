@@ -10,18 +10,18 @@
 
 // For distribution.
 
-#ifndef Scandy_IMUTrackMetaData_h
-#define Scandy_IMUTrackMetaData_h
+#ifndef Scandy_IMUTrackMetadata_h
+#define Scandy_IMUTrackMetadata_h
 
-#include <scandy/utilities/TrackedMetaData.h>
+#include <scandy/utilities/TrackedMetadata.h>
 
 
 namespace scandy { namespace utilities {
 
 /**
- * \brief IMUTrackMetaData
+ * \brief IMUTrackMetadata
  */
-class IMUTrackMetaData : public TrackedMetaData {
+class IMUTrackMetadata : public TrackedMetadata {
 public:
   // sensor noise based on known values for each type of sensor
   // TODO make multiple of these as necessary
@@ -32,10 +32,10 @@ public:
   {
     ar & HIBERLITE_NVP(sensor_error);
 
-    TrackedMetaData::hibernate(ar);
+    TrackedMetadata::hibernate(ar);
   }
 };
 
 }}
 
-#endif // Scandy_IMUTrackMetaData_h
+#endif // Scandy_IMUTrackMetadata_h

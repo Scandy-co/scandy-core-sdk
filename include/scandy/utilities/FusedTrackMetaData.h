@@ -10,26 +10,26 @@
 
 // For distribution.
 
-#ifndef Scandy_FusedTrackMetaData_h
-#define Scandy_FusedTrackMetaData_h
+#ifndef Scandy_FusedTrackMetadata_h
+#define Scandy_FusedTrackMetadata_h
 
-#include <scandy/utilities/TrackedMetaData.h>
+#include <scandy/utilities/TrackedMetadata.h>
 
 
 namespace scandy { namespace utilities {
 
 /**
- * \brief FusedTrackMetaData contains the fused pose from the various sensors
+ * \brief FusedTrackMetadata contains the fused pose from the various sensors
  * that contribute to tracking (i.e. depth sensor, IMU sensors, etc.)
  */
-class FusedTrackMetaData : public TrackedMetaData {
+class FusedTrackMetadata : public TrackedMetadata {
 public:
   friend class hiberlite::access;
   // keep track of the metadata uids used to fuse this frame
   std::vector<MetadataUID> contributing_uids;
 
   // metadata of the raw depth sensor frame associated
-  SensorFrameMetaData frame_metadata;
+  SensorFrameMetadata frame_metadata;
 
   template<class Archive>
   void hibernate(Archive & ar)
@@ -37,10 +37,10 @@ public:
     ar & HIBERLITE_NVP(contributing_uids);
     ar & HIBERLITE_NVP(frame_metadata);
 
-    TrackedMetaData::hibernate(ar);
+    TrackedMetadata::hibernate(ar);
   }
 };
 
 }}
 
-#endif // Scandy_FusedTrackMetaData_h
+#endif // Scandy_FusedTrackMetadata_h

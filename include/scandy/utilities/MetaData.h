@@ -10,8 +10,8 @@
 
 // For distribution.
 
-#ifndef Scandy_MetaData_h
-#define Scandy_MetaData_h
+#ifndef Scandy_Metadata_h
+#define Scandy_Metadata_h
 
 #include <scandy/utilities/ID_types.h>
 
@@ -20,9 +20,9 @@
 namespace scandy { namespace utilities {
 
 /**
- * \brief MetaData is the base to all metadata types
+ * \brief Metadata is the base to all metadata types
  */
-class MetaData {
+class Metadata {
 public:
   friend class hiberlite::access;
   // The version for a frame. this is helpful in case frames change and are
@@ -47,4 +47,4 @@ public:
 
 }}
 
-#endif // Scandy_MetaData_h
+#endif // Scandy_Metadata_h

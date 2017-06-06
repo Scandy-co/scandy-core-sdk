@@ -18,7 +18,7 @@
 #ifndef Scandy_PointCloud_h
 #define Scandy_PointCloud_h
 
-#include <scandy/utilities/DepthTrackMetaData.h>
+#include <scandy/utilities/DepthTrackMetadata.h>
 #include <scandy/utilities/XYZC.h>
 
 #include <royale/DepthData.hpp>
@@ -37,7 +37,7 @@ namespace scandy { namespace utilities {
  */
 class PointCloud {
 public:
-  DepthTrackMetaData m_metadata;
+  DepthTrackMetadata m_metadata;
   std::vector<XYZC> m_points;
 public:
   PointCloud() = default;
@@ -69,7 +69,7 @@ public:
   std::vector<XYZC>& points(){
     return m_points;
   }
-  DepthTrackMetaData metadata(){ return m_metadata; }
+  DepthTrackMetadata metadata(){ return m_metadata; }
 
 #ifdef ENABLE_EXPERIMENTAL
   friend class hiberlite::access;

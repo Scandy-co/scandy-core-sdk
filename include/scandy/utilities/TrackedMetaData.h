@@ -10,18 +10,18 @@
 
 // For distribution.
 
-#ifndef Scandy_TrackedMetaData_h
-#define Scandy_TrackedMetaData_h
+#ifndef Scandy_TrackedMetadata_h
+#define Scandy_TrackedMetadata_h
 
-#include <scandy/utilities/SensorFrameMetaData.h>
+#include <scandy/utilities/SensorFrameMetadata.h>
 
 
 namespace scandy { namespace utilities {
 
 /**
- * \brief TrackedMetaData
+ * \brief TrackedMetadata
  */
-class TrackedMetaData : public SensorFrameMetaData {
+class TrackedMetadata : public SensorFrameMetadata {
 public:
   friend class hiberlite::access;
   // time that the computed pose was calculated
@@ -37,7 +37,7 @@ public:
   float delta_t;
 
   // metadata of the raw sensor frame associated
-  // SensorFrameMetaData frame_metadata;
+  // SensorFrameMetadata frame_metadata;
 
   // type of sensor this metadata describes
   std::string sensor_type;
@@ -85,10 +85,10 @@ public:
     ar & HIBERLITE_NVP(angular_velocity);
     ar & HIBERLITE_NVP(angular_acceleration);
 
-    SensorFrameMetaData::hibernate(ar);
+    SensorFrameMetadata::hibernate(ar);
   }
 };
 
 }}
 
-#endif // Scandy_TrackedMetaData_h
+#endif // Scandy_TrackedMetadata_h

@@ -175,7 +175,7 @@ Keeping track of where you are in 3D space is one of the most fundamental aspect
 Checkout these C++ classes:
 
 * scandy::utilities::Pose
-* scandy::utilities::DepthTrackMetaData
+* scandy::utilities::DepthTrackMetadata
 
 ### 3D Scanning
 

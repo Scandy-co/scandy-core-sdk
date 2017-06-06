@@ -10,19 +10,19 @@
 
 // For distribution.
 
-#ifndef Scandy_DepthFrameMetaData_h
-#define Scandy_DepthFrameMetaData_h
+#ifndef Scandy_DepthFrameMetadata_h
+#define Scandy_DepthFrameMetadata_h
 
-#include <scandy/utilities/SensorFrameMetaData.h>
+#include <scandy/utilities/SensorFrameMetadata.h>
 
 
 namespace scandy { namespace utilities {
 
 /**
- * \brief DepthFrameMetaData contains metadata relating to the depth frame
+ * \brief DepthFrameMetadata contains metadata relating to the depth frame
  * and the device it's from
  */
-class DepthFrameMetaData : public SensorFrameMetaData {
+class DepthFrameMetadata : public SensorFrameMetadata {
 public:
   friend class hiberlite::access;
 
@@ -34,11 +34,11 @@ public:
   {
     ar & HIBERLITE_NVP(intrinsics);
 
-    SensorFrameMetaData::hibernate(ar);
+    SensorFrameMetadata::hibernate(ar);
   }
 };
 
 }}
 
 
-#endif // Scandy_DepthFrameMetaData_h
+#endif // Scandy_DepthFrameMetadata_h

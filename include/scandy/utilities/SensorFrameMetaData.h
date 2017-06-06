@@ -10,20 +10,20 @@
 
 // For distribution.
 
-#ifndef Scandy_SensorFrameMetaData_h
-#define Scandy_SensorFrameMetaData_h
+#ifndef Scandy_SensorFrameMetadata_h
+#define Scandy_SensorFrameMetadata_h
 
-#include <scandy/utilities/MetaData.h>
+#include <scandy/utilities/Metadata.h>
 
 #include <scandy/utilities/Pose.h>
 
 namespace scandy { namespace utilities {
 
 /**
- * \brief SensorFrameMetaData describes necessary additional information for
+ * \brief SensorFrameMetadata describes necessary additional information for
  * using a SensorFrame that's created by a SensorDataStream.
  */
-class SensorFrameMetaData : public MetaData {
+class SensorFrameMetadata : public Metadata {
 public:
   friend class hiberlite::access;
   // The relative pose of the sensor that captured a SensorFrame to Scandy's
@@ -43,10 +43,10 @@ public:
     ar & HIBERLITE_NVP(device_id);
     ar & HIBERLITE_NVP(sensor_id);
 
-    MetaData::hibernate(ar);
+    Metadata::hibernate(ar);
   }
 };
 
 }}
 
-#endif // Scandy_SensorFrameMetaData_h
+#endif // Scandy_SensorFrameMetadata_h
