@@ -71,6 +71,9 @@ public:
  */
 class IScandyCore {
 public:
+  static bool m_enable_visualizer;
+  Status disableVisualizer();
+
   /**
    * Create a pointer to ScandyCore.  Use default visualizer options.
    * @return Valid pointer to ScandyCore.
