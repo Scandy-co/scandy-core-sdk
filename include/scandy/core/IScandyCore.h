@@ -72,7 +72,7 @@ public:
 class IScandyCore {
 public:
   static bool m_enable_visualizer;
-  Status disableVisualizer();
+  static Status disableVisualizer();
 
   /**
    * Create a pointer to ScandyCore.  Use default visualizer options.
