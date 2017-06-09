@@ -43,6 +43,8 @@ namespace scandy { namespace core {
  * viewing meshes.
  */
 class MeshViewport : public Viewport {
+private:
+  bool m_camera_needs_update;
 public:
   vtkPolyData *m_data;
   vtkPolyDataMapper *m_mapper;
@@ -65,7 +67,7 @@ public:
   void setPolyData(vtkPolyData *poly_data);
   void setPolyData(vtkPolyDataAlgorithm *algorithm);
   
-  virtual void render(){}
+  virtual void render();
 };
 
 }}
