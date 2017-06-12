@@ -34,7 +34,7 @@ public:
   uint64_t timestamp;
 
   // unique id for the metadata
-  MetadataUID uid;
+  MetadataUID uid = 0;
 
   template<class Archive>
   void hibernate(Archive & ar)
