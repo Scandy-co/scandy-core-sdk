@@ -23,9 +23,7 @@
 
 #include <royale/DepthData.hpp>
 
-#ifdef ENABLE_EXPERIMENTAL
 #include <hiberlite.h>
-#endif
 
 #include <vector>
 
@@ -71,14 +69,12 @@ public:
   }
   DepthTrackMetadata metadata(){ return m_metadata; }
 
-#ifdef ENABLE_EXPERIMENTAL
   friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
   {
     ar & HIBERLITE_NVP(m_points);
   }
-#endif
 };
 
 /**
@@ -92,7 +88,6 @@ struct PointCloudFrame {
   uint64_t frame_id;
   PointCloud pointcloud;
 
-#ifdef ENABLE_EXPERIMENTAL
   friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
@@ -102,7 +97,6 @@ struct PointCloudFrame {
     ar & HIBERLITE_NVP(frame_id);
     ar & HIBERLITE_NVP(pointcloud);
   }
-#endif
 };
 
 }}
