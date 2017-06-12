@@ -254,7 +254,7 @@ inline bool getRotationMatrix(
 // use this method to take rotation matrix and create an orientation vector
 // takes a row-major matrix
 // from https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/hardware/SensorManager.java
-inline void getOrientation(
+inline void get_orientation(
  Mat4f rotation,
  float3& orientation
  )
