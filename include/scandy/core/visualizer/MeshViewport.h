@@ -66,7 +66,10 @@ public:
 
   void setPolyData(vtkPolyData *poly_data);
   void setPolyData(vtkPolyDataAlgorithm *algorithm);
-  
+
+  // xmin, xmax, ymin, ymax, zmin, zmax
+  void getBounds(std::vector<double>& bounds);
+
   virtual void render();
 };
 
