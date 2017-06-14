@@ -24,6 +24,10 @@ namespace scandy { namespace utilities {
 using CameraID = std::string;
 using StreamID = std::string;
 
+using MetadataUID = std::string;
+using SensorID = std::string;
+using DeviceID = std::string;
+
 }}
 
 #endif // Scandy_ID_types_h
