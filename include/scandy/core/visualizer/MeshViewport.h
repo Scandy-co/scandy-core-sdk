@@ -68,7 +68,7 @@ public:
   void setPolyData(vtkPolyDataAlgorithm *algorithm);
 
   // xmin, xmax, ymin, ymax, zmin, zmax
-  void getBounds(std::vector<double>& bounds);
+  scandy::utilities::float8 getBounds();
 
   virtual void render();
 };
