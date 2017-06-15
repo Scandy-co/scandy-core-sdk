@@ -146,6 +146,16 @@ inline Mat4f identityMat4f(){
   return t;
 }
 
+inline bool isIdentity(Mat4f mat){
+  Mat4f eye = identityMat4f();
+
+  bool result = true;
+  for(int i = 0; i < 16; i++){
+    result = result && (mat.s[i] == eye.s[i]);
+  }
+  return result;
+}
+
 // NOTE: the passed in Matrix ( Mat4f ) is assumed to be COLUMN MAJOR
 // NOTE: the output Matrix ( Mat4f ) is COLUMN MAJOR
 inline Mat4f inverse(Mat4f m){
