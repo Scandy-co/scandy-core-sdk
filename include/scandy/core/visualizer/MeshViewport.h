@@ -21,6 +21,7 @@
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkTexture.h>
+#include <vtkPointSetAlgorithm.h>
 
 #include <vtkOBJReader.h>
 #include <vtkPLYReader.h>
@@ -66,6 +67,7 @@ public:
 
   void setPolyData(vtkPolyData *poly_data);
   void setPolyData(vtkPolyDataAlgorithm *algorithm);
+  void setPolyData(vtkPointSetAlgorithm *algorithm);
 
   // xmin, xmax, ymin, ymax, zmin, zmax
   scandy::utilities::float8 getBounds();
