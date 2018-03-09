@@ -22,8 +22,9 @@
 #ifndef Scandy_vector_types_h
 #define Scandy_vector_types_h
 
+#if ENABLE_HIBERLITE
 #include <hiberlite.h>
-
+#endif
 // if we are typedef this from foo.cl -> foo_cl.h char* generator then we don't
 // need to include all the things
 #ifndef IS_A_CL_HEADER_STRING
@@ -36,6 +37,7 @@
 // #include <cstdint>
 #include <stdint.h>
 #define HALF_ENABLE_CPP11_CMATH 0
+// half brings in things like sqrt, atan2, etc...
 #include <half.hpp>
 #endif //!IS_A_CL_HEADER_STRING
 
@@ -260,7 +262,7 @@ typedef union { //uint4
   uint2 v2[2];
   uint3 xyz;
 //  cl_uint4 v4;
-
+#if ENABLE_HIBERLITE
   friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
@@ -270,7 +272,7 @@ typedef union { //uint4
     ar & HIBERLITE_NVP(z);
     ar & HIBERLITE_NVP(w);
   }
-
+#endif
 } uint4;
 
 /**
@@ -332,7 +334,7 @@ typedef union { //float2
 typedef union { //float3
   float s[4];
   struct{ float x, y, z, w; };
-
+#if ENABLE_HIBERLITE
   friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
@@ -342,6 +344,7 @@ typedef union { //float3
     ar & HIBERLITE_NVP(z);
     ar & HIBERLITE_NVP(w);
   }
+#endif
 } float3;
 
 /**
@@ -358,7 +361,7 @@ typedef union { //float4
   float2 v2[2];
   float3 xyz;
 //  cl_float4 v4;
-
+#if ENABLE_HIBERLITE
   friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
@@ -368,6 +371,7 @@ typedef union { //float4
     ar & HIBERLITE_NVP(z);
     ar & HIBERLITE_NVP(w);
   }
+#endif
 } float4;
 
 /**
@@ -401,7 +405,7 @@ typedef union { //float16
   float4 v4[4];
   float8 v8[2];
 //  cl_float16 v16;
-
+#if ENABLE_HIBERLITE
   friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
@@ -423,6 +427,7 @@ typedef union { //float16
     ar & HIBERLITE_NVP(sE);
     ar & HIBERLITE_NVP(sF);
   }
+#endif
 } float16;
 
 typedef float16 Mat4f;

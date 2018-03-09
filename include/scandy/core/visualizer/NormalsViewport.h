@@ -11,7 +11,7 @@
 #ifndef Scandy_NormalsViewport_h
 #define Scandy_NormalsViewport_h
 
-#include <scandy/core/status.h>
+#include <scandy/core/Status.h>
 #include <scandy/core/visualizer/Viewport.h>
 
 /* Begin VTK includes */
@@ -22,6 +22,7 @@
 #include <vtkProperty.h>
 #include <vtkTexture.h>
 #include <vtkVertexGlyphFilter.h>
+#include <vtkGlyph3D.h>
 #include <vtkLine.h>
 
 #include <vtksys/SystemTools.hxx>
@@ -54,6 +55,7 @@ public:
    */
   vtkPoints *m_edge_vertices;
   vtkPolyData *m_edge_vertex_poly;
+  // vtkGlyph3D *m_edge_vertex_filter;
   vtkVertexGlyphFilter *m_edge_vertex_filter;
   vtkPolyDataMapper *m_edge_vertex_mapper;
   vtkActor *m_edge_vertex_actor;

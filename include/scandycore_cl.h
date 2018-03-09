@@ -25,6 +25,7 @@
 
 #pragma once
 
+#if ENABLE_OPENCL
 
 #ifndef CL_HPP_MINIMUM_OPENCL_VERSION
 #define CL_HPP_MINIMUM_OPENCL_VERSION 120
@@ -44,3 +45,24 @@
 #include <CL/cl.hpp>
 #endif // #if OPENCL_VERSION == 120
 #endif // #ifndef OPENCL_VERSION
+
+#if ENABLE_VTK
+
+#if APPLE
+// #include <vtk_glew.h>
+#include <OpenCL/cl_gl_ext.h>
+#include <OpenGL/OpenGL.h>
+#include <GLUT/glut.h>
+#endif
+
+#if ANDROID
+#include <GLES3/gl3.h>
+//#include <cl/cl_gl_ext.h>
+// #include <GLES2/gl2.h>
+// #include <EGL/egl.h>
+// #include <OpenGLES/ES2/glext.h>
+#endif
+
+#endif
+
+#endif // #if ENABLE_OPENCL

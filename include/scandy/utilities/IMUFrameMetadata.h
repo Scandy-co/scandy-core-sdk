@@ -15,6 +15,9 @@
 
 #include <scandy/utilities/SensorFrameMetadata.h>
 
+#if ENABLE_HIBERLITE
+#include <hiberlite.h>
+#endif
 
 namespace scandy { namespace utilities {
 
@@ -24,10 +27,11 @@ namespace scandy { namespace utilities {
  */
 class IMUFrameMetadata : public SensorFrameMetadata {
 public:
-  friend class hiberlite::access;
   // TODO sensor noise quantified in some way
   float sensor_error;
 
+#if ENABLE_HIBERLITE
+  friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
   {
@@ -35,6 +39,8 @@ public:
 
     SensorFrameMetadata::hibernate(ar);
   }
+#endif
+
 };
 
 }}

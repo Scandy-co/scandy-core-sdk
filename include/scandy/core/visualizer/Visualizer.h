@@ -30,17 +30,16 @@ namespace scandy { namespace core {
 class Visualizer {
 public:
   VisualizerContext& m_viz_ctxt;
-  std::vector<Viewport*> m_viewports;
+  std::vector<std::shared_ptr<Viewport>> m_viewports;
 public:
   Visualizer(VisualizerContext& viz_ctxt);
-  virtual ~Visualizer();
 public:
   /**
    * addViewport Adds a new Viewport to the m_viewports std::vector and adds the
    * renderer from the Viewport to the VisualizerContext
    * @param viewport The Viewport to be added
    */
-  void addViewport(Viewport& viewport);
+  void addViewport(std::shared_ptr<Viewport>viewport);
   /**
    * clear Clears the m_viewports and m_viz_ctxt
    */
@@ -48,7 +47,7 @@ public:
   void start();
   void stop();
   void join();
-
+  void render();
 };
 
 }}

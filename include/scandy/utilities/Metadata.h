@@ -15,7 +15,9 @@
 
 #include <scandy/utilities/ID_types.h>
 
+#if ENABLE_HIBERLITE
 #include <hiberlite.h>
+#endif
 
 namespace scandy { namespace utilities {
 
@@ -24,7 +26,6 @@ namespace scandy { namespace utilities {
  */
 class Metadata {
 public:
-  friend class hiberlite::access;
   // The version for a frame. this is helpful in case frames change and are
   // not backwards compatible.
   int version;
@@ -34,8 +35,10 @@ public:
   uint64_t timestamp;
 
   // unique id for the metadata
-  MetadataUID uid;
+  MetadataUID uid = 0;
 
+#if ENABLE_HIBERLITE
+  friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
   {
@@ -43,6 +46,7 @@ public:
     ar & HIBERLITE_NVP(timestamp);
     ar & HIBERLITE_NVP(uid);
   }
+#endif
 };
 
 }}

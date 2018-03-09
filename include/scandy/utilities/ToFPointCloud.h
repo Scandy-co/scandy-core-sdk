@@ -34,10 +34,12 @@ public:
   ToFPointCloud() = default;
   ToFPointCloud(const ToFPointCloud&) = default;
   ToFPointCloud(ToFPointCloud&&) = default;
+#if ENABLE_ROYALE
   ToFPointCloud(const royale::DepthData&);
+  ToFPointCloud& operator=(const royale::DepthData&);
+#endif
   ToFPointCloud& operator=(const ToFPointCloud&) = default;
   ToFPointCloud& operator=(ToFPointCloud&) = default;
-  ToFPointCloud& operator=(const royale::DepthData&);
 public:
   std::vector<uint32_t>& exposureTimes();
 };

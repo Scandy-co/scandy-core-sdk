@@ -15,6 +15,9 @@
 
 #include <scandy/utilities/SensorFrameMetadata.h>
 
+#if ENABLE_HIBERLITE
+#include <hiberlite.h>
+#endif
 
 namespace scandy { namespace utilities {
 
@@ -23,7 +26,6 @@ namespace scandy { namespace utilities {
  */
 class TrackedMetadata : public SensorFrameMetadata {
 public:
-  friend class hiberlite::access;
   // time that the computed pose was calculated
   // TODO decide if this is the same as timestamp
   uint64_t time_tracked;
@@ -65,6 +67,8 @@ public:
   scandy::utilities::float3 angular_velocity;
   scandy::utilities::float3 angular_acceleration;
 
+#if ENABLE_HIBERLITE
+  friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
   {
@@ -87,6 +91,7 @@ public:
 
     SensorFrameMetadata::hibernate(ar);
   }
+#endif
 };
 
 }}

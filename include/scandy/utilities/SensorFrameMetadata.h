@@ -17,6 +17,10 @@
 
 #include <scandy/utilities/Pose.h>
 
+#if ENABLE_HIBERLITE
+#include <hiberlite.h>
+#endif
+
 namespace scandy { namespace utilities {
 
 /**
@@ -25,7 +29,6 @@ namespace scandy { namespace utilities {
  */
 class SensorFrameMetadata : public Metadata {
 public:
-  friend class hiberlite::access;
   // The relative pose of the sensor that captured a SensorFrame to Scandy's
   // coordinates
   scandy::utilities::Pose initial_pose_offset;
@@ -35,7 +38,9 @@ public:
 
   // The SensorID of the stream that captured a SensorFrame
   SensorID sensor_id;
-
+  
+#if ENABLE_HIBERLITE
+  friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
   {
@@ -45,6 +50,7 @@ public:
 
     Metadata::hibernate(ar);
   }
+#endif
 };
 
 }}

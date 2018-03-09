@@ -21,11 +21,16 @@
 #include <scandy/utilities/DepthTrackMetadata.h>
 #include <scandy/utilities/XYZC.h>
 
+#if ENABLE_ROYALE
 #include <royale/DepthData.hpp>
+#endif
 
+#if ENABLE_HIBERLITE
 #include <hiberlite.h>
+#endif
 
 #include <vector>
+#include <chrono>
 
 namespace scandy { namespace utilities {
 
@@ -44,6 +49,7 @@ public:
   PointCloud& operator=(const PointCloud&) = default;
   PointCloud& operator=(PointCloud&) = default;
   PointCloud& operator=(PointCloud&&) = default;
+#if ENABLE_ROYALE
   PointCloud(
     int version,
     std::chrono::microseconds timestamp,
@@ -51,15 +57,18 @@ public:
     uint16_t height,
     const royale::Vector<royale::DepthPoint>& points
   );
+#endif
 
 public:
   void setVersion(int version);
   void setTimeStamp(std::chrono::microseconds timestamp);
+#if ENABLE_ROYALE
   void setPoints(
     uint16_t width,
     uint16_t height,
     const royale::Vector<royale::DepthPoint>& points
   );
+#endif
   int version();
   uint64_t timestamp();
   uint16_t width();
@@ -69,12 +78,14 @@ public:
   }
   DepthTrackMetadata metadata(){ return m_metadata; }
 
+#if ENABLE_HIBERLITE
   friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
   {
     ar & HIBERLITE_NVP(m_points);
   }
+#endif
 };
 
 /**
@@ -83,20 +94,22 @@ public:
  * camera, and frame.
  */
 struct PointCloudFrame {
-  StreamID stream_id;
-  CameraID camera_id;
+  SensorID sensor_id;
+  DeviceID device_id;
   uint64_t frame_id;
   PointCloud pointcloud;
 
+#if ENABLE_HIBERLITE
   friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
   {
-    ar & HIBERLITE_NVP(stream_id);
-    ar & HIBERLITE_NVP(camera_id);
+    ar & HIBERLITE_NVP(sensor_id);
+    ar & HIBERLITE_NVP(device_id);
     ar & HIBERLITE_NVP(frame_id);
     ar & HIBERLITE_NVP(pointcloud);
   }
+#endif
 };
 
 }}

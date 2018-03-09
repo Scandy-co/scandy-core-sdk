@@ -11,8 +11,14 @@
 #ifndef Scandy_MeshViewport_h
 #define Scandy_MeshViewport_h
 
-#include <scandy/core/status.h>
+#include <scandy/core/Status.h>
 #include <scandy/core/visualizer/Viewport.h>
+
+#include <scandy/utilities/MeshFrame.h>
+
+#if ENABLE_EXPERIMENTAL
+#include <scandy/core/tChannel.h>
+#endif
 
 /* Begin VTK includes */
 #include <vtkSmartPointer.h>
@@ -20,16 +26,8 @@
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
-#include <vtkTexture.h>
+#include <vtkPolyDataAlgorithm.h>
 #include <vtkPointSetAlgorithm.h>
-
-#include <vtkOBJReader.h>
-#include <vtkPLYReader.h>
-#include <vtkSTLReader.h>
-#include <vtkJPEGReader.h>
-#include <vtkPNGReader.h>
-
-#include <vtksys/SystemTools.hxx>
 /* End VTK includes */
 
 /* Begin cpp includes */
@@ -47,13 +45,19 @@ class MeshViewport : public Viewport {
 private:
   bool m_camera_needs_update;
 public:
-  vtkPolyData *m_data;
-  vtkPolyDataMapper *m_mapper;
-  vtkActor *m_actor;
+#if ENABLE_EXPERIMENTAL
+  using MeshFrameChannel = scandy::internal::core::tChannel<scandy::utilities::MeshFrame>;
+  using MeshFrameChannelPointer = std::shared_ptr<MeshFrameChannel>;
+  MeshFrameChannelPointer m_ch;
+#endif
+  vtkSmartPointer<vtkPolyData> m_data;
+  vtkSmartPointer<vtkPolyDataMapper> m_mapper;
+  vtkSmartPointer<vtkActor> m_actor;
 public:
   MeshViewport();
   ~MeshViewport();
 
+  scandy::core::Status setEnableWireframe(bool enable_wireframe);
   /**
    * loadMesh Loads a mesh file from the local disk. Puts loaded data into
    * vtkPolyData object to be visualized.
@@ -65,7 +69,9 @@ public:
    */
   scandy::core::Status loadMesh(std::string filename, std::string texture_path="");
 
-  void setPolyData(vtkPolyData *poly_data);
+  scandy::core::Status saveMesh(std::string file_path);
+
+  void setPolyData(vtkPolyData *poly_data, bool camera_needs_update=true);
   void setPolyData(vtkPolyDataAlgorithm *algorithm);
   void setPolyData(vtkPointSetAlgorithm *algorithm);
 

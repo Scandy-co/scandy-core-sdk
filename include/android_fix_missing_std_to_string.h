@@ -13,6 +13,17 @@
 #ifndef Scandy_android_fix_missing_std_to_string_h
 #define Scandy_android_fix_missing_std_to_string_h
 
+#ifdef ANDROID
+
+#ifdef ENABLE_DLIB
+
+// if we're using dlib, just include the fix from there
+// FIXME @elaughli this is dirty as all sin. hacking to get dlib working on
+// android for now but plleeeease fix this
+#include <dlib/fix_string_android/fix_string_android.h>
+
+#else // no DLIB
+
 #include <string>
 #include <sstream>
 #include <cstdlib>
@@ -81,5 +92,9 @@ template <typename... Args> int sprintf(char* dest, const char* format, Args... 
 }
 
 } // end namespace
+
+#endif // if/else ENABLE_DLIB
+
+#endif // ANDROID
 
 #endif // Scandy_android_fix_missing_std_to_string_h

@@ -22,6 +22,10 @@
 #include "vtkAndroidRenderWindowInteractor.h"
 #endif
 
+#ifdef IOS
+#include <vtkIOSRenderWindowInteractor.h>
+#endif
+
 #if defined(MACOS) || defined(LINUX)
 #include <vtkRenderWindowInteractor.h>
 #endif
@@ -55,6 +59,10 @@ protected:
   vtkAndroidRenderWindowInteractor* m_interactor = nullptr;
 #endif
 
+#ifdef IOS
+  vtkIOSRenderWindowInteractor* m_interactor = nullptr;
+#endif
+
 #if defined(MACOS) || defined(LINUX)
   vtkRenderWindowInteractor* m_interactor = nullptr;
 #endif
@@ -69,12 +77,7 @@ public:
   );
 
   VisualizerContext(
-#ifdef ANDROID
-    vtkAndroidRenderWindowInteractor* i,
-#endif
-#if defined(MACOS) || defined(LINUX)
     vtkRenderWindowInteractor* i,
-#endif
     int width,
     int height,
     int cols,
@@ -90,6 +93,10 @@ public:
   vtkAndroidRenderWindowInteractor* interactor();
 #endif
 
+#ifdef IOS
+  vtkIOSRenderWindowInteractor* interactor();
+#endif
+
 #if defined(MACOS) || defined(LINUX)
   vtkRenderWindowInteractor* interactor();
 #endif
@@ -101,6 +108,8 @@ public:
    */
   void addRenderer(vtkRenderer* renderer, int idx = -1);
 
+  int getWidth();
+  int getHeight();
   vtkRenderWindow* renwin();
   std::vector<vtkRenderer*>& renderers();
   virtual void render();

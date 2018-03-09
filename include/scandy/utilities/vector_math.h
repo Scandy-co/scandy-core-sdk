@@ -27,8 +27,7 @@
 #if !IS_A_CL_HEADER_STRING
 #include <scandy/utilities/vector_types.h>
 #include <scandy/utilities/struct_types.h>
-//endif !IS_A_CL_HEADER_STRING
-#endif
+#endif //endif !IS_A_CL_HEADER_STRING
 
 // if we are IS_A_CL_HEADER_STRING we don't need namespace
 #if !IS_A_CL_HEADER_STRING
@@ -40,7 +39,6 @@ namespace scandy { namespace utilities {
 inline float sq(float r) {
   return r * r;
 }
-
 inline float __attribute__((overloadable)) scandy_dot(float3 a, float3 b){
   return a.x * b.x + a.y * b.y + a.z * b.z;
 }
@@ -252,16 +250,16 @@ inline bool getRotationMatrix(
 }
 
 // use this method to take rotation matrix and create an orientation vector
-// takes a row-major matrix
+// takes a row-major matrix in left-handed coordinates
 // from https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/hardware/SensorManager.java
-inline void getOrientation(
+inline void get_orientation(
  Mat4f rotation,
  float3& orientation
  )
  {
-   orientation.x = (float)asin(-rotation.s9);                  // pitch
-   orientation.y = (float)atan2(-rotation.s8, rotation.sA);    // roll
-   orientation.z = (float)atan2(rotation.s1, rotation.s5);     // azimuth
+   orientation.x = -(float)asin(-rotation.s9);                  // pitch
+   orientation.y = -(float)atan2(-rotation.s8, rotation.sA);    // roll
+   orientation.z = -(float)atan2(rotation.s1, rotation.s5);     // azimuth
  }
 
 #endif

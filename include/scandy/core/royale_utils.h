@@ -13,7 +13,7 @@
 #ifndef Scandy_royale_utils_h
 #define Scandy_royale_utils_h
 
-#include <scandy/core/status.h>
+#include <scandy/core/Status.h>
 
 #include <royale/Status.hpp>
 

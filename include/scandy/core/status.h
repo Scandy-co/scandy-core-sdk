@@ -1,22 +1,22 @@
 /****************************************************************************\
- * Copyright (C) 2016 Scandy
+ * Copyright (C) 2017 Scandy
  *
  * THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
  * PARTICULAR PURPOSE.
  *
- \****************************************************************************/
+ * For distribution.
+\****************************************************************************/
 
-// For distribution.
-
-#ifndef Scandy_status_h
-#define Scandy_status_h
+#ifndef Scandy_core_Status_h
+#define Scandy_core_Status_h
 
 namespace scandy { namespace core {
     enum class Status
     {
         SUCCESS, //!< no errors
+        DONE, //!< no errors
         UNKNOWN_LIBRARY_VERSION, //!< unknown library version
         NOT_IMPLEMENTED,
 
@@ -31,6 +31,7 @@ namespace scandy { namespace core {
 
         FILE_NOT_FOUND,
 
+        INVALID_TYPE,
         INVALID_VALUE,
         INVALID_STATE,
         INVALID_LICENSE,
@@ -147,9 +148,13 @@ namespace scandy { namespace core {
         SERVER_UNREACHABLE,
         NETWORK_ERROR,
 
+        ROS_SUCCESS,
+        ROS_DONE,
+        ROS_ERROR,
+
         UNKNOWN,
         LAST
     };
 }}
 
-#endif // Scandy_status_h
+#endif // Scandy_core_Status_h

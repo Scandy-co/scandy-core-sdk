@@ -11,7 +11,7 @@
 #ifndef Scandy_TestViewport_h
 #define Scandy_TestViewport_h
 
-#include <scandy/core/status.h>
+#include <scandy/core/Status.h>
 #include <scandy/core/visualizer/Viewport.h>
 
 /* Begin VTK includes */
@@ -37,13 +37,12 @@ namespace scandy { namespace core {
  */
 class TestViewport : public Viewport {
 public:
-  vtkPolyData *m_data;
-  vtkPolyDataMapper *m_mapper;
-  vtkActor *m_actor;
+  vtkSmartPointer<vtkPolyData> m_data;
+  vtkSmartPointer<vtkPolyDataMapper> m_mapper;
+  vtkSmartPointer<vtkActor> m_actor;
 public:
   TestViewport();
-  ~TestViewport();
-  virtual void render(){}
+  virtual void render();
 };
 
 }}

@@ -15,6 +15,9 @@
 
 #include <scandy/utilities/TrackedMetadata.h>
 
+#if ENABLE_HIBERLITE
+#include <hiberlite.h>
+#endif
 
 namespace scandy { namespace utilities {
 
@@ -27,6 +30,7 @@ public:
   // TODO make multiple of these as necessary
   float sensor_error;
 
+#if ENABLE_HIBERLITE
   template<class Archive>
   void hibernate(Archive & ar)
   {
@@ -34,6 +38,7 @@ public:
 
     TrackedMetadata::hibernate(ar);
   }
+#endif
 };
 
 }}

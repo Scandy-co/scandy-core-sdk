@@ -41,17 +41,13 @@ public:
   /**
    * Default constructor sets `homogeneous_matrix` to an identity matrix.
    */
-  Pose()
-  :homogeneous_matrix(scandy::utilities::eigen::identityMat4f())
-  ,quaternion({{0,0,0,0}})
-  {}
+  Pose();
 
   /**
    * Constructor sets `homogeneous_matrix` to the provided matrix.
    * @param pose The Mat4f to which the homogeneous_matrix is set.
    */
-  Pose(scandy::utilities::eigen::Mat4f pose)
-  : homogeneous_matrix(pose){}
+  Pose(scandy::utilities::eigen::Mat4f pose);
 
   Pose(const Pose&) = default;
   Pose(Pose&&) = default;
@@ -59,81 +55,10 @@ public:
   Pose& operator=(Pose&) = default;
   Pose& operator=(Pose&&) = default;
 
-  void setEXIFOrientation(const scandy::utilities::EXIFOrientation exif_orientation) {
-      // NOTE: Remember that the homogeneous_matrix is a column-major matrix!
-      switch(exif_orientation) {
-      case scandy::utilities::EXIFOrientation::ONE:
-          // 1: standard (x, y) : [[1, 0], [0, 1]]
-          homogeneous_matrix.s0 = 1.0f;
-          homogeneous_matrix.s4 = 0.0f;
-          homogeneous_matrix.s1 = 0.0f;
-          homogeneous_matrix.s5 = 1.0f;
-          break;
-      case scandy::utilities::EXIFOrientation::TWO:
-          // 2: flipped on the y axis (-x, y) : [[-1, 0], [0, 1]]
-          homogeneous_matrix.s0 = -1.0f;
-          homogeneous_matrix.s4 = 0.0f;
-          homogeneous_matrix.s1 = 0.0f;
-          homogeneous_matrix.s5 = 1.0f;
-          break;
-      case scandy::utilities::EXIFOrientation::THREE:
-          // 3: 180 degree rotation (-x, -y) : [[-1, 0], [0, -1]]
-          homogeneous_matrix.s0 = -1.0f;
-          homogeneous_matrix.s4 = 0.0f;
-          homogeneous_matrix.s1 = 0.0f;
-          homogeneous_matrix.s5 = -1.0f;
-          break;
-      case scandy::utilities::EXIFOrientation::FOUR:
-          // 4: flipped on y axis + 180 degree rotation (x, -y) : [[1, 0], [0, -1]]
-          homogeneous_matrix.s0 = 1.0f;
-          homogeneous_matrix.s4 = 0.0f;
-          homogeneous_matrix.s1 = 0.0f;
-          homogeneous_matrix.s5 = -1.0f;
-          break;
-      case scandy::utilities::EXIFOrientation::FIVE:
-          // 5: flipped on y axis + 270 degree (clockwise) rotation (y, x) : [[0, 1], [1, 0]]
-          homogeneous_matrix.s0 = 0.0f;
-          homogeneous_matrix.s4 = 1.0f;
-          homogeneous_matrix.s1 = 1.0f;
-          homogeneous_matrix.s5 = 0.0f;
-          break;
-      case scandy::utilities::EXIFOrientation::SIX:
-          // 6: 270 degree rotation (y, -x) : [[0, -1], [1, 0]]
-          homogeneous_matrix.s0 = 0.0f;
-          homogeneous_matrix.s4 = -1.0f;
-          homogeneous_matrix.s1 = 1.0f;
-          homogeneous_matrix.s5 = 0.0f;
-          break;
-      case scandy::utilities::EXIFOrientation::SEVEN:
-          // 7: flipped on y axis + 90 degree rotation (-y, -x) : [[0, -1], [-1, 0]]
-          homogeneous_matrix.s0 = 0.0f;
-          homogeneous_matrix.s4 = -1.0f;
-          homogeneous_matrix.s1 = -1.0f;
-          homogeneous_matrix.s5 = 0.0f;
-          break;
-      case scandy::utilities::EXIFOrientation::EIGHT:
-          // 8: 90 degree rotation: (-y, x) : [[0, 1], [-1, 0]]
-          homogeneous_matrix.s0 = 0.0f;
-          homogeneous_matrix.s4 = 1.0f;
-          homogeneous_matrix.s1 = -1.0f;
-          homogeneous_matrix.s5 = 0.0f;
-          break;
-      default:
-          // TODO: log error
-          // Do nothing, as in Orientation 1
-          break;
-      }
-  }
+  void setEXIFOrientation(const scandy::utilities::EXIFOrientation exif_orientation);
 
-  void setTranslation(const float x_translation, const float y_translation, const float z_translation) {
-      // Sets the translation portion of the pose. Units should be the same units as used by the intrinsics
-      // matrix, etc.
-      homogeneous_matrix.sc = x_translation;
-      homogeneous_matrix.sd = y_translation;
-      homogeneous_matrix.se = z_translation;
-  }
+  void setTranslation(const float x_translation, const float y_translation, const float z_translation);
 };
-
 
 }}
 

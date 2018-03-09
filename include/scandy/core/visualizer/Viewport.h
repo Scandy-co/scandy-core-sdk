@@ -22,6 +22,7 @@
 
 /* Begin cpp includes */
 #include <cmath>
+#include <memory>
 /* End cpp includes */
 
 
@@ -35,12 +36,11 @@ namespace scandy { namespace core {
  */
 class Viewport {
 protected:
-  vtkRenderer *m_renderer;
+  vtkSmartPointer<vtkRenderer> m_renderer;
   /* Camera position, view-up, and focus. */
   double m_cx, m_cy, m_cz, m_vx, m_vy, m_vz, m_lx, m_ly, m_lz;
 public:
   Viewport();
-  virtual ~Viewport();
 public:
   void setCameraIntrinsics(const scandy::utilities::CameraIntrinsics &k);
   /* FIXME (@kaben): super-ugly. */
@@ -50,6 +50,7 @@ public:
     double e20, double e21, double e22, double e23,
     double e30, double e31, double e32, double e33
   );
+  void setCameraRelativePose(scandy::utilities::Mat4f rel_pose );
   /* The next two methods check to see whether the user has changed the
    * camera position or orientation by interacting with VTK, and if so,
    * displays info about the camera pose. This is useful for choosing a

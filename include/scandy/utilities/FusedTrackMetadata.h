@@ -13,8 +13,15 @@
 #ifndef Scandy_FusedTrackMetadata_h
 #define Scandy_FusedTrackMetadata_h
 
+
 #include <scandy/utilities/TrackedMetadata.h>
 
+#if ENABLE_HIBERLITE
+#include <hiberlite.h>
+#endif
+
+#include <scandy/utilities/ID_types.h>
+#include <vector>
 
 namespace scandy { namespace utilities {
 
@@ -24,13 +31,14 @@ namespace scandy { namespace utilities {
  */
 class FusedTrackMetadata : public TrackedMetadata {
 public:
-  friend class hiberlite::access;
   // keep track of the metadata uids used to fuse this frame
   std::vector<MetadataUID> contributing_uids;
 
   // metadata of the raw depth sensor frame associated
   SensorFrameMetadata frame_metadata;
 
+#if ENABLE_HIBERLITE
+  friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
   {
@@ -39,6 +47,7 @@ public:
 
     TrackedMetadata::hibernate(ar);
   }
+#endif
 };
 
 }}

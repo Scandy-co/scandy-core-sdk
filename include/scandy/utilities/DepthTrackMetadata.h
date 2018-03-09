@@ -16,12 +16,11 @@
 #include <scandy/utilities/TrackedMetadata.h>
 #include <scandy/utilities/DepthFrameMetadata.h>
 
+#if ENABLE_HIBERLITE
 #include <scandy/utilities/hiberliteApplication.h>
-
 #include <hiberlite.h>
+#endif
 
-using namespace hiberlite;
-using namespace std;
 
 namespace scandy { namespace utilities {
 
@@ -30,11 +29,13 @@ namespace scandy { namespace utilities {
  */
 class DepthTrackMetadata : public TrackedMetadata {
 public:
-  friend class hiberlite::access;
   float icp_cost;
 
   // metadata of the raw sensor frame associated
   DepthFrameMetadata frame_metadata;
+
+#if ENABLE_HIBERLITE
+  friend class hiberlite::access;
 
   template<class Archive>
   void hibernate(Archive & ar)
@@ -44,6 +45,8 @@ public:
 
     TrackedMetadata::hibernate(ar);
   }
+#endif
+
 };
 
 }}

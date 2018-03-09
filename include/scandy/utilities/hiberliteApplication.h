@@ -9,6 +9,7 @@
  \****************************************************************************/
 
 // For distribution.
+#if ENABLE_HIBERLITE
 
 #ifndef Scandy_Hiberlite_App_h
 #define Scandy_Hiberlite_App_h
@@ -271,5 +272,7 @@ public:
 };
 
 }}
+
+#endif
 
 #endif

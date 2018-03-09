@@ -14,20 +14,18 @@
  * \file ID_types.h
  */
 
-#ifndef Scandy_ID_types_h
-#define Scandy_ID_types_h
+#ifndef Scandy_utilities_ID_types_h
+#define Scandy_utilities_ID_types_h
 
 #include <string>
+#include <cstdlib>
 
 namespace scandy { namespace utilities {
 
-using CameraID = std::string;
-using StreamID = std::string;
-
-using MetadataUID = std::string;
+using MetadataUID = uint32_t;
 using SensorID = std::string;
 using DeviceID = std::string;
 
 }}
 
-#endif // Scandy_ID_types_h
+#endif // Scandy_utilities_ID_types_h

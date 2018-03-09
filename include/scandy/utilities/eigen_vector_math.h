@@ -117,7 +117,7 @@ inline Mat4f rotationPart(Mat4f m){
   Mat4f r;
   EigenM4f(r.s) <<
   m.s0, m.s4, m.s8, 0.0f,
-  m.s1, m.s5, m.s7, 0.0f,
+  m.s1, m.s5, m.s9, 0.0f,
   m.s2, m.s6, m.sa, 0.0f,
   0.0f, 0.0f, 0.0f, 1.0f;
   return r;
@@ -144,6 +144,21 @@ inline Mat4f identityMat4f(){
   0.0f, 0.0f, 1.0f, 0.0f,
   0.0f, 0.0f, 0.0f, 1.0f;
   return t;
+}
+
+inline bool isIdentity(Mat4f mat){
+  Mat4f eye = identityMat4f();
+
+  bool result = true;
+  for(int i = 0; i < 16; i++){
+    result = result && (mat.s[i] == eye.s[i]);
+  }
+  return result;
+}
+
+inline bool areEqual(Mat4f mat1, Mat4f mat2){
+  bool result = EigenM4f(mat1.s).isApprox(EigenM4f(mat2.s));
+  return result;
 }
 
 // NOTE: the passed in Matrix ( Mat4f ) is assumed to be COLUMN MAJOR

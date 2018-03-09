@@ -18,7 +18,8 @@ namespace scandy { namespace core {
     {
       PLY,
       OBJ,
-      STL
+      STL,
+      AUTO
     };
 }}
 

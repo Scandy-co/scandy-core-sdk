@@ -15,6 +15,9 @@
 
 #include <scandy/utilities/SensorFrameMetadata.h>
 
+#if ENABLE_HIBERLITE
+#include <hiberlite.h>
+#endif
 
 namespace scandy { namespace utilities {
 
@@ -24,11 +27,12 @@ namespace scandy { namespace utilities {
  */
 class DepthFrameMetadata : public SensorFrameMetadata {
 public:
-  friend class hiberlite::access;
 
   // The intrinsics for camera that captured this depth frame
   scandy::utilities::CameraIntrinsics intrinsics;
 
+#if ENABLE_HIBERLITE
+  friend class hiberlite::access;
   template<class Archive>
   void hibernate(Archive & ar)
   {
@@ -36,6 +40,7 @@ public:
 
     SensorFrameMetadata::hibernate(ar);
   }
+#endif
 };
 
 }}

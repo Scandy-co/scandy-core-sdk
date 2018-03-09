@@ -11,31 +11,30 @@
 #ifndef Scandy_ImgViewport_h
 #define Scandy_ImgViewport_h
 
-#include <scandy/core/status.h>
+#include <scandy/core/Status.h>
 #include <scandy/core/visualizer/Viewport.h>
 
 /* Begin VTK includes */
 #include <vtkSmartPointer.h>
 #include <vtkActor2D.h>
 #include <vtkImageData.h>
-#include <vtkImageFlip.h>
 #include <vtkImageMapper.h>
-#include <vtkImageResize.h>
+#include <vtkImageReslice.h>
 #include <vtkTransform.h>
+#include <vtkImageImport.h>
 
 namespace scandy { namespace core {
 
 class ImgViewport : public Viewport {
 public:
-  float m_zoom;
-  vtkImageData *m_img;
-  vtkTransform *m_transform;
-  vtkImageResize *m_resize;
-  vtkImageMapper *m_mapper;
-  vtkActor2D *m_actor;
+  vtkSmartPointer<vtkImageData> m_img;
+  vtkSmartPointer<vtkImageImport> m_img_import;
+  vtkSmartPointer<vtkTransform> m_transform;
+  vtkSmartPointer<vtkImageReslice> m_reslice;
+  vtkSmartPointer<vtkImageMapper> m_mapper;
+  vtkSmartPointer<vtkActor2D> m_actor;
 public:
   ImgViewport();
-  ~ImgViewport();
 public:
   void resizeAndRotate(int input_width, int input_height, scandy::utilities::Mat4f rel_pose);
 };

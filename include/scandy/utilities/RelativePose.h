@@ -32,13 +32,13 @@ namespace scandy { namespace utilities {
  */
 class RelativePose {
 public:
-  StreamID m_relative_to_stream_id;
-  CameraID m_relative_to_camera_id;
+  SensorID m_relative_to_sensor_id;
+  DeviceID m_relative_to_device_id;
   Pose m_pose;
 public:
   RelativePose(
-    const StreamID& relative_to_stream_id = "",
-    const CameraID& relative_to_camera_id = ""
+    const SensorID& relative_to_sensor_id = "",
+    const DeviceID& relative_to_device_id = ""
   );
 
 };

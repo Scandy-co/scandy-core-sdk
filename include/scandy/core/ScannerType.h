@@ -16,10 +16,15 @@
 namespace scandy { namespace core {
     enum class ScannerType
     {
-      FILE,
-      TANGO,
-      PICO_FLEXX,  
-      NETWORK
+      UNKNOWN=0,
+      FILE=1,
+      PICO_FLEXX=2,
+      TANGO=3,
+      OPENNI2=4,
+      NETWORK=5,
+      DS541=6,
+      TRUE_DEPTH=7,
+      DUAL_CAMERA=8
     };
 }}
 

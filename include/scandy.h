@@ -15,7 +15,7 @@
 
 // Top-level scandy include file.
 
-#include <scandy/core/status.h>
+#include <scandy/core/Status.h>
 
 namespace scandy { namespace core {
     /*! Scandy library version. */

@@ -41,9 +41,7 @@ public:
 
 public:
     std::vector<RGBAPoint> m_rgba_data;
-    std::vector<uchar> m_yuv420_data;
     ColorMetadata m_metadata;
-    unsigned int m_texture_id = 0;
 public:
   ColorFrame() = default;
   ColorFrame(const ColorFrame&) = default;
@@ -66,6 +64,10 @@ public:
 public:
   void setVersion(int version);
   void setTimeStamp(std::chrono::microseconds timestamp);
+
+  int width() const { return m_metadata.frame_metadata.intrinsics.m_width; }
+  int height() const { return m_metadata.frame_metadata.intrinsics.m_height; }
+  size_t size() const { return width()*height(); }
 
   /**
    * Base our metadata on relative pose and an analogous `CameraIntrinsics`.
@@ -94,8 +96,8 @@ public:
  * \brief Define struct for storing type `ColorFrame`.
  */
 struct sColorFrame {
-  // scandy::utilities::StreamID stream_id;
-  // scandy::utilities::CameraID camera_id;
+  // scandy::utilities::SensorID sensor_id;
+  // scandy::utilities::DeviceID device_id;
   // uint64_t frame_id;
   ColorFrame color_frame;
 };
