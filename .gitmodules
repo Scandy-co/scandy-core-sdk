@@ -13,3 +13,6 @@
 [submodule "scandy-core-rn"]
 	path = scandy-core-rn
 	url = git@github.com:Scandy-co/scandy-core-rn
+[submodule "examples/ScandyCoreIOSExample"]
+	path = examples/ScandyCoreIOSExample
+	url = git@github.com:Scandy-co/ScandyCoreIOSExample.git
