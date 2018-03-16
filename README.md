@@ -27,9 +27,14 @@ Scandy Core is an SDK that allows developers to easily create 3D models, track p
 
 Scandy Core SDK currently supports bindings for:
 
-* C++
-* Java
-* JavaScript
+* [C++](classscandy_1_1core_1_1_i_scandy_core.html)
+* [Java](classco_1_1scandy_1_1scandycore_1_1_scandy_core.html)
+* [Objective C](interface_scandy_core_manager.html)
+
+Currently supported but broken:
+
+* [JavaScript](md_scandy-core-rn__r_e_a_d_m_e.html)
+
 
 Upcoming bindings:
 
@@ -41,8 +46,9 @@ Upcoming bindings:
 
 Scandy Core supports the following operating systems:
 
-* OS X (tested on 10.11, 10.12)
+* macOS (tested on 10.11, 10.12)
 * Android (minimum Android version 5.0)
+* iOS (minimum iOS version 11.0)
 * Linux (tested on Ubuntu 14.04, 16.04)
 
 **All operating systems must have OpenCL >= v1.1**
@@ -57,12 +63,12 @@ Upcoming systems:
 #### 3D scan to file:
 
 * Initialize the scanner
-  * Either using a pre-recorded `.rrf` file or live data from a pico flexx.
+  * Either using a pre-recorded `.rrf` file or live data from an attached sensor.
 * Start a preview, so as to visualize what the depth sensor "sees"
 * Adjust scan resolution to fit the use-case
   * Use high resolution for detailed scans
   * Use low resolution for fast scans
-  * Use medium resolution for somewhere inbetween
+  * Use medium resolution for somewhere in-between
 * Adjust the scan size to fit the size of the scan subject
 * Start the scan
 * Scan for some period of time. Determined by a button press, timer, API call of some sort, etc..
