@@ -17,11 +17,9 @@
 /* Begin VTK includes */
 #include <vtkSmartPointer.h>
 #include <vtkActor.h>
-#include <vtkPolyData.h>
+// #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
-#include "vtkConeSource.h"
-#include "vtkSphereSource.h"
-#include "vtkGlyph3D.h"
+class vtkPolyData;
 /* End VTK includes */
 
 /* Begin cpp includes */

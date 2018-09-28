@@ -22,13 +22,13 @@
 namespace scandy { namespace core {
 
 class GLImgViewport : public Viewport {
-private:
-  int m_calc_width, m_calc_height;
 public:
+  int m_calc_width, m_calc_height;
   vtkSmartPointer<vtkOpenGLTexture> m_gl_texture;
   vtkSmartPointer<vtkTextureObject> m_to;
   vtkSmartPointer<vtkPolyDataMapper> m_plane_mapper;
   vtkSmartPointer<vtkActor> m_textured_plane;
+  vtkSmartPointer<vtkOpenGLRenderWindow> m_renWin;
 public:
   GLImgViewport();
   ~GLImgViewport();

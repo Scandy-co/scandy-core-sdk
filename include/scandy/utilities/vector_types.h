@@ -439,7 +439,7 @@ typedef float16 Mat4f;
  */
 #if !IS_A_CL_HEADER_STRING
 typedef struct _half4{
-  half_float::half x, y, z, w; ;
+  half_float::half x, y, z, w;
 } half4;
 #endif // endif !IS_A_CL_HEADER_STRING
 

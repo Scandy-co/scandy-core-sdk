@@ -1,5 +1,5 @@
 /****************************************************************************\
- * Copyright (C) 2016 Scandy
+ * Copyright (C) 2018 Scandy
  *
  * THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
@@ -23,6 +23,7 @@
 #include <scandy/core/MeshType.h>
 #include <scandy/core/ScanResolution.h>
 #include <scandy/core/visualizer/Visualizer.h>
+#include <scandy/core/ISLAMConfiguration.h>
 
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -43,6 +44,8 @@ namespace scandy { namespace core {
 /**
  * Interface for interacting with ScandyCore.  Call factoryCreate to get a pointer
  * to ScandyCore.
+ * NOTE: On iOS, access IScandyCore through ScandyCoreManager instead of factoryCreate().
+ *
  */
 class IScandyCore {
 public:
@@ -108,23 +111,57 @@ public:
    * @return @see Status.h
    */
   virtual scandy::core::Status initializeScanner(ScannerType scanner_type, std::string source = "");
+
+  /**
+   * Clears the pipeline and configurations made for the current scanning session.
+   * @return @see Status.h
+   */
   virtual scandy::core::Status uninitializeScanner();
 
   /**
-   * Sets up the image processing workers
+   * Sets up the image processing pipeline and workers
+   * @return @see Status.h
    */
   virtual scandy::core::Status initializeImageProcessor();
 
   /**
-  * Starts the processing pipeline that's been configured
+  * Starts the processing pipeline that's been configured.
+  * NOTE: You should only call this function when configuring the pipeline
+  * manually, which is not fully supported at this time. Calling startPreview()
+  * or startScanning() will tell the pipeline to start after it has been
+  * automatically configured in initializeScanner().
+  *
+  * @return @see Status.h
   */
-  virtual scandy::core::Status start();
-  virtual scandy::core::Status stop();
+  virtual scandy::core::Status startPipeline();
+
+  /**
+  * Stops the processing pipeline.
+  * NOTE: You should only call this function when configuring the pipeline
+  * manually, which is not fully supported at this time. Calling stopScanning()
+  * will tell the pipeline to stop. Then uninitializeScanner() can be called to
+  * automatically tear down the pipeline configuration.
+  *
+  * @return @see Status.h
+  */
+  virtual scandy::core::Status stopPipeline();
 
   /**
    * Tells whether the underlying pipeline is running
+   * @return bool true if pipeline is running, false if not.
    */
   virtual bool isRunning();
+
+  /**
+   * Tells whether the Network Mananger has connected clients or not
+   * @return bool true if there are active connections, false if not.
+   */
+  virtual bool hasNetworkConnection();
+
+  /**
+   * Returns a list of strings of connected IP addresses
+   */
+  virtual std::vector<std::string> connectedClients();
 
   /**
    * Automatically create instances of the views in each col,grid location of the visualizer window.
@@ -150,7 +187,7 @@ public:
 
   /**
    * Adds a Viewport to the Visualizer with a 3D object in. Use to test your
-   * setup to make the Visualizer is working and receiving interactions.
+   * setup to make sure the Visualizer is working and receiving interactions.
    * @return @see Status.h
    */
   virtual scandy::core::Status addTestViewport();
@@ -171,6 +208,93 @@ public:
    * @return @see Status.h
    */
   virtual scandy::core::Status generateMesh();
+
+  /**
+   * Reduce the number of points and triangles in the mesh.
+   * @param percent 0.0 - 1.0 for percent reduction in number of points
+   */
+  virtual Status decimateMesh(float percent);
+  /**
+   * Smooth the surface of the mesh
+   * @param iterations The number of smoothing iterations to make. 3-10 is a reasonable range
+   */
+  virtual Status smoothMesh(int iterations);
+  /**
+   * Attempts to automatically fill holes in the mesh
+   * @param hole_size Largest area of to fill
+   */
+  virtual Status fillHoles(float hole_size);
+  /**
+   * Adjust the Hue saturation and value of the mesh
+   * @param hsv float[3] Percent increase on hue, saturation, and value respectively. -1.0 to 1.0
+   */
+  virtual Status adjustHSV(float hsv[3]);
+  /**
+   * Apply the edits being viewed in the Viewport into the mesh, so that when you save they take
+   * @param apply_changes (true) Apply the edits or (false) undo the edits
+   */
+  virtual Status applyEditsFromMeshViewport(bool apply_changes);
+
+  /**
+   * Reset the in the camera in the mesh viewer
+   */
+  virtual Status resetViewportCamera();
+
+  /**
+   * Gets the currernt model orientation loaded in the Visualizer
+   * @return Mat4f with the current model orientation
+   */
+  virtual scandy::utilities::Mat4f getModelOrientation();
+
+  /**
+   * Gets the current model's bounding box loading the visualizer
+   * @return float3 with the current model bounding box
+   */
+  virtual scandy::utilities::float8 getModelBoundingBox();
+
+  /**
+   * Toggle wireframe or surface rendering for meshes.
+   * @param enable_wireframe True for wireframe, false for surface
+   * @return @see Status.h
+   */
+  virtual Status setEnableWireframe(bool enalbe_wireframe);
+
+  /**
+   * Toggle color or monochrome rendering for meshes.
+   * @param enable_color True for color, false for monochrome
+   * @return @see Status.h
+   */
+  virtual Status setEnableColorViewport(bool enable_color);
+
+  /**
+   * Set shader to use for surface rendering for meshes.
+   * @param shaderName Name of the shader to use
+   * @return @see Status.h
+   */
+  virtual Status setViewportShader(std::string shaderName);
+
+  /**
+   * Turns on and off a cropping plane for editing a mesh
+   * @param  enable Boolean that enables of disables the cropping plane
+   * @return @see Status.h
+   */
+  virtual Status setEnableCroppingPlane(bool enable);
+
+  /**
+   * Determines where the cropping plane is enabled
+   * @return True for enabled, false otherwise
+   */
+  virtual bool getEnableCroppingPlane();
+
+
+  /**
+   * If cropping plane is orthogonal, then this helper functions sets the
+   * cropping plane from 0-1.0 (0 to 100%) along that orthogonal plane.
+   * @param  percent A percent (0.0 - 1.0) for how much to crop
+   * @return @see Status.h
+   */
+  virtual Status setCroppingPlanePercent(float percent);
+
 
   /**
    * Saves the output from the previously generated mesh to disk.
@@ -200,12 +324,18 @@ public:
   virtual scandy::core::Status startScanning();
 
   /**
-   * Stop the SLAM algorithm.  Do not continue to record and integrate sensor data.
+   * Stop the SLAM algorithm. Do not continue to record and integrate sensor data.
    * @return @see Status.h
    */
   virtual scandy::core::Status stopScanning();
 
   // *** Getters
+
+  /**
+   * Get the underlying ISLAMConfiguration.
+   * @return Pointer to ISLAMConfiguration.
+   */
+  virtual std::shared_ptr<scandy::core::ISLAMConfiguration> getISLAMConfiguration();
 
   /**
    * Get the underlying visualizer that is platform dependent.
@@ -284,6 +414,13 @@ public:
   virtual scandy::core::Status setScanSize(float size);
 
   /**
+   * Sets the noise filter in Scandy Core depending on the scanner type
+   * @param  percent 0.0 - 1.0 with higher values providing a tighter filter that removes more data
+   * @return @see Status.h
+   */
+  virtual Status setNoiseFilter(float percent);
+
+  /**
    * Set the distance between the sensor and start of the bounding box. The
    * default value is 0, but some sensors do not perceive data within a small
    * distance.
@@ -315,6 +452,15 @@ public:
    */
   virtual scandy::core::Status setColorCameraEXIFOrientation(scandy::utilities::EXIFOrientation exif_orientation);
 
+
+  /**
+   * Toggle per-vertex color integration into the scan.
+   * @param enable_color True for color, false for monochrome
+   * @return
+   */
+  virtual scandy::core::Status setEnableColor(bool enable_color);
+
+
   // *** Events
   std::function<void()> onVisualizerReady;
   std::function<void()> onScannerReady;
@@ -326,6 +472,7 @@ public:
   std::function<void()> onGenerateMesh;
   std::function<void()> onSaveMesh;
   std::function<void()> onFinishedHeadCapture;
+  std::function<void(std::string host)> onClientConnected;
 
   /**
    * Bind a listener to trigger on tracking pose and status updates.
