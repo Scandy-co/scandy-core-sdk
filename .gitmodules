@@ -16,3 +16,6 @@
 [submodule "examples/ScandyCoreIOSExample"]
 	path = examples/ScandyCoreIOSExample
 	url = git@github.com:Scandy-co/ScandyCoreIOSExample.git
+[submodule "examples/ScandyCoreSceneKitExample"]
+	path = examples/ScandyCoreSceneKitExample
+	url = https://github.com/Scandy-co/ScandyCoreSceneKitExample
