@@ -10,18 +10,34 @@
 
 // For distribution.
 
-#ifndef Scandy_ISLAMConfigration_h
-#define Scandy_ISLAMConfigration_h
+#ifndef Scandy_IScandyCoreConfiguration_h
+#define Scandy_IScandyCoreConfiguration_h
+
+#include <scandy/utilities/CameraIntrinsics.h>
+#include <scandy/utilities/RelativePose.h>
 
 #include <string>
 
 namespace scandy { namespace core {
 /**
  * Interface for interacting with configuration that defines the SLAM context.
- * Get the ISLAMConfiguration shared_ptr from IScandyCore
+ * Get the IScandyCoreConfiguration shared_ptr from IScandyCore
  */
-class ISLAMConfiguration {
+class IScandyCoreConfiguration {
+protected:
+  std::vector<std::string> m_discovered_hosts;
 public:
+  /* CameraIntrinsics for the Depth Camera */
+  scandy::utilities::CameraIntrinsics m_depth_camera_intrinsics;
+  /* The Relative Pose for the Depth Camera */
+  scandy::utilities::RelativePose m_depth_camera_relative_pose;
+  /* CameraIntrinsics for the Color Camera */
+  scandy::utilities::CameraIntrinsics m_color_camera_intrinsics;
+  /* The Relative Pose for the Color Camera */
+  scandy::utilities::RelativePose m_color_camera_relative_pose;
+  /* Intrinsics for the virtual "model" camera used to render the TSDF. */
+  scandy::utilities::CameraIntrinsics m_model_camera_intrinsics;
+
   /**
    * Adjust how close neighboring depth pixels must be for a pixel to be
    * considered valid. 0.0 would result in none of the pixels being valid.
@@ -31,6 +47,12 @@ public:
    * this filter has very little effect on structured light sensors.
    */
   float m_valid_depth_distance_ratio_thresh;
+
+  /**
+   * How many neighbors must be valid within the
+   * m_valid_depth_distance_ratio_thresh for the pixel to be valid
+   */
+  short m_valid_depth_neighbor_count_thresh;
 
   /**
    * Adjust how connective or elastic the surface of the TSDF is.
@@ -95,15 +117,49 @@ public:
   std::string m_server_host;
   /* Sets the port that we should send packets to when networking */
   int m_server_port;
-  /* Sets whether a network server should be launched */
-  bool m_is_network_server;
-  /* Sets whether a network client should be launched and streamed */
-  bool m_is_network_client;
+  /* Sets whether this device should receive the renderer preview stream */
+  bool m_receive_rendered_stream;
+  /* Sets whether this device should stream its renderered preview to m_server_host */
+  bool m_send_rendered_stream;
+  /* Sets whether this device should stream its SLAMInputBuffer to the m_server_host */
+  bool m_send_slam_stream;
+  /* Sets whether this device should receive SLAM data via a network stream */
+  bool m_receive_slam_stream;
+
+  /* Sets whether this device should receive commands from connected devices */
+  bool m_receive_network_commands;
+  /* Sets whether this device should send commands to other connected devices */
+  bool m_send_network_commands;
+
+  /* Sets whether scanning is done with a bounding box or without */
+  bool m_use_unbounded;
+
+  /* Sets whether to use texture mapping mode for face scanning */
+  bool m_use_texturing;
+
+  /* Sets whether to configure for volumetric video use case */
+  bool m_enable_volumetric_video_streaming;
+  bool m_enable_volumetric_video_recording;
+
+  /* Where to store all the temporary files that get created with a scan */
+  std::string m_scan_dir_path;
+
+  /* Index into the list of shaders to apply to a volumetric video stream */
+  int m_shader_idx;
 
 public:
-  ISLAMConfiguration();
+  IScandyCoreConfiguration();
+public:
+  bool enableVolumetricVideo(){
+    return m_enable_volumetric_video_streaming || m_enable_volumetric_video_recording;
+  }
+
+  std::vector<std::string> discoveredHosts(){
+    auto hosts = m_discovered_hosts;
+    return hosts;
+  }
 };
 
 }}
 
-#endif // Scandy_ISLAMConfigration_h
+#endif // Scandy_IScandyCoreConfiguration_h

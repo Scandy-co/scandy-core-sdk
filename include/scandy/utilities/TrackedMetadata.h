@@ -67,6 +67,38 @@ public:
   scandy::utilities::float3 angular_velocity;
   scandy::utilities::float3 angular_acceleration;
 
+public:
+  TrackedMetadata(){}
+
+  TrackedMetadata(const TrackedMetadata&) = default;
+  TrackedMetadata(TrackedMetadata&&) = default;
+  TrackedMetadata& operator=(const TrackedMetadata&) = default;
+  TrackedMetadata& operator=(TrackedMetadata&) = default;
+  TrackedMetadata& operator=(TrackedMetadata&&) = default;
+
+
+  template <class Archive>
+  void serialize(Archive& archive){
+    archive(
+      cereal::base_class<scandy::utilities::SensorFrameMetadata>(this),
+      time_tracked,
+      frame_tracked,
+      frame_integrated,
+      track_time_cost,
+      delta_t,
+      sensor_type,
+      confidence,
+      did_compute_velocities,
+      did_compute_accels,
+      computed_pose,
+      orientation_quaterion,
+      linear_velocity,
+      linear_acceleration,
+      angular_velocity,
+      angular_acceleration
+    );
+  }
+
 #if ENABLE_HIBERLITE
   friend class hiberlite::access;
   template<class Archive>

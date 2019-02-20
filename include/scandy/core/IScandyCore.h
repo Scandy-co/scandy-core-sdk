@@ -21,12 +21,13 @@
 #include <scandy/core/ScannerType.h>
 #include <scandy/core/ScanState.h>
 #include <scandy/core/MeshType.h>
+#include <scandy/core/MeshExportOptions.h>
 #include <scandy/core/ScanResolution.h>
 #include <scandy/core/visualizer/Visualizer.h>
-#include <scandy/core/ISLAMConfiguration.h>
+#include <scandy/core/visualizer/ISceneKitVisualizer.h>
+#include <scandy/core/visualizer/VisualizerType.h>
+#include <scandy/core/IScandyCoreConfiguration.h>
 
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
 
 #ifdef SCANDY_QT
 #include <QVTKWidget.h>
@@ -164,6 +165,22 @@ public:
   virtual std::vector<std::string> connectedClients();
 
   /**
+   * Returns a list of strings of discovered Scandy Core host IP addresses
+   */
+  virtual std::vector<std::string> discoveredHosts();
+
+  /*
+   Connects to a remote host to receive commands from
+   @return bool true if successful, false if not
+   */
+  virtual bool connectToCommandHost(std::string host);
+
+  /**
+   * Clears the list of hosts that we should receive commands from
+   */
+  virtual void clearCommandHosts();
+
+  /**
    * Automatically create instances of the views in each col,grid location of the visualizer window.
    * Implicitly called if factoryCreate with visualizer params was invoked.
    * @param  width Width of the visualizer window in pixesls.
@@ -184,6 +201,14 @@ public:
 #endif
   );
 
+  virtual scandy::core::Status setVisualizerType(VisualizerType visualizer_type=VisualizerType::SCANDYCORE, void* native_host_ptr=nullptr);
+
+  /**
+   * Clears the current visualizer context. Helpful if your GL context updates
+   * @return @see Status.h
+   */
+  virtual scandy::core::Status clearVisualizer(VisualizerType visualizer_type=VisualizerType::AUTO);
+
 
   /**
    * Adds a Viewport to the Visualizer with a 3D object in. Use to test your
@@ -192,6 +217,20 @@ public:
    */
   virtual scandy::core::Status addTestViewport();
 
+  /**
+   * Adds a Viewport to the Visualizer that receives an volumetric video stream
+   * and displays it in ARKit
+   * @method addAR4DViewport
+   * @return @see Status.h
+   */
+  virtual std::shared_ptr<ISceneKitVisualizer> addAR4DViewport();
+
+  /**
+   * Exports the most recent volumetic video recording to a series of the
+   * desired file types.
+   * @return @see Status.h
+   */
+  virtual scandy::core::Status exportVolumetricVideo(MeshExportOptions meshExportOptions);
 
   /**
    * Loads a mesh file from the local disk.
@@ -202,6 +241,15 @@ public:
    * @return @see Status.h
    */
   virtual scandy::core::Status loadMesh(std::string file_path_or_url, std::string texture_path="");
+
+  /**
+   * Loads a volumetric video exported in the Scandy Core format.
+   * Looks for a scvv_animation.json in the src_dir_path
+   * @method loadVolumetricVideo
+   * @param  src_dir_path        Directory to load the volumetic video from
+   * @return                     @see Status.h
+   */
+  virtual std::shared_ptr<ISceneKitVisualizer> loadVolumetricVideo(std::string src_dir_path, void* scnScene=nullptr);
 
   /**
    * Generate a mesh from current point cloud data as viewed in the visualizer.
@@ -224,6 +272,13 @@ public:
    * @param hole_size Largest area of to fill
    */
   virtual Status fillHoles(float hole_size);
+
+  /**
+   * Attempts to automatically make the mesh water tight
+   * @param depth How deeply to follow the original model. 5 is loose, 8 is default, 13 is high
+   */
+  virtual Status makeWaterTight(int depth);
+
   /**
    * Adjust the Hue saturation and value of the mesh
    * @param hsv float[3] Percent increase on hue, saturation, and value respectively. -1.0 to 1.0
@@ -239,6 +294,13 @@ public:
    * Reset the in the camera in the mesh viewer
    */
   virtual Status resetViewportCamera();
+
+  /**
+   * Saves a screenshot of the current Visualizer to the specified file path
+   * @param  file_path File path to save screenshot to
+   * @return           @see Status.h
+   */
+  virtual Status saveScreenShot(std::string file_path);
 
   /**
    * Gets the currernt model orientation loaded in the Visualizer
@@ -318,7 +380,8 @@ public:
   virtual scandy::core::Status startPreview();
 
   /**
-   * Start the SLAM algorithm.
+   * Start the SLAM algorithm, creates a 3D scan by tracking successive frames
+   * and integrating them into a TSDF.
    * @return @see Status.h
    */
   virtual scandy::core::Status startScanning();
@@ -332,10 +395,10 @@ public:
   // *** Getters
 
   /**
-   * Get the underlying ISLAMConfiguration.
-   * @return Pointer to ISLAMConfiguration.
+   * Get the underlying IScandyCoreConfiguration.
+   * @return Pointer to IScandyCoreConfiguration.
    */
-  virtual std::shared_ptr<scandy::core::ISLAMConfiguration> getISLAMConfiguration();
+  virtual std::shared_ptr<scandy::core::IScandyCoreConfiguration> getIScandyCoreConfiguration();
 
   /**
    * Get the underlying visualizer that is platform dependent.
@@ -366,6 +429,12 @@ public:
    */
   virtual scandy::utilities::float3 getScanSize();
 
+  /**
+   * Gets the current voxel size in meters.
+   * @method getVoxelSize
+   * @return A float representing the voxel size in meters
+   */
+  virtual float getVoxelSize();
 
   /**
    * Gets the current scan state of ScandyCore
@@ -412,6 +481,15 @@ public:
    * @return @see Status.h
    */
   virtual scandy::core::Status setScanSize(float size);
+
+
+  /**
+   * The size of each voxel in the scan volume. Essentially setting resolution when
+   * using unbounded scanning. 0.0005 - 0.04 are a good range of values.
+   * @param size The size of the voxel in meters.
+   * @return @see Status.h
+   */
+  virtual scandy::core::Status setVoxelSize(float size);
 
   /**
    * Sets the noise filter in Scandy Core depending on the scanner type
@@ -462,7 +540,7 @@ public:
 
 
   // *** Events
-  std::function<void()> onVisualizerReady;
+  std::function<void(bool createdVisualizer)> onVisualizerReady;
   std::function<void()> onScannerReady;
   std::function<void()> onScannerStart;
   std::function<void()> onScannerStop;
@@ -473,6 +551,7 @@ public:
   std::function<void()> onSaveMesh;
   std::function<void()> onFinishedHeadCapture;
   std::function<void(std::string host)> onClientConnected;
+  std::function<void(std::string host)> onHostDiscovered;
 
   /**
    * Bind a listener to trigger on tracking pose and status updates.

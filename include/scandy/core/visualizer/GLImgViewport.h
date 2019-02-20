@@ -21,19 +21,37 @@
 
 namespace scandy { namespace core {
 
+class SCvtkTextureObject : public vtkTextureObject {
+public:
+  static SCvtkTextureObject* New();
+  vtkTypeMacro(SCvtkTextureObject, vtkObject);
+
+  bool Create2DFromTextureHandle(unsigned int width, unsigned int height,
+                       int numComps,  int dataType, uint handle);
+protected:
+  SCvtkTextureObject();
+  ~SCvtkTextureObject() override;
+private:
+  SCvtkTextureObject(const SCvtkTextureObject&) = delete;
+  void operator=(const SCvtkTextureObject&) = delete;
+};
+
+
 class GLImgViewport : public Viewport {
 public:
   int m_calc_width, m_calc_height;
   vtkSmartPointer<vtkOpenGLTexture> m_gl_texture;
-  vtkSmartPointer<vtkTextureObject> m_to;
+  vtkSmartPointer<SCvtkTextureObject> m_to;
   vtkSmartPointer<vtkPolyDataMapper> m_plane_mapper;
   vtkSmartPointer<vtkActor> m_textured_plane;
   vtkSmartPointer<vtkOpenGLRenderWindow> m_renWin;
 public:
   GLImgViewport();
   ~GLImgViewport();
-protected:
-  bool setupGLTexture(int width=0, int height=0);
+public:
+  bool setupGLTexture(float scaleAdjust=1.0f, int width=0, int height=0, uint textureHandle=0);
+  void render() override;
+
 };
 
 }}

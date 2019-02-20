@@ -23,11 +23,18 @@
 #include <scandy/utilities/struct_types.h>
 #include <scandy/utilities/CameraIntrinsics.h>
 
+#include <cereal/types/unordered_map.hpp>
+#include <cereal/types/memory.hpp>
+#include <cereal/types/polymorphic.hpp>
+#include <cereal/types/vector.hpp>
+
 #include <Eigen/Core>
 // NOTE: this fixed bug with EigenM4f.inverse()
 // In Eigen/MatrixBase is says incluse LU for some specified ops,
 // inverse being one
 #include <Eigen/LU>
+#include <Eigen/Dense>
+
 
 namespace scandy { namespace utilities { namespace eigen {
 
@@ -41,6 +48,7 @@ using CameraIntrinsics = scandy::utilities::CameraIntrinsics;
 using Mat4f = scandy::utilities::float16;
 using EigenM4f = Eigen::Map<Eigen::Matrix4f>;
 using EigenV4f = Eigen::Map<Eigen::Vector4f>;
+using EigenV3f = Eigen::Map<Eigen::Vector3f>;
 
 /* Creates camera intrinsics matrix from k, with k.x --> fx (focal length in
  * pixel widths), x.y --> fy (focal length in pixel heights), k.z --> cx
@@ -184,6 +192,96 @@ inline float4 product(Mat4f t, float4 v){
   return p;
 }
 
+// normalize a float3 vector
+inline float3 normalize(float3 v){
+  EigenV3f(v.s).normalize();
+  return v;
+}
+
+// normalize a float4 vector
+inline float4 normalize(float4 v){
+  EigenV4f(v.s).normalize();
+  return v;
+}
+
 }}}
+
+/**
+ * Define all the serializers for Eigen
+ */
+
+namespace Eigen {
+
+  // the following save/load cover all Eigen Matrix types (Matrix3f,
+  // Matrix4d, etc)
+  template <
+    class Archive,
+    class Scalar,
+    int Rows,
+    int Cols,
+    int Options,
+    int MaxRows,
+    int MaxCols
+  >
+  inline typename std::enable_if<
+    cereal::traits::is_output_serializable<
+      cereal::BinaryData<Scalar>,
+      Archive
+    >::value,
+    void
+  >::type save(
+    Archive & ar,
+    Eigen::Matrix<Scalar, Rows, Cols, Options, MaxRows, MaxCols> const & m
+  ){
+    int32_t rows = m.rows();
+    int32_t cols = m.cols();
+    ar(rows);
+    ar(cols);
+    ar(cereal::binary_data(m.data(), rows * cols * sizeof(Scalar)));
+  }
+
+  template <
+    class Archive,
+    class Scalar,
+    int Rows,
+    int Cols,
+    int Options,
+    int MaxRows,
+    int MaxCols
+  >
+  inline typename std::enable_if<
+    cereal::traits::is_input_serializable<
+      cereal::BinaryData<Scalar>,
+      Archive
+    >::value,
+    void
+  >::type load(
+    Archive & ar,
+    Eigen::Matrix<Scalar, Rows, Cols, Options, MaxRows, MaxCols> & m
+  ){
+    int32_t rows;
+    int32_t cols;
+    ar(rows);
+    ar(cols);
+
+    m.resize(rows, cols);
+
+    ar(cereal::binary_data(
+      m.data(),
+      static_cast<std::size_t>(rows * cols * sizeof(Scalar))
+    ));
+  }
+
+
+  // the following serializer covers all Eigen Transform types (Affine3f,
+  // etc) by serializing the underlying matrix
+  template <class Archive, class Scalar, int Dim, int Mode, int Options>
+  void serialize(
+    Archive& archive,
+    Eigen::Transform<Scalar, Dim, Mode, Options>& t
+  ){
+    archive(t.matrix());
+  }
+}
 
 #endif // Scandy_eigen_vector_math_h

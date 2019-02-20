@@ -35,6 +35,15 @@ public:
   SensorID m_relative_to_sensor_id;
   DeviceID m_relative_to_device_id;
   Pose m_pose;
+
+  template <class Archive>
+  void serialize( Archive& archive ){
+    archive(
+      m_relative_to_sensor_id,
+      m_relative_to_device_id,
+      m_pose
+    );
+  }
 public:
   RelativePose(
     const SensorID& relative_to_sensor_id = "",

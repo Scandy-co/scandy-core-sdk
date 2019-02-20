@@ -18,27 +18,27 @@
 #include <scandy/core/Status.h>
 
 // Define all the modules we are using
-#define ENABLE_VTK 1
-/* #undef ENABLE_OPENCL */
-/* #undef ENABLE_ROYALE */
-#define ENABLE_SOURCEY 1
-/* #undef ENABLE_TANGO */
-/* #undef ENABLE_PCL */
-/* #undef ENABLE_EXPERIMENTAL */
-/* #undef ENABLE_VTK_QT */
-#define ENABLE_METAL 1
-#define ENABLE_OPENCV 1
-/* #undef ENABLE_DLIB */
-#define ENABLE_DRACO 1
-#define ENABLE_TBB 1
-/* #undef ENABLE_ROS */
-/* #undef ENABLE_SNAPPY */
-/* #undef ENABLE_HIBERLITE */
+#cmakedefine ENABLE_VTK 1
+#cmakedefine ENABLE_OPENCL 1
+#cmakedefine ENABLE_ROYALE 1
+#cmakedefine ENABLE_SOURCEY 1
+#cmakedefine ENABLE_TANGO 1
+#cmakedefine ENABLE_PCL 1
+#cmakedefine ENABLE_EXPERIMENTAL 1
+#cmakedefine ENABLE_VTK_QT 1
+#cmakedefine ENABLE_METAL 1
+#cmakedefine ENABLE_OPENCV 1
+#cmakedefine ENABLE_DLIB 1
+#cmakedefine ENABLE_DRACO 1
+#cmakedefine ENABLE_TBB 1
+#cmakedefine ENABLE_ROS 1
+#cmakedefine ENABLE_SNAPPY 1
+#cmakedefine ENABLE_HIBERLITE 1
 
-#define IOS 1
-#define APPLE 1
-/* #undef ANDROID */
-/* #undef LINUX */
+#cmakedefine IOS 1
+#cmakedefine APPLE 1
+#cmakedefine ANDROID 1
+#cmakedefine LINUX 1
 
 namespace scandy { namespace core {
     /*! Scandy library version. */

@@ -14,18 +14,13 @@
 #include <scandy/core/Status.h>
 #include <scandy/core/visualizer/Viewport.h>
 
-
-#if ENABLE_EXPERIMENTAL
-#include <scandy/utilities/MeshFrame.h>
-#include <scandy/core/tChannel.h>
-#endif
-
+#if ENABLE_VTK
 /* Begin VTK includes */
 #include <vtkSmartPointer.h>
 #include <vtkActor.h>
-// #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkLight.h>
+#endif // #if ENABLE_VTK
 
 // Forward declare these so we don't get our clients into trouble
 class vtkClipPolyData;
@@ -34,6 +29,8 @@ class vtkPlaneSource;
 class vtkPolyDataAlgorithm;
 class vtkPointSetAlgorithm;
 class vtkPolyData;
+class vtkImageData;
+class vtkTexture;
 /* End VTK includes */
 
 /* Begin cpp includes */
@@ -42,8 +39,8 @@ class vtkPolyData;
 
 namespace scandy { namespace core {
 
-class MeshRotateInteractorStyle;
 
+class MeshRotateInteractorStyle;
 /**
  * \class MeshViewport
  * \brief MeshViewport is a subclass of Viewport with the specific purpose of
@@ -56,12 +53,9 @@ private:
   bool m_added_interator;
   bool m_rotate_mesh;
 public:
-#if ENABLE_EXPERIMENTAL
-  using MeshFrameChannel = scandy::internal::core::tChannel<scandy::utilities::MeshFrame>;
-  using MeshFrameChannelPointer = std::shared_ptr<MeshFrameChannel>;
-  MeshFrameChannelPointer m_ch;
-#endif
+#if ENABLE_VTK
   vtkSmartPointer<vtkPolyData> m_data;
+  vtkSmartPointer<vtkTexture> m_texture;
   vtkSmartPointer<vtkPolyDataMapper> m_mapper;
   vtkSmartPointer<vtkActor> m_actor;
   vtkSmartPointer<vtkLight> m_light;
@@ -71,6 +65,7 @@ public:
   vtkSmartPointer<vtkPolyDataMapper> m_plane_mapper;
   vtkSmartPointer<vtkActor> m_plane_actor;
   vtkSmartPointer<MeshRotateInteractorStyle> m_interactor_style;
+#endif // #if ENABLE_VTK
   bool m_added_light;
   bool m_color_enabled;
   bool m_color_lighting;
@@ -99,10 +94,6 @@ public:
    */
   scandy::core::Status loadMesh(std::string filename, std::string texture_path="");
 
-  void setPolyData(vtkSmartPointer<vtkPolyData> poly_data, bool camera_needs_update=true);
-  void setPolyData(vtkSmartPointer<vtkPolyDataAlgorithm> algorithm);
-  void setPolyData(vtkSmartPointer<vtkPointSetAlgorithm> algorithm);
-
   void setEnableMeshColor(bool enable_mesh_color);
   void setEnableLightingForColor();
   void setEnableLightingForColor(bool color_lighting);
@@ -116,6 +107,13 @@ public:
   bool hasColor();
 
   virtual void render();
+
+#if ENABLE_VTK
+  void setPolyData(vtkSmartPointer<vtkPolyData> poly_data, bool camera_needs_update=true);
+  void setPolyData(vtkSmartPointer<vtkPolyDataAlgorithm> algorithm);
+  void setPolyData(vtkSmartPointer<vtkPointSetAlgorithm> algorithm);
+  void setTextureImageData(vtkSmartPointer<vtkImageData> imgData);
+#endif // #if ENABLE_VTK
 };
 
 }}

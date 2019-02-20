@@ -28,14 +28,38 @@ class Metadata {
 public:
   // The version for a frame. this is helpful in case frames change and are
   // not backwards compatible.
-  int version;
+  int version=0;
   // The relative frame_id for the stream
-  uint64_t frame_id;
+  uint64_t frame_id=0;
   // The timestamp for a frame
-  uint64_t timestamp;
+  uint64_t timestamp=0;
 
   // unique id for the metadata
   MetadataUID uid = 0;
+
+public:
+  Metadata(){
+    version = 0;
+    frame_id = 0;
+    timestamp = 0;
+  }
+
+  Metadata(const Metadata&) = default;
+  Metadata(Metadata&&) = default;
+  Metadata& operator=(const Metadata&) = default;
+  Metadata& operator=(Metadata&) = default;
+  Metadata& operator=(Metadata&&) = default;
+
+
+  template <class Archive>
+  void serialize(Archive& archive){
+    archive(
+      version,
+      frame_id,
+      timestamp,
+      uid
+    );
+  }
 
 #if ENABLE_HIBERLITE
   friend class hiberlite::access;

@@ -25,17 +25,11 @@
 #define SAVE_COMMAND "SAVE"
 #define SET_SIZE_COMMAND "SET_SIZE"
 #define SET_NOISE_COMMAND "SET_NOISE"
+#define SET_VOXEL_SIZE_COMMAND "SET_VOXEL_SIZE"
 
 // After some testing, @hcwiley found 8000 to be the largest packet that would realibly go through on the socket
-#define MAX_SOCKET_FRAME_SIZE 8000
+#define MAX_SOCKET_FRAME_SIZE (uint)(1024 * 8.5)
 
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <ifaddrs.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include <string>
 #include <vector>
 

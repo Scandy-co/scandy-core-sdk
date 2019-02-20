@@ -13,12 +13,14 @@
 
 #include <scandy/utilities/CameraIntrinsics.h>
 
+#if ENABLE_VTK
 /* Begin VTK includes */
 #include <vtkRenderer.h>
 #include <vtkCamera.h>
 #include <vtkMatrix4x4.h>
 #include <vtkSmartPointer.h>
 /* End VTK includes */
+#endif // #if ENABLE_VTK
 
 /* Begin cpp includes */
 #include <cmath>
@@ -36,28 +38,27 @@ namespace scandy { namespace core {
  */
 class Viewport {
 protected:
+#if ENABLE_VTK
   vtkSmartPointer<vtkRenderer> m_renderer;
+#endif
   /* Camera position, view-up, and focus. */
   double m_cx, m_cy, m_cz, m_vx, m_vy, m_vz, m_lx, m_ly, m_lz;
 public:
   Viewport();
 public:
+#if ENABLE_VTK
+  void setActorRelativePose(vtkActor* actor, scandy::utilities::Mat4f rel_pose, scandy::utilities::float4 translation={{0,0,0,0}});
+  vtkRenderer* renderer();
+#endif
   void setCameraIntrinsics(const scandy::utilities::CameraIntrinsics &k);
-  /* FIXME (@kaben): super-ugly. */
-  void setCameraExtrinsics(
-    double e00, double e01, double e02, double e03,
-    double e10, double e11, double e12, double e13,
-    double e20, double e21, double e22, double e23,
-    double e30, double e31, double e32, double e33
-  );
-  void setCameraRelativePose(scandy::utilities::Mat4f rel_pose );
+  void setCameraExtrinsics(const scandy::utilities::Mat4f e);
+  void setCameraRelativePose(const scandy::utilities::Mat4f rel_pose);
+  double getMaxResizeFactor(int original_width, int original_height);
   /* The next two methods check to see whether the user has changed the
    * camera position or orientation by interacting with VTK, and if so,
    * displays info about the camera pose. This is useful for choosing a
    * good pose to use when initializing the camera.
    */
-  vtkRenderer* renderer();
-  double getMaxResizeFactor(int original_width, int original_height);
   bool didCameraPoseChange();
   void updateCameraPose();
   void checkCameraPose();

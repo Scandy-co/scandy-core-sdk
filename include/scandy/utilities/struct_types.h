@@ -31,18 +31,33 @@ namespace scandy { namespace utilities {
 //endif !IS_A_CL_HEADER_STRING
 #endif
 
+#if !IS_A_CL_HEADER_STRING
 typedef float16 Mat4f;
-
-// Helper function to prevent incompability issues between CPU/GPU
-inline Mat4f __attribute__((overloadable)) make_Mat4f(float16 arr){
-  Mat4f mat = arr;
-  return mat;
-}
+#else
+typedef union {
+  float   s[16];
+  struct{ float  x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
+  struct{ float  s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
+  float2 v2[8];
+  float4 v4[4];
+} Mat4f;
+#endif
 
 // Helper function to prevent incompability issues between CPU/GPU
 inline Mat4f __attribute__((overloadable)) make_Mat4f(float s0, float s1, float s2, float s3, float s4, float s5, float s6, float s7, float s8, float s9, float sA, float sB, float sC, float sD, float sE, float sF) {
   Mat4f mat;
   mat.s0 = s0; mat.s1 = s1; mat.s2 = s2; mat.s3 = s3; mat.s4 = s4; mat.s5 = s5; mat.s6 = s6; mat.s7 = s7; mat.s8 = s8; mat.s9 = s9; mat.sA = sA; mat.sB = sB; mat.sC = sC; mat.sD = sD; mat.sE = sE; mat.sF = sF;
+  return mat;
+}
+
+// Helper function to prevent incompability issues between CPU/GPU
+inline Mat4f __attribute__((overloadable)) make_Mat4f(float arr[16]){
+  Mat4f mat = make_Mat4f(
+    arr[0], arr[1], arr[2], arr[3],
+    arr[4], arr[5], arr[6], arr[7],
+    arr[8], arr[9], arr[10], arr[11],
+    arr[12], arr[13], arr[14], arr[15]
+  );
   return mat;
 }
 

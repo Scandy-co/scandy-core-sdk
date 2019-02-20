@@ -16,15 +16,15 @@
  *
  *=========================================================================*/
 
-/** vtkOBJWriter - Write a Wavefront OBJ (ASCII) file. The core of this class
+/** vtkOBJWriterColor - Write a Wavefront OBJ (ASCII) file. The core of this class
   * was taken from vtkOBJExporter. The goal is to make it follow the standard
   * "writer" syntax that is present for the rest of the VTK writers (vtkPLYWriter, etc).
   * It only saves the geometry (vertices, lines, polylines, strips) with normals and tcoords (if any).
   * It does not write triangle strips properly.
   */
 
-#ifndef __vtkOBJWriter_h
-#define __vtkOBJWriter_h
+#ifndef __vtkOBJWriterColor_h
+#define __vtkOBJWriterColor_h
 
 #if ANDROID
 #include <cstdio>
@@ -32,11 +32,11 @@
 
 #include "vtkPolyDataAlgorithm.h" //superclass
 
-class vtkOBJWriter : public vtkPolyDataAlgorithm
+class vtkOBJWriterColor : public vtkPolyDataAlgorithm
 {
 public:
-  static vtkOBJWriter *New();
-  vtkTypeMacro(vtkOBJWriter,vtkPolyDataAlgorithm);
+  static vtkOBJWriterColor *New();
+  vtkTypeMacro(vtkOBJWriterColor,vtkPolyDataAlgorithm);
   void PrintSelf(ostream& os, vtkIndent indent) override;
 
   // Description:
@@ -47,12 +47,12 @@ public:
   int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *) override;
 
 protected:
-  vtkOBJWriter();
-  ~vtkOBJWriter();
+  vtkOBJWriterColor();
+  ~vtkOBJWriterColor();
 
 private:
-  vtkOBJWriter(const vtkOBJWriter&);  // Not implemented.
-  void operator=(const vtkOBJWriter&);  // Not implemented.
+  vtkOBJWriterColor(const vtkOBJWriterColor&);  // Not implemented.
+  void operator=(const vtkOBJWriterColor&);  // Not implemented.
 
   char *FileName;
   char *ArrayName;

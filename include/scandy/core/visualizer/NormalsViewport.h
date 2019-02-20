@@ -14,6 +14,7 @@
 #include <scandy/core/Status.h>
 #include <scandy/core/visualizer/Viewport.h>
 
+#if ENABLE_VTK
 /* Begin VTK includes */
 #include <vtkSmartPointer.h>
 #include <vtkActor.h>
@@ -27,6 +28,7 @@
 
 #include <vtksys/SystemTools.hxx>
 /* End VTK includes */
+#endif // #if ENABLE_VTK
 
 /* Begin cpp includes */
 #include <string>
@@ -41,6 +43,7 @@ namespace scandy { namespace core {
  */
 class NormalsViewport : public Viewport {
 public:
+#if ENABLE_VTK
   /* These are for visualizing vertices, as green dots, for which we could
    * compute the approximate surface normal; typically, these are non-edge
    * vertices.
@@ -69,6 +72,7 @@ public:
   vtkPolyData *m_normal_poly;
   vtkPolyDataMapper *m_normal_mapper;
   vtkActor *m_normal_actor;
+#endif // #if ENABLE_VTK
 public:
   NormalsViewport();
   ~NormalsViewport();

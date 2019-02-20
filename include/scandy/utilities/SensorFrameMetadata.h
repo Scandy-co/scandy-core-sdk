@@ -14,8 +14,10 @@
 #define Scandy_SensorFrameMetadata_h
 
 #include <scandy/utilities/Metadata.h>
-
 #include <scandy/utilities/Pose.h>
+#include <scandy/utilities/eigen_vector_math.h>
+
+#include <cereal/types/base_class.hpp>
 
 #if ENABLE_HIBERLITE
 #include <hiberlite.h>
@@ -34,11 +36,32 @@ public:
   scandy::utilities::Pose initial_pose_offset;
 
   // The DeviceID of the camera that captured a SensorFrame
-  DeviceID device_id;
+  DeviceID device_id="";
 
   // The SensorID of the stream that captured a SensorFrame
-  SensorID sensor_id;
-  
+  SensorID sensor_id="";
+
+public:
+  SensorFrameMetadata(){
+    initial_pose_offset = scandy::utilities::eigen::identityMat4f();
+  }
+
+  SensorFrameMetadata(const SensorFrameMetadata&) = default;
+  SensorFrameMetadata(SensorFrameMetadata&&) = default;
+  SensorFrameMetadata& operator=(const SensorFrameMetadata&) = default;
+  SensorFrameMetadata& operator=(SensorFrameMetadata&) = default;
+  SensorFrameMetadata& operator=(SensorFrameMetadata&&) = default;
+
+  template <class Archive>
+  void serialize(Archive& archive){
+    archive(
+      cereal::base_class<Metadata>( this ),
+      initial_pose_offset,
+      device_id,
+      sensor_id
+    );
+  }
+
 #if ENABLE_HIBERLITE
   friend class hiberlite::access;
   template<class Archive>

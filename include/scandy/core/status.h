@@ -1,5 +1,5 @@
 /****************************************************************************\
- * Copyright (C) 2017 Scandy
+ * Copyright (C) 2015-2019 Scandy
  *
  * THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
@@ -11,6 +11,8 @@
 
 #ifndef Scandy_core_Status_h
 #define Scandy_core_Status_h
+
+#include <string>
 
 namespace scandy { namespace core {
     enum class Status
@@ -26,6 +28,7 @@ namespace scandy { namespace core {
         DID_NOT_REPLACE_EXISTING_ITEM,
 
         NOT_RUNNING,
+        CAMERA_FAILED,
 
         NOT_FOUND,
 
@@ -155,6 +158,7 @@ namespace scandy { namespace core {
         UNKNOWN,
         LAST
     };
+    std::string getStatusString(const scandy::core::Status& status);
 }}
 
 #endif // Scandy_core_Status_h
