@@ -15,6 +15,8 @@
 
 #include <scandy/core/MeshType.h>
 #include <scandy/core/CompressionType.h>
+#include <scandy/utilities/vector_types.h>
+#include <scandy/utilities/eigen_vector_math.h>
 
 #include <string>
 
@@ -29,7 +31,7 @@ namespace scandy { namespace core {
     /**
      * The desired MeshType to export as.
      */
-    MeshType m_mesh_type=scandy::core::MeshType::OBJ;
+    MeshType m_mesh_type=scandy::core::MeshType::AUTO;
 
     /**
      * Source directory path for exporting the mesh. Used when exporting many frames.
@@ -38,6 +40,7 @@ namespace scandy { namespace core {
 
     /**
      * Source file path for exporting the mesh. Used when exporting a single mesh.
+     * Leave this empty to use the mesh that is currently loaded into MeshViewport.
      */
     std::string m_src_file_path;
 
@@ -85,6 +88,16 @@ namespace scandy { namespace core {
      * Percent decimation desired on exported mesh.
      */
     float m_decimate=0.0f;
+
+    /**
+     * Scaling to be applied to model on export
+     */
+    float m_scale=1.0f;
+
+    /**
+     * Transform to be applied to model on export
+     */
+    scandy::utilities::Mat4f m_transform=scandy::utilities::eigen::identityMat4f();
 
   } MeshExportOptions;
 

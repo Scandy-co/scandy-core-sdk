@@ -1,3 +1,6 @@
+# Don't track .in files in this repo
+*.in
+
 # Generated header files
 include/scandy_version.h
 include/scandy_config.h
@@ -52,3 +55,4 @@ local.properties
 .externalNativeBuild
 *.aar
 internal_only/android/captures/
+

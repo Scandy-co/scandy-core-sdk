@@ -28,6 +28,12 @@
 #include <scandy/core/visualizer/VisualizerType.h>
 #include <scandy/core/IScandyCoreConfiguration.h>
 
+#if ENABLE_VTK
+#include <scandy/core/visualizer/MeshViewport.h>
+#else
+class MeshViewport;
+#endif
+
 
 #ifdef SCANDY_QT
 #include <QVTKWidget.h>
@@ -252,26 +258,47 @@ public:
   virtual std::shared_ptr<ISceneKitVisualizer> loadVolumetricVideo(std::string src_dir_path, void* scnScene=nullptr);
 
   /**
+   * Returns a shared_ptr to the MeshViewport that is displaying the mesh, or nullptr if none
+   * @return shared_ptr<MeshViewport> or nullptr if not available
+   */
+  virtual std::shared_ptr<MeshViewport> getMeshViewport();
+
+  /**
    * Generate a mesh from current point cloud data as viewed in the visualizer.
    * @return @see Status.h
    */
   virtual scandy::core::Status generateMesh();
 
   /**
+   * Gets the size of the mesh loaded into the viewport in MB
+   * @return Number of MB
+   */
+  virtual float getMeshMemorySize();
+
+  /**
    * Reduce the number of points and triangles in the mesh.
    * @param percent 0.0 - 1.0 for percent reduction in number of points
+   * @return @see Status.h
    */
   virtual Status decimateMesh(float percent);
   /**
    * Smooth the surface of the mesh
    * @param iterations The number of smoothing iterations to make. 3-10 is a reasonable range
+   * @return @see Status.h
    */
   virtual Status smoothMesh(int iterations);
   /**
    * Attempts to automatically fill holes in the mesh
    * @param hole_size Largest area of to fill
+   * @return @see Status.h
    */
   virtual Status fillHoles(float hole_size);
+
+  /**
+   * Removes all the non connected surfaces floating in the mesh.
+   * @return @see Status.h
+   */
+  virtual Status extractLargestSurface();
 
   /**
    * Attempts to automatically make the mesh water tight
@@ -282,16 +309,19 @@ public:
   /**
    * Adjust the Hue saturation and value of the mesh
    * @param hsv float[3] Percent increase on hue, saturation, and value respectively. -1.0 to 1.0
+   * @return @see Status.h
    */
   virtual Status adjustHSV(float hsv[3]);
   /**
    * Apply the edits being viewed in the Viewport into the mesh, so that when you save they take
    * @param apply_changes (true) Apply the edits or (false) undo the edits
+   * @return @see Status.h
    */
   virtual Status applyEditsFromMeshViewport(bool apply_changes);
 
   /**
    * Reset the in the camera in the mesh viewer
+   * @return @see Status.h
    */
   virtual Status resetViewportCamera();
 
@@ -357,6 +387,7 @@ public:
    */
   virtual Status setCroppingPlanePercent(float percent);
 
+  virtual Status exportMesh(scandy::core::MeshExportOptions meshExportOptions);
 
   /**
    * Saves the output from the previously generated mesh to disk.
@@ -541,14 +572,14 @@ public:
 
   // *** Events
   std::function<void(bool createdVisualizer)> onVisualizerReady;
-  std::function<void()> onScannerReady;
-  std::function<void()> onScannerStart;
-  std::function<void()> onScannerStop;
-  std::function<void()> onPreviewStart;
-  std::function<void()> onPreviewStop;
-  std::function<void()> onLoadMesh;
-  std::function<void()> onGenerateMesh;
-  std::function<void()> onSaveMesh;
+  std::function<void(scandy::core::Status status)> onScannerReady;
+  std::function<void(scandy::core::Status status)> onScannerStart;
+  std::function<void(scandy::core::Status status)> onScannerStop;
+  std::function<void(scandy::core::Status status)> onPreviewStart;
+  std::function<void(scandy::core::Status status)> onPreviewStop;
+  std::function<void(scandy::core::Status status)> onLoadMesh;
+  std::function<void(scandy::core::Status status)> onGenerateMesh;
+  std::function<void(scandy::core::Status status)> onSaveMesh;
   std::function<void()> onFinishedHeadCapture;
   std::function<void(std::string host)> onClientConnected;
   std::function<void(std::string host)> onHostDiscovered;

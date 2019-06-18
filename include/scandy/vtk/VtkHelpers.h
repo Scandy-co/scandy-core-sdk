@@ -48,6 +48,7 @@ bool saveOBJ(std::string file_path, vtkSmartPointer<vtkPolyData> poly_data, vtkS
 bool saveSTL(std::string file_path, vtkSmartPointer<vtkPolyData> poly_data);
 bool saveGLB(std::string file_path, vtkSmartPointer<vtkPolyData> poly_data, vtkSmartPointer<vtkImageData> tex_img = nullptr);
 bool saveDraco(std::string file_path, vtkSmartPointer<vtkPolyData> poly_data, vtkSmartPointer<vtkImageData> tex_img = nullptr);
+bool saveFBX(std::string file_path, vtkSmartPointer<vtkPolyData> poly_data, vtkSmartPointer<vtkImageData> tex_img = nullptr);
 
 vtkSmartPointer<vtkPolyData> volumeToMesh(vtkSmartPointer<vtkImageData> volume, bool cleanBackside=true, bool triangulate=true);
 vtkSmartPointer<vtkPolyData> generateNormals(vtkSmartPointer<vtkPolyData> poly_data);
@@ -71,6 +72,7 @@ vtkSmartPointer<vtkPolyData> decimatePolyData(float percent, vtkSmartPointer<vtk
  */
 vtkSmartPointer<vtkPolyData> quadDecimatePolyData(float percent, vtkSmartPointer<vtkPolyData> poly_data);
 vtkSmartPointer<vtkPolyData> smoothPolyData(int iterations, vtkSmartPointer<vtkPolyData> poly_data);
+vtkSmartPointer<vtkPolyData> extractLargestPolyData(vtkSmartPointer<vtkPolyData> poly_data);
 vtkSmartPointer<vtkPolyData> fillHolesPolyData(float hole_size, vtkSmartPointer<vtkPolyData> poly_data);
 vtkSmartPointer<vtkPolyData> poissonPolyData(int depth, vtkSmartPointer<vtkPolyData> poly_data);
 vtkSmartPointer<vtkPolyData> adjustHSVPolyData(float percent[3], vtkSmartPointer<vtkPolyData> poly_data, bool color_points=true);

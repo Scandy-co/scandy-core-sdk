@@ -27,6 +27,7 @@ namespace scandy { namespace core {
     OBJ,
     STL,
     GLB,
+    FBX,
     DRACO,
     SCMF, // Scandy Core Mesh Frame
     AUTO
@@ -50,6 +51,8 @@ namespace scandy { namespace core {
         return "STL";
       case MeshType::GLB:
         return "GLB";
+      case MeshType::FBX:
+        return "FBX";
       case MeshType::DRACO:
         return "DRACO";
       case MeshType::SCMF:

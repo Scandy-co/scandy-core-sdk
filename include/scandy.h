@@ -19,6 +19,7 @@
 
 // Define all the modules we are using
 #define ENABLE_VTK 1
+/* #undef ENABLE_FBX_SDK */
 /* #undef ENABLE_OPENCL */
 /* #undef ENABLE_ROYALE */
 #define ENABLE_SOURCEY 1

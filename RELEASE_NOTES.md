@@ -1,5 +1,79 @@
 # Release Notes
 
+## v0.4.4
+### Release Date:
+2019-04-09
+
+### Breaking Changes:
+
+* `saveMesh(scandy::core::MeshExportOptions meshExportOptions);` renamed to `exportMesh(scandy::core::MeshExportOptions meshExportOptions);` in `IScandyCore.h`
+
+### New Features:
+
+* default `scandy::core::MeshType` is now `AUTO` for `scandy::core::MeshExportOptions`
+* `scandy::core::MeshExportOptions` now supports `m_transform` to apply translation, rotation, and scaling
+* added dedicated `setEnableMeshRotation(bool enable_rotate)` to `MeshViewport`
+
+### Bug Fixes:
+
+* Export different file types not always using the latest version of the file
+* Fixed `saveScreenShot()` not working consistently on iOS
+
+### Known Bugs:
+
+* Android is dead
+* OpenCL is dead
+
+## v0.4.3
+### Release Date:
+2019-04-09
+
+### Breaking Changes:
+
+* [ScandyCoreManager stopScanning], [ScandyCoreManager generateMesh], and [ScandyCoreManager saveMesh] are now async, should you listen for onScannerStop, onGenerateMesh, and onSaveMesh respectively
+
+### New Features:
+
+* stopScanning, generateMesh, saveMesh now run in a background thread and use the onScannerStop, onGenerateMesh, and onSaveMesh callbacks properly.
+* extractLargestSurface added to IScandyCore so you can more easily clean up files after a scan.
+* adds `getMeshViewport` to IScandyCore to all direct control of the MeshViewport from a client.
+* adds `getMeshMemorySize` to IScandyCore to get the number of MBs of the current mesh in the MeshViewport.
+* adds FBX to scandy::core::MeshType. The export of this is still experimental and not working exactly as intended.
+
+### Bug Fixes:
+
+* fixed some times losing scale after applying edits to a mesh
+
+### Known Bugs:
+
+* Android is dead
+* OpenCL is dead
+
+## v0.4.2
+### Release Date:
+2019-02-22
+
+### Breaking Changes:
+
+* None
+
+### New Features:
+
+* FrameSkip to ISceneKitVisualizer to allow skipping through frames quickly
+* Use physics config to ISceneKitVisualizer
+* ISceneKitVisualizer detach to remove from pipeline.
+* Made saveScreenShot(std::string file_path) work on iOS and exposed to IScandyCore
+* Added Draco as scandy::core::MeshType
+
+### Bug Fixes:
+
+* ScandyCore distribution, zip now includes docs, libs, includes, and examples as well as ScandyCore.framework
+
+### Known Bugs:
+
+* Android is dead
+* OpenCL is dead
+
 ## v0.4.1
 ### Release Date:
 2019-02-05

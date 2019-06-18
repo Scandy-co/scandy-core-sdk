@@ -2,6 +2,13 @@
 
 **Welcome to the wonderful world of 3D!**
 
+## Licensing
+
+**You must get a valid SDK and license key to use this repo!**
+To license Scandy Core please contact core@scandy.co
+
+<hr/>
+
 ## Release Notes:
 [See release notes by version](md__r_e_l_e_a_s_e__n_o_t_e_s.html)
 
