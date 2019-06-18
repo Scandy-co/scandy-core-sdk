@@ -1,0 +1,48 @@
+/****************************************************************************\
+ * Copyright (C) 2016 Scandy
+ *
+ * THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+ * PARTICULAR PURPOSE.
+ *
+ \****************************************************************************/
+
+// For distribution.
+
+#ifndef Scandy_scandy_h
+#define Scandy_scandy_h
+
+// Top-level scandy include file.
+
+#include <scandy/core/Status.h>
+
+// Define all the modules we are using
+#cmakedefine ENABLE_VTK 1
+#cmakedefine ENABLE_OPENCL 1
+#cmakedefine ENABLE_ROYALE 1
+#cmakedefine ENABLE_SOURCEY 1
+#cmakedefine ENABLE_TANGO 1
+#cmakedefine ENABLE_PCL 1
+#cmakedefine ENABLE_EXPERIMENTAL 1
+#cmakedefine ENABLE_VTK_QT 1
+#cmakedefine ENABLE_METAL 1
+#cmakedefine ENABLE_OPENCV 1
+#cmakedefine ENABLE_DLIB 1
+#cmakedefine ENABLE_DRACO 1
+#cmakedefine ENABLE_TBB 1
+#cmakedefine ENABLE_ROS 1
+#cmakedefine ENABLE_SNAPPY 1
+#cmakedefine ENABLE_HIBERLITE 1
+
+#cmakedefine IOS 1
+#cmakedefine APPLE 1
+#cmakedefine ANDROID 1
+#cmakedefine LINUX 1
+
+namespace scandy { namespace core {
+    /*! Scandy library version. */
+    Status getVersion (int &major, int &minor, int &patch);
+}}
+
+#endif // Scandy_scandy_h
