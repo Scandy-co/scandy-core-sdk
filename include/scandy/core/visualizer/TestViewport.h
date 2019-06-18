@@ -14,15 +14,15 @@
 #include <scandy/core/Status.h>
 #include <scandy/core/visualizer/Viewport.h>
 
+#if ENABLE_VTK
 /* Begin VTK includes */
 #include <vtkSmartPointer.h>
 #include <vtkActor.h>
-#include <vtkPolyData.h>
+// #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
-#include "vtkConeSource.h"
-#include "vtkSphereSource.h"
-#include "vtkGlyph3D.h"
+class vtkPolyData;
 /* End VTK includes */
+#endif // #if ENABLE_VTK
 
 /* Begin cpp includes */
 #include <string>
@@ -37,9 +37,11 @@ namespace scandy { namespace core {
  */
 class TestViewport : public Viewport {
 public:
+#if ENABLE_VTK
   vtkSmartPointer<vtkPolyData> m_data;
   vtkSmartPointer<vtkPolyDataMapper> m_mapper;
   vtkSmartPointer<vtkActor> m_actor;
+#endif // #if ENABLE_VTK
 public:
   TestViewport();
   virtual void render();

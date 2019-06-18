@@ -27,9 +27,30 @@ namespace scandy { namespace utilities {
  */
 class DepthFrameMetadata : public SensorFrameMetadata {
 public:
-
   // The intrinsics for camera that captured this depth frame
   scandy::utilities::CameraIntrinsics intrinsics;
+public:
+  DepthFrameMetadata(){};
+
+  DepthFrameMetadata(const DepthFrameMetadata&) = default;
+  DepthFrameMetadata(DepthFrameMetadata&&) = default;
+  DepthFrameMetadata& operator=(const DepthFrameMetadata&) = default;
+  DepthFrameMetadata& operator=(DepthFrameMetadata&) = default;
+  DepthFrameMetadata& operator=(DepthFrameMetadata&&) = default;
+
+  int width(){ return intrinsics.m_width; }
+  int height(){ return intrinsics.m_height; }
+
+  template <class Archive>
+  void serialize(Archive& archive){
+    archive(
+      cereal::base_class<scandy::utilities::SensorFrameMetadata>( this ),
+      intrinsics,
+      initial_pose_offset,
+      device_id,
+      sensor_id
+    );
+  }
 
 #if ENABLE_HIBERLITE
   friend class hiberlite::access;

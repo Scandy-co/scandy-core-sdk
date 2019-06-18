@@ -47,6 +47,16 @@ inline float __attribute__((overloadable)) scandy_dot(float4 a, float4 b){
   return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
 }
 
+
+inline Mat4f identityMat4f(){
+  return make_Mat4f(
+    1.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 1.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f
+  );
+}
+
 /**
  * Takes a row major pose/intrinsic matrix and returns just the rotation part.
  * @param  M A row major 4x4 matrix

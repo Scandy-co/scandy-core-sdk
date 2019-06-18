@@ -34,6 +34,27 @@ public:
   // metadata of the raw sensor frame associated
   DepthFrameMetadata frame_metadata;
 
+public:
+  DepthTrackMetadata(){}
+
+  DepthTrackMetadata(const DepthTrackMetadata&) = default;
+  DepthTrackMetadata(DepthTrackMetadata&&) = default;
+  DepthTrackMetadata& operator=(const DepthTrackMetadata&) = default;
+  DepthTrackMetadata& operator=(DepthTrackMetadata&) = default;
+  DepthTrackMetadata& operator=(DepthTrackMetadata&&) = default;
+
+  int width(){ return frame_metadata.width(); }
+  int height(){ return frame_metadata.height(); }
+
+  template <class Archive>
+  void serialize(Archive& archive){
+    archive(
+      cereal::base_class<scandy::utilities::TrackedMetadata>(this),
+      icp_cost,
+      frame_metadata
+    );
+  }
+
 #if ENABLE_HIBERLITE
   friend class hiberlite::access;
 
@@ -46,7 +67,6 @@ public:
     TrackedMetadata::hibernate(ar);
   }
 #endif
-
 };
 
 }}

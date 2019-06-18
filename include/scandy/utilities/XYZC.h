@@ -58,7 +58,7 @@ public:
 #if IS_A_CL_HEADER_STRING
 };
 #else
-  XYZC() = default;
+  XYZC();
   XYZC(const XYZC& p) = default;
 #if ENABLE_ROYALE
   XYZC(const royale::DepthPoint& p);

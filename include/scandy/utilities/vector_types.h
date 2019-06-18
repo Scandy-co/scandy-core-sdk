@@ -36,10 +36,18 @@
 // #include <scandycore_cl.h>
 // #include <cstdint>
 #include <stdint.h>
+#ifndef IOS
+#define HALF_ENABLE_CPP11_CMATH 1
+#else
 #define HALF_ENABLE_CPP11_CMATH 0
+#endif
 // half brings in things like sqrt, atan2, etc...
 #include <half.hpp>
 #endif //!IS_A_CL_HEADER_STRING
+
+#ifndef SIZE_T_MAX
+#define SIZE_T_MAX SIZE_MAX
+#endif
 
 
 // if we are IS_A_CL_HEADER_STRING don't use a namespace
@@ -88,7 +96,9 @@ typedef union { //uchar2
   struct{ uchar x, y; };
   struct{ uchar s0, s1; };
   struct{ uchar lo, hi; };
-  // cl_uchar2 v2;
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
 } uchar2;
 
 /**
@@ -100,6 +110,9 @@ typedef union { //uchar3
   uchar s[3];
   struct{ uchar x, y, z; };
   struct{ uchar r, g, b; };
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
 } uchar3;
 
 /**
@@ -107,7 +120,7 @@ typedef union { //uchar3
  * \brief Ensures maximal compatability for storage via `union`s for four (4) unsigned
  * characters, such as `r`, `g`, `b`, and `a`.
  */
-typedef union { //uchar4
+typedef union alignas(4) { //uchar4
   // uint8_t  CL_ALIGNED(4) s[4];
   uchar s[4];
   struct{ uchar   x, y, z, w; };
@@ -117,7 +130,9 @@ typedef union { //uchar4
   uchar2     v2[2];
   uchar3 xyz;
   uchar3 rgb;
-  // cl_uchar4     v4;
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
 } uchar4;
 
 /**
@@ -144,7 +159,9 @@ typedef union { //uchar8
   struct{ uchar4  lo, hi; };
   uchar2     v2[4];
   uchar4     v4[2];
-//  cl_uchar8     v8;
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
 } uchar8;
 
 /**
@@ -161,7 +178,9 @@ typedef union { //uchar16
   uchar2     v2[8];
   uchar4     v4[4];
   uchar8     v8[2];
-//  cl_uchar16    v16;
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
 } uchar16;
 
 /**
@@ -174,7 +193,10 @@ typedef union { //short2
   struct{ short  x, y; };
   struct{ short  s0, s1; };
   struct{ short  lo, hi; };
-//  cl_short2 v2;
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
+
 } short2;
 
 /**
@@ -183,12 +205,15 @@ typedef union { //short2
  */
 typedef union { //short4
 //  int16_t  CL_ALIGNED(8) s[4];
-  int16_t   s[4];
-  struct{ int16_t   x, y, z, w; };
-  struct{ int16_t   s0, s1, s2, s3; };
+  short   s[4];
+  struct{ short   x, y, z, w; };
+  struct{ short   s0, s1, s2, s3; };
   struct{ short2  lo, hi; };
   short2     v2[2];
-//  cl_short4     v4;
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
+
 } short4;
 
 /**
@@ -203,7 +228,9 @@ typedef union { //short8
   struct{ short4  lo, hi; };
   short2     v2[4];
   short4     v4[2];
-//  cl_short8     v8;
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
 } short8;
 
 /**
@@ -220,7 +247,9 @@ typedef union { //short16
   short2     v2[8];
   short4     v4[4];
   short8     v8[2];
-//  cl_short16    v16;
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
 } short16;
 
 /**
@@ -234,8 +263,27 @@ typedef union { //uint2
   struct{ uint32_t  x, y; };
   struct{ uint32_t  s0, s1; };
   struct{ uint32_t  lo, hi; };
-//  cl_uint2 v2;
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
 } uint2;
+
+
+/**
+ * \union int2
+ * \brief Ensures maximal compatability for storage via `union`s for two (2) signed
+ * `int`s.
+ */
+typedef union { //int2
+//  int32_t  CL_ALIGNED(8) s[2];
+  int32_t   s[2];
+  struct{ int32_t  x, y; };
+  struct{ int32_t  s0, s1; };
+  struct{ int32_t  lo, hi; };
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
+} int2;
 
 /**
  * \union uint3
@@ -246,7 +294,25 @@ typedef union { //uint3
   uint32_t   s[3];
   struct{ uint32_t  x, y, z; };
   struct{ uint32_t  r, g, b; };
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
 } uint3;
+
+
+/**
+ * \union int3
+ * \brief Ensures maximal compatability for storage via `union`s for three (3) signed
+ * `int`s.
+ */
+typedef union { //int3
+  int32_t   s[3];
+  struct{ int32_t  x, y, z; };
+  struct{ int32_t  r, g, b; };
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
+} int3;
 
 /**
  * \union uint4
@@ -261,7 +327,6 @@ typedef union { //uint4
   struct{ uint2  lo, hi; };
   uint2 v2[2];
   uint3 xyz;
-//  cl_uint4 v4;
 #if ENABLE_HIBERLITE
   friend class hiberlite::access;
   template<class Archive>
@@ -273,7 +338,29 @@ typedef union { //uint4
     ar & HIBERLITE_NVP(w);
   }
 #endif
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
 } uint4;
+
+
+/**
+ * \union int4
+ * \brief Ensures maximal compatability for storage via `union`s for four (4) signed
+ * `int`s.
+ */
+typedef union alignas(16) { //int4
+//  int32_t  CL_ALIGNED(16) s[4];
+  int32_t   s[4];
+  struct{ int32_t   x, y, z, w; };
+  struct{ int32_t   s0, s1, s2, s3; };
+  struct{ int2  lo, hi; };
+  int2 v2[2];
+  int3 xyz;
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
+} int4;
 
 /**
  * \union uint8
@@ -313,13 +400,16 @@ typedef union { //uint16
  * \brief Ensures maximal compatability for storage via `union`s for two (2) single
  * precision floating points.
  */
-typedef union { //float2
+typedef union alignas(8) { //float2
 //  float  CL_ALIGNED(8) s[2];
   float   s[2];
   struct{ float  x, y; };
   struct{ float  s0, s1; };
   struct{ float  lo, hi; };
-//  cl_float2 v2;
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
+
 } float2;
 
 /**
@@ -334,6 +424,10 @@ typedef union { //float2
 typedef union { //float3
   float s[4];
   struct{ float x, y, z, w; };
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
+
 #if ENABLE_HIBERLITE
   friend class hiberlite::access;
   template<class Archive>
@@ -352,7 +446,7 @@ typedef union { //float3
  * \brief Ensures maximal compatability for storage via `union`s for four (4)
  * single precision floating points.
  */
-typedef union { //float4
+typedef union alignas(16) { //float4
 //  float  CL_ALIGNED(16) s[4];
   float   s[4];
   struct{ float   x, y, z, w; };
@@ -360,6 +454,10 @@ typedef union { //float4
   struct{ float2  lo, hi; };
   float2 v2[2];
   float3 xyz;
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
+
 //  cl_float4 v4;
 #if ENABLE_HIBERLITE
   friend class hiberlite::access;
@@ -387,6 +485,10 @@ typedef union { //float8
   struct{ float4  lo, hi; };
   float2 v2[4];
   float4 v4[2];
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
+
 //  cl_float8 v8;
 } float8;
 
@@ -404,6 +506,10 @@ typedef union { //float16
   float2 v2[8];
   float4 v4[4];
   float8 v8[2];
+
+  template <class Archive>
+  void serialize( Archive& archive ){ archive(s); }
+
 //  cl_float16 v16;
 #if ENABLE_HIBERLITE
   friend class hiberlite::access;
@@ -432,14 +538,39 @@ typedef union { //float16
 
 typedef float16 Mat4f;
 
+typedef half_float::half half;
 /**
  * \struct _half4
  * \brief Define `struct` for half floats.
  * \attention We do not need to define `half4` if we are on CL.
  */
 #if !IS_A_CL_HEADER_STRING
-typedef struct _half4{
-  half_float::half x, y, z, w; ;
+typedef struct _half4 { //half4
+  half x, y, z, w;
+
+  // We just want to store the raw data, not convert it to from/floats
+  template <class Archive>
+  void save( Archive& archive ) const {
+    uint16_t _arr[4];
+    uint16_t* arr = (uint16_t*)&_arr;
+    memcpy(&(++arr), &x, sizeof(uint16_t));
+    memcpy(&(++arr), &y, sizeof(uint16_t));
+    memcpy(&(++arr), &z, sizeof(uint16_t));
+    memcpy(&(++arr), &w, sizeof(uint16_t));
+    archive(_arr);
+  }
+
+  template <class Archive>
+  void load( Archive& archive ){
+    uint16_t _arr[4];
+    archive(_arr);
+    uint16_t* arr = (uint16_t*)&_arr;
+    memcpy(&x, &(++arr), sizeof(uint16_t));
+    memcpy(&y, &(++arr), sizeof(uint16_t));
+    memcpy(&z, &(++arr), sizeof(uint16_t));
+    memcpy(&w, &(++arr), sizeof(uint16_t));
+  }
+
 } half4;
 #endif // endif !IS_A_CL_HEADER_STRING
 

@@ -35,6 +35,10 @@
 
 namespace scandy { namespace utilities {
 
+#ifdef __ARM_NEON__
+#define ARM_NEON_ENABLE 1
+#endif
+ 
 //-----------------------------------------------------------------------------
 #ifdef ARM_NEON_ENABLE
 #include <arm_neon.h>
@@ -61,7 +65,7 @@ bool decode_yuv_neon(unsigned char* out, unsigned char const* y, unsigned char c
     uint16x8_t t;
 
     // pixel block to temporary store 8 pixels
-    typename trait::PixelBlock pblock = trait::init_pixelblock(fill_alpha);    
+    typename trait::PixelBlock pblock = trait::init_pixelblock(fill_alpha);
 
     for (int j=0; j<itHeight; ++j, y+=width, dst+=stride) {
         for (int i=0; i<itWidth; ++i, y+=8, uv+=8, dst+=(8*trait::bytes_per_pixel)) {
@@ -325,7 +329,7 @@ public:
         U = (*uv++) - 128;
     }
     static void store_pixel(unsigned char* &dst, int iR, int iG, int iB, unsigned char alpha) {
-        *dst++ = (iB>0) ? (iB<65535 ? (unsigned char)(iB>>8):0xff):0;		
+        *dst++ = (iB>0) ? (iB<65535 ? (unsigned char)(iB>>8):0xff):0;
         *dst++ = (iG>0) ? (iG<65535 ? (unsigned char)(iG>>8):0xff):0;
         *dst++ = (iR>0) ? (iR<65535 ? (unsigned char)(iR>>8):0xff):0;
         *dst++ = alpha;

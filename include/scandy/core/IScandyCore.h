@@ -1,5 +1,5 @@
 /****************************************************************************\
- * Copyright (C) 2016 Scandy
+ * Copyright (C) 2018 Scandy
  *
  * THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
@@ -21,11 +21,19 @@
 #include <scandy/core/ScannerType.h>
 #include <scandy/core/ScanState.h>
 #include <scandy/core/MeshType.h>
+#include <scandy/core/MeshExportOptions.h>
 #include <scandy/core/ScanResolution.h>
 #include <scandy/core/visualizer/Visualizer.h>
+#include <scandy/core/visualizer/ISceneKitVisualizer.h>
+#include <scandy/core/visualizer/VisualizerType.h>
+#include <scandy/core/IScandyCoreConfiguration.h>
 
-#include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
+#if ENABLE_VTK
+#include <scandy/core/visualizer/MeshViewport.h>
+#else
+class MeshViewport;
+#endif
+
 
 #ifdef SCANDY_QT
 #include <QVTKWidget.h>
@@ -43,6 +51,8 @@ namespace scandy { namespace core {
 /**
  * Interface for interacting with ScandyCore.  Call factoryCreate to get a pointer
  * to ScandyCore.
+ * NOTE: On iOS, access IScandyCore through ScandyCoreManager instead of factoryCreate().
+ *
  */
 class IScandyCore {
 public:
@@ -108,23 +118,73 @@ public:
    * @return @see Status.h
    */
   virtual scandy::core::Status initializeScanner(ScannerType scanner_type, std::string source = "");
+
+  /**
+   * Clears the pipeline and configurations made for the current scanning session.
+   * @return @see Status.h
+   */
   virtual scandy::core::Status uninitializeScanner();
 
   /**
-   * Sets up the image processing workers
+   * Sets up the image processing pipeline and workers
+   * @return @see Status.h
    */
   virtual scandy::core::Status initializeImageProcessor();
 
   /**
-  * Starts the processing pipeline that's been configured
+  * Starts the processing pipeline that's been configured.
+  * NOTE: You should only call this function when configuring the pipeline
+  * manually, which is not fully supported at this time. Calling startPreview()
+  * or startScanning() will tell the pipeline to start after it has been
+  * automatically configured in initializeScanner().
+  *
+  * @return @see Status.h
   */
-  virtual scandy::core::Status start();
-  virtual scandy::core::Status stop();
+  virtual scandy::core::Status startPipeline();
+
+  /**
+  * Stops the processing pipeline.
+  * NOTE: You should only call this function when configuring the pipeline
+  * manually, which is not fully supported at this time. Calling stopScanning()
+  * will tell the pipeline to stop. Then uninitializeScanner() can be called to
+  * automatically tear down the pipeline configuration.
+  *
+  * @return @see Status.h
+  */
+  virtual scandy::core::Status stopPipeline();
 
   /**
    * Tells whether the underlying pipeline is running
+   * @return bool true if pipeline is running, false if not.
    */
   virtual bool isRunning();
+
+  /**
+   * Tells whether the Network Mananger has connected clients or not
+   * @return bool true if there are active connections, false if not.
+   */
+  virtual bool hasNetworkConnection();
+
+  /**
+   * Returns a list of strings of connected IP addresses
+   */
+  virtual std::vector<std::string> connectedClients();
+
+  /**
+   * Returns a list of strings of discovered Scandy Core host IP addresses
+   */
+  virtual std::vector<std::string> discoveredHosts();
+
+  /*
+   Connects to a remote host to receive commands from
+   @return bool true if successful, false if not
+   */
+  virtual bool connectToCommandHost(std::string host);
+
+  /**
+   * Clears the list of hosts that we should receive commands from
+   */
+  virtual void clearCommandHosts();
 
   /**
    * Automatically create instances of the views in each col,grid location of the visualizer window.
@@ -147,14 +207,36 @@ public:
 #endif
   );
 
+  virtual scandy::core::Status setVisualizerType(VisualizerType visualizer_type=VisualizerType::SCANDYCORE, void* native_host_ptr=nullptr);
+
+  /**
+   * Clears the current visualizer context. Helpful if your GL context updates
+   * @return @see Status.h
+   */
+  virtual scandy::core::Status clearVisualizer(VisualizerType visualizer_type=VisualizerType::AUTO);
+
 
   /**
    * Adds a Viewport to the Visualizer with a 3D object in. Use to test your
-   * setup to make the Visualizer is working and receiving interactions.
+   * setup to make sure the Visualizer is working and receiving interactions.
    * @return @see Status.h
    */
   virtual scandy::core::Status addTestViewport();
 
+  /**
+   * Adds a Viewport to the Visualizer that receives an volumetric video stream
+   * and displays it in ARKit
+   * @method addAR4DViewport
+   * @return @see Status.h
+   */
+  virtual std::shared_ptr<ISceneKitVisualizer> addAR4DViewport();
+
+  /**
+   * Exports the most recent volumetic video recording to a series of the
+   * desired file types.
+   * @return @see Status.h
+   */
+  virtual scandy::core::Status exportVolumetricVideo(MeshExportOptions meshExportOptions);
 
   /**
    * Loads a mesh file from the local disk.
@@ -167,10 +249,145 @@ public:
   virtual scandy::core::Status loadMesh(std::string file_path_or_url, std::string texture_path="");
 
   /**
+   * Loads a volumetric video exported in the Scandy Core format.
+   * Looks for a scvv_animation.json in the src_dir_path
+   * @method loadVolumetricVideo
+   * @param  src_dir_path        Directory to load the volumetic video from
+   * @return                     @see Status.h
+   */
+  virtual std::shared_ptr<ISceneKitVisualizer> loadVolumetricVideo(std::string src_dir_path, void* scnScene=nullptr);
+
+  /**
+   * Returns a shared_ptr to the MeshViewport that is displaying the mesh, or nullptr if none
+   * @return shared_ptr<MeshViewport> or nullptr if not available
+   */
+  virtual std::shared_ptr<MeshViewport> getMeshViewport();
+
+  /**
    * Generate a mesh from current point cloud data as viewed in the visualizer.
    * @return @see Status.h
    */
   virtual scandy::core::Status generateMesh();
+
+  /**
+   * Gets the size of the mesh loaded into the viewport in MB
+   * @return Number of MB
+   */
+  virtual float getMeshMemorySize();
+
+  /**
+   * Reduce the number of points and triangles in the mesh.
+   * @param percent 0.0 - 1.0 for percent reduction in number of points
+   * @return @see Status.h
+   */
+  virtual Status decimateMesh(float percent);
+  /**
+   * Smooth the surface of the mesh
+   * @param iterations The number of smoothing iterations to make. 3-10 is a reasonable range
+   * @return @see Status.h
+   */
+  virtual Status smoothMesh(int iterations);
+  /**
+   * Attempts to automatically fill holes in the mesh
+   * @param hole_size Largest area of to fill
+   * @return @see Status.h
+   */
+  virtual Status fillHoles(float hole_size);
+
+  /**
+   * Removes all the non connected surfaces floating in the mesh.
+   * @return @see Status.h
+   */
+  virtual Status extractLargestSurface();
+
+  /**
+   * Attempts to automatically make the mesh water tight
+   * @param depth How deeply to follow the original model. 5 is loose, 8 is default, 13 is high
+   */
+  virtual Status makeWaterTight(int depth);
+
+  /**
+   * Adjust the Hue saturation and value of the mesh
+   * @param hsv float[3] Percent increase on hue, saturation, and value respectively. -1.0 to 1.0
+   * @return @see Status.h
+   */
+  virtual Status adjustHSV(float hsv[3]);
+  /**
+   * Apply the edits being viewed in the Viewport into the mesh, so that when you save they take
+   * @param apply_changes (true) Apply the edits or (false) undo the edits
+   * @return @see Status.h
+   */
+  virtual Status applyEditsFromMeshViewport(bool apply_changes);
+
+  /**
+   * Reset the in the camera in the mesh viewer
+   * @return @see Status.h
+   */
+  virtual Status resetViewportCamera();
+
+  /**
+   * Saves a screenshot of the current Visualizer to the specified file path
+   * @param  file_path File path to save screenshot to
+   * @return           @see Status.h
+   */
+  virtual Status saveScreenShot(std::string file_path);
+
+  /**
+   * Gets the currernt model orientation loaded in the Visualizer
+   * @return Mat4f with the current model orientation
+   */
+  virtual scandy::utilities::Mat4f getModelOrientation();
+
+  /**
+   * Gets the current model's bounding box loading the visualizer
+   * @return float3 with the current model bounding box
+   */
+  virtual scandy::utilities::float8 getModelBoundingBox();
+
+  /**
+   * Toggle wireframe or surface rendering for meshes.
+   * @param enable_wireframe True for wireframe, false for surface
+   * @return @see Status.h
+   */
+  virtual Status setEnableWireframe(bool enalbe_wireframe);
+
+  /**
+   * Toggle color or monochrome rendering for meshes.
+   * @param enable_color True for color, false for monochrome
+   * @return @see Status.h
+   */
+  virtual Status setEnableColorViewport(bool enable_color);
+
+  /**
+   * Set shader to use for surface rendering for meshes.
+   * @param shaderName Name of the shader to use
+   * @return @see Status.h
+   */
+  virtual Status setViewportShader(std::string shaderName);
+
+  /**
+   * Turns on and off a cropping plane for editing a mesh
+   * @param  enable Boolean that enables of disables the cropping plane
+   * @return @see Status.h
+   */
+  virtual Status setEnableCroppingPlane(bool enable);
+
+  /**
+   * Determines where the cropping plane is enabled
+   * @return True for enabled, false otherwise
+   */
+  virtual bool getEnableCroppingPlane();
+
+
+  /**
+   * If cropping plane is orthogonal, then this helper functions sets the
+   * cropping plane from 0-1.0 (0 to 100%) along that orthogonal plane.
+   * @param  percent A percent (0.0 - 1.0) for how much to crop
+   * @return @see Status.h
+   */
+  virtual Status setCroppingPlanePercent(float percent);
+
+  virtual Status exportMesh(scandy::core::MeshExportOptions meshExportOptions);
 
   /**
    * Saves the output from the previously generated mesh to disk.
@@ -194,18 +411,25 @@ public:
   virtual scandy::core::Status startPreview();
 
   /**
-   * Start the SLAM algorithm.
+   * Start the SLAM algorithm, creates a 3D scan by tracking successive frames
+   * and integrating them into a TSDF.
    * @return @see Status.h
    */
   virtual scandy::core::Status startScanning();
 
   /**
-   * Stop the SLAM algorithm.  Do not continue to record and integrate sensor data.
+   * Stop the SLAM algorithm. Do not continue to record and integrate sensor data.
    * @return @see Status.h
    */
   virtual scandy::core::Status stopScanning();
 
   // *** Getters
+
+  /**
+   * Get the underlying IScandyCoreConfiguration.
+   * @return Pointer to IScandyCoreConfiguration.
+   */
+  virtual std::shared_ptr<scandy::core::IScandyCoreConfiguration> getIScandyCoreConfiguration();
 
   /**
    * Get the underlying visualizer that is platform dependent.
@@ -236,6 +460,12 @@ public:
    */
   virtual scandy::utilities::float3 getScanSize();
 
+  /**
+   * Gets the current voxel size in meters.
+   * @method getVoxelSize
+   * @return A float representing the voxel size in meters
+   */
+  virtual float getVoxelSize();
 
   /**
    * Gets the current scan state of ScandyCore
@@ -283,6 +513,22 @@ public:
    */
   virtual scandy::core::Status setScanSize(float size);
 
+
+  /**
+   * The size of each voxel in the scan volume. Essentially setting resolution when
+   * using unbounded scanning. 0.0005 - 0.04 are a good range of values.
+   * @param size The size of the voxel in meters.
+   * @return @see Status.h
+   */
+  virtual scandy::core::Status setVoxelSize(float size);
+
+  /**
+   * Sets the noise filter in Scandy Core depending on the scanner type
+   * @param  percent 0.0 - 1.0 with higher values providing a tighter filter that removes more data
+   * @return @see Status.h
+   */
+  virtual Status setNoiseFilter(float percent);
+
   /**
    * Set the distance between the sensor and start of the bounding box. The
    * default value is 0, but some sensors do not perceive data within a small
@@ -315,17 +561,28 @@ public:
    */
   virtual scandy::core::Status setColorCameraEXIFOrientation(scandy::utilities::EXIFOrientation exif_orientation);
 
+
+  /**
+   * Toggle per-vertex color integration into the scan.
+   * @param enable_color True for color, false for monochrome
+   * @return
+   */
+  virtual scandy::core::Status setEnableColor(bool enable_color);
+
+
   // *** Events
-  std::function<void()> onVisualizerReady;
-  std::function<void()> onScannerReady;
-  std::function<void()> onScannerStart;
-  std::function<void()> onScannerStop;
-  std::function<void()> onPreviewStart;
-  std::function<void()> onPreviewStop;
-  std::function<void()> onLoadMesh;
-  std::function<void()> onGenerateMesh;
-  std::function<void()> onSaveMesh;
+  std::function<void(bool createdVisualizer)> onVisualizerReady;
+  std::function<void(scandy::core::Status status)> onScannerReady;
+  std::function<void(scandy::core::Status status)> onScannerStart;
+  std::function<void(scandy::core::Status status)> onScannerStop;
+  std::function<void(scandy::core::Status status)> onPreviewStart;
+  std::function<void(scandy::core::Status status)> onPreviewStop;
+  std::function<void(scandy::core::Status status)> onLoadMesh;
+  std::function<void(scandy::core::Status status)> onGenerateMesh;
+  std::function<void(scandy::core::Status status)> onSaveMesh;
   std::function<void()> onFinishedHeadCapture;
+  std::function<void(std::string host)> onClientConnected;
+  std::function<void(std::string host)> onHostDiscovered;
 
   /**
    * Bind a listener to trigger on tracking pose and status updates.

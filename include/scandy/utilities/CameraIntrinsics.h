@@ -63,7 +63,48 @@ public:
 
   /** 4th radial distortion coefficient (optional) */
   double m_k4;
+
+  template <class Archive>
+  void serialize(Archive& archive){
+    archive(
+      m_width,
+      m_height,
+      m_fx,
+      m_fy,
+      m_cx,
+      m_cy,
+      m_k1,
+      m_k2,
+      m_p1,
+      m_p2,
+      m_k3,
+      m_k4
+    );
+  }
+
 public:
+  CameraIntrinsics();
+  CameraIntrinsics(const CameraIntrinsics&) = default;
+  CameraIntrinsics(CameraIntrinsics&&) = default;
+  CameraIntrinsics& operator=(const CameraIntrinsics&) = default;
+  CameraIntrinsics& operator=(CameraIntrinsics&) = default;
+  CameraIntrinsics& operator=(CameraIntrinsics&&) = default;
+
+  CameraIntrinsics(
+    int width,
+    int height,
+    double fx,
+    double fy,
+    double cx,
+    double cy,
+    double k1,
+    double k2,
+    double p1,
+    double p2,
+    double k3,
+    double k4
+  );
+
   CameraIntrinsics& operator *=(double d){
     m_width *= d;
     m_height *= d;

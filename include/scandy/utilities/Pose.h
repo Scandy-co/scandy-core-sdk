@@ -38,6 +38,16 @@ public:
 
   scandy::utilities::eigen::float4 quaternion;
 
+  template <class Archive>
+  void serialize( Archive& archive  ){
+    archive(
+      /* scandy::utilities::eigen::Mat4f,
+       * which is aliased to Eigen::Map<Eigen::Matrix4f>.
+       */
+      homogeneous_matrix
+    );
+  }
+
   /**
    * Default constructor sets `homogeneous_matrix` to an identity matrix.
    */
