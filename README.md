@@ -2,6 +2,16 @@
 
 **Welcome to the wonderful world of 3D!**
 
+## Licensing
+
+**You must get a valid SDK and license key to use this repo!**
+To license Scandy Core please contact core@scandy.co
+
+<hr/>
+
+## Release Notes:
+[See release notes by version](md__r_e_l_e_a_s_e__n_o_t_e_s.html)
+
 ## Table of Contents
 
 * [Forward](#forward)
@@ -28,12 +38,12 @@ Scandy Core is an SDK that allows developers to easily create 3D models, track p
 Scandy Core SDK currently supports bindings for:
 
 * [C++](classscandy_1_1core_1_1_i_scandy_core.html)
-* [Java](classco_1_1scandy_1_1scandycore_1_1_scandy_core.html)
 * [Objective C](interface_scandy_core_manager.html)
 
 Currently supported but broken:
 
 * [JavaScript](md_scandy-core-rn__r_e_a_d_m_e.html)
+* [Java](classco_1_1scandy_1_1scandycore_1_1_scandy_core.html)
 
 
 Upcoming bindings:
@@ -46,30 +56,26 @@ Upcoming bindings:
 
 Scandy Core supports the following operating systems:
 
+* iOS (minimum iOS version 11.0)
 * macOS (tested on 10.11, 10.12)
 * Android (minimum Android version 5.0)
-* iOS (minimum iOS version 11.0)
 * Linux (tested on Ubuntu 14.04, 16.04)
 
 **All operating systems must have OpenCL >= v1.1**
 
 Upcoming systems:
 
-* Windows
 * Linux ARM
+* Windows
 
 ### <a name="usage"></a> Typical Usage flow
 
 #### 3D scan to file:
 
+* Configure you scanning configuration via scandy::core::IScandyCoreConfiguration if desired
 * Initialize the scanner
-  * Either using a pre-recorded `.rrf` file or live data from an attached sensor.
 * Start a preview, so as to visualize what the depth sensor "sees"
-* Adjust scan resolution to fit the use-case
-  * Use high resolution for detailed scans
-  * Use low resolution for fast scans
-  * Use medium resolution for somewhere in-between
-* Adjust the scan size to fit the size of the scan subject
+* Adjust the scan size to fit the size of the scan subject via: scandy::core::IScandyCore::setScanSize
 * Start the scan
 * Scan for some period of time. Determined by a button press, timer, API call of some sort, etc..
 * Stop the scan
@@ -79,6 +85,10 @@ Upcoming systems:
 ### <a name="setup"></a> Setup
 
 Scandy Core can be setup in a variety of ways to fit your build target. Scandy Core has been designed to integrate with existing projects, and can be incorporated as a CMake dependency. Please review the [included coding samples](#examples) to determine the best course of action for installation and configuration with your project.
+
+#### iOS
+
+For using Scandy Core with iOS we highly suggest looking at the README for the [ScandyCoreIOSExample](https://github.com/Scandy-co/ScandyCoreIOSExample/blob/master/README.md)
 
 #### CMake
 
@@ -93,10 +103,10 @@ For using Scandy Core with Android we highly suggest looking at the README for t
 For an index of the functions available at your command, please reference Scandy Core's top-level classes:
 
 * `scandy::core::IScandyCore` will be your main tour guide in C++
-* `co.scandy.scandycore.ScandyCore` will your main tour guide in Java
+* `ScandyCoreManager` will be your main tour guide in Objective C
 
 ### <a name="setting-license"></a> Setting your License
-To use the SLAM features in Scandy Core you will need to provide your license to Scandy Core. This is handled differently for the C++ and Android (Java) implementations. You should have a received a `foo@bar.com-scandycore-license.txt` file when you purchased Scandy Core, we will call this the *license key file*.
+To use the SLAM features in Scandy Core you will need to provide your license to Scandy Core. This is handled differently for the C++, iOS (Objective C), and Android (Java) implementations. You should have a received a `foo@bar.com-scandycore-license.txt` file when you purchased Scandy Core, we will call this the *license key file*.
 
 #### C++
 Update `const char* scandy_core_license` in  `ScandyCore/include/scandy_license.h` to have the contents of your license.
@@ -183,12 +193,17 @@ Checkout these C++ classes:
 * scandy::utilities::Pose
 * scandy::utilities::DepthTrackMetadata
 
+Checkout this example for using the onTrackingDidUpdate callback:
+
+[ScandyCoreSceneKitExample](https://github.com/Scandy-co/ScandyCoreSceneKitExample)
+
 ### 3D Scanning
 
 Scandy Core provides a stable, fast, and precise 3D scanning interface. Flexibility is key in 3D scanning, which is why Scandy Core allows you to scan something as small as an action figure and as large as a couch. 3D scanning allows developers to easily create a 3D avatar, bring real world objects into a video game, or take accurate measurements.
 
 Checkout these examples:
 
+* [ScandyCoreIOSExample](https://github.com/Scandy-co/ScandyCoreIOSExample)
 * [ScandyCoreAndroidExample](http://github.com/scandy-co/ScandyCoreAndroidExample)
 * [ScandyCoreCppExamples](http://github.com/scandy-co/ScandyCoreCppExamples)
 
@@ -212,31 +227,24 @@ Scandy Core's visualizer instance can be deployed for visualizing scan data at r
 
 Checkout the visualizer:
 
+* iOS: ScandyCoreView
 * Java: co.scandy.scandycore.ScandyCoreVisualizer
 * C++: scandy::core::Visualizer
 
 Or some examples:
 
+* [ScandyCoreSceneKitExample](https://github.com/Scandy-co/ScandyCoreSceneKitExample)
 * [ScandyCoreAndroidExample](http://github.com/scandy-co/ScandyCoreAndroidExample)
   * With Android all you have to do is include the Visualizer in your layout.
 * [ScandyCoreCppExamples](http://github.com/scandy-co/ScandyCoreCppExamples)
   * With C++ all you have to do is `auto visualizer = core->createVisualizer(width, height);`
 
-### Editing *(coming soon)*
-
-When working with 3D scan files you frequently end up with a file that is the wrong scale, doesn’t have enough contrast, or has extra artifacts in it; to make this easier, Scandy Core provides developers with an easy way to make adjustments to 3D files. Our goal with the 3D editing piece of Scandy Core is to provide the most common and necessary features from CAD software so that developers can more easily make Scandy Core work for their application.
-
 
 ## <a name="definitions"></a>Definitions
 
-_X is **Supported** means the feature is currently implemented_
-
-| Term  | Supported |  Definition |
-|---|:---:|---|
-| _SLAM_  | X  | Denotes simultaneous localization and mapping. See Wikipedia entry re: [SLAM](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping).|
-| _pico flexx_ | X | The [pico flexx](http://pmdtec.com/picoflexx) is a small USB 3D sensor made by [pmd](http://pmdtec.com) that allows capturing of live 3D data. |
-| _RRF_ | X  |  Royale raw file. A file extension that denotes/wraps point cloud data as provisioned by a live sensor stream. If you have been using Royale for awhile you might have a few of these laying around that you want to re-examine. |
-| _TSDF_ | X | Truncated signed distance function; a voxel representative of a given scan created in memory by Scandy Core; more specifically, `TSDF` stores values used for attempting accurate representation of a volumetric surface. Originally defined in paper ["A Volumetric Method for Building Complex Models from Range Images"](http://graphics.stanford.edu/papers/volrange/volrange.pdf). Also, see Wikipedia entries for [signed distance function](https://en.wikipedia.org/wiki/Signed_distance_function) and on [volume rendering](https://en.wikipedia.org/wiki/Volume_rendering). |
-| _Mesh_ | X | A mesh represents a 3D scene or object in a standardized format such as [.OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file) or [.PLY](https://en.wikipedia.org/wiki/PLY_(file_format)). Scandy Core can generate a mesh for any scan taken, and then also save that mesh into a PLY or OBJ format. |
-| _SCRF_ |  | Scandy Core raw file; a proprietary file extension denoting those contents of a scan file saved to disk. Packages a live sensor stream (or `RRF`), along with the parameters used to capture a given volume (i.e., scanning configuration). In future versions, `SCRF`s may also be extended to include depth maps and color frames. More generally, SCRF refers to those contents of a scan file distinguishable from any derivative meshes. |
-| _IMU_  |   | Inertial measurement unit. Data encompassing a host device's specific force and angular orientation is fed into Scandy Core for enhancements in tracking. See [Wikipedia entry](https://en.wikipedia.org/wiki/Inertial_measurement_unit).  |
+| Term  |  Definition |
+|---|---|
+| _SLAM_  | Denotes simultaneous localization and mapping. See Wikipedia entry re: [SLAM](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping).|
+| _TSDF_ | Truncated signed distance function; a voxel representative of a given scan created in memory by Scandy Core; more specifically, `TSDF` stores values used for attempting accurate representation of a volumetric surface. Originally defined in paper ["A Volumetric Method for Building Complex Models from Range Images"](http://graphics.stanford.edu/papers/volrange/volrange.pdf). Also, see Wikipedia entries for [signed distance function](https://en.wikipedia.org/wiki/Signed_distance_function) and on [volume rendering](https://en.wikipedia.org/wiki/Volume_rendering). |
+| _Mesh_ | A mesh represents a 3D scene or object in a standardized format such as [.OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file) or [.PLY](https://en.wikipedia.org/wiki/PLY_(file_format)). Scandy Core can generate a mesh for any scan taken, and then also save that mesh into a PLY or OBJ format. |
+| _IMU_  | Inertial measurement unit. Data encompassing a host device's specific force and angular orientation is fed into Scandy Core for enhancements in tracking. See [Wikipedia entry](https://en.wikipedia.org/wiki/Inertial_measurement_unit).  |
