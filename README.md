@@ -1,4 +1,4 @@
-# Scandy Core SDK
+# Roux SDK (formerly known as Scandy Core - and still referenced as such in some of our docs)
 
 **Welcome to the wonderful world of 3D!**
 
